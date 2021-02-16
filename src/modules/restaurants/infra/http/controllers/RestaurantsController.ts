@@ -14,14 +14,21 @@ export default class RestaurantController {
 
     const listRestaurants = container.resolve(ListRestaurantsService);
 
-    const restaurants = await listRestaurants.execute({ name, address, cost, rating, type, user_id });
+    const restaurants = await listRestaurants.execute({
+      name,
+      address,
+      cost,
+      rating,
+      type,
+      user_id,
+    });
 
     return response.json(classToClass(restaurants));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { name, address, cost, type, } = request.body;
+    const { name, address, cost, type } = request.body;
 
     const createRestaurant = container.resolve(CreateRestaurantService);
 

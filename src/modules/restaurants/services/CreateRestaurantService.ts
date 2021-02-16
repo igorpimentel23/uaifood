@@ -11,8 +11,6 @@ interface IRequest {
   cost: number;
   type: string;
   user_id: string;
-  lat: number;
-  lng: number;
 }
 
 @injectable()
@@ -31,13 +29,14 @@ class CreateRestaurantService {
     cost,
     type,
     user_id,
-    lat,
-    lng,
   }: IRequest): Promise<Restaurant> {
     const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
       name,
       type,
     );
+
+    const lat = -25.101944;
+    const lng = -50.159222;
 
     if (findRestaurant) {
       throw new AppError('This restaurant already exists');
