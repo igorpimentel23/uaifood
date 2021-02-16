@@ -1,6 +1,9 @@
 export default interface ICreateRestaurantDTO {
   name: string;
-  address: string;
+  street: string;
+  street_number: number;
+  city: string;
+  state: string;
   cost: number;
   rating?: number;
   type: string;

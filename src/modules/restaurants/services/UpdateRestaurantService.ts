@@ -3,11 +3,15 @@ import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 import AppError from '@shared/errors/AppError';
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IPositionProvider from '@shared/container/providers/PositionProvider/models/IPositionProvider';
 
 interface IRequest {
   restaurant_id: string;
   name: string;
-  address: string;
+  street: string;
+  street_number: number;
+  city: string;
+  state: string;
   cost: number;
   rating: number;
   type: string;
@@ -20,6 +24,9 @@ class CreateRestaurantService {
     @inject('RestaurantsRepository')
     private restaurantsRepository: IRestaurantsRepository,
 
+    @inject('PositionProvider')
+    private positionProvider: IPositionProvider,
+
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
@@ -27,7 +34,10 @@ class CreateRestaurantService {
   public async execute({
     restaurant_id,
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
     rating = 0,
     type,
@@ -48,21 +58,47 @@ class CreateRestaurantService {
     const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
       name,
       type,
-      restaurant_id,
     );
 
     if (findRestaurant) {
       throw new AppError('This restaurant already exists');
     }
 
+    let { lat, lng } = findRestaurantId;
+
+    if (
+      street !== findRestaurantId.street ||
+      street_number !== findRestaurantId.street_number ||
+      city !== findRestaurantId.city ||
+      state !== findRestaurantId.state
+    ) {
+      const coord = await this.positionProvider.getCoord({
+        street,
+        street_number,
+        city,
+        state,
+      });
+
+      if (!coord) {
+        throw new AppError('Could not find address');
+      }
+
+      [lat, lng] = coord;
+    }
+
     const restaurant = await this.restaurantsRepository.update({
       restaurant_id,
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       rating,
       type,
       user_id,
+      lat,
+      lng,
     });
 
     await this.cacheProvider.invalidatePrefix('restaurants');

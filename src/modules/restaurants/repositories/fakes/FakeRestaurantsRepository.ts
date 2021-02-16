@@ -1,5 +1,4 @@
 import { uuid } from 'uuidv4';
-import { isEqual, isAfter, getMonth, getYear, getDate } from 'date-fns';
 
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
@@ -21,13 +20,9 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async findSameRestaurant(
     name: string,
     type: string,
-    restaurant_id?: string,
   ): Promise<Restaurant | undefined> {
     const findRestaurant = this.restaurants.find(
-      restaurant =>
-        restaurant.name === name &&
-        restaurant.type === type &&
-        restaurant.id === restaurant_id,
+      restaurant => restaurant.name === name && restaurant.type === type,
     );
 
     return findRestaurant;
@@ -36,20 +31,32 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async update({
     restaurant_id,
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
+    rating,
     type,
     user_id,
+    lat,
+    lng,
   }: IUpdateRestaurantDTO): Promise<Restaurant> {
     const restaurant = new Restaurant();
 
     Object.assign(restaurant, {
       id: restaurant_id,
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
+      rating,
       type,
       user_id,
+      lat,
+      lng,
     });
 
     this.restaurants.push(restaurant);
@@ -74,7 +81,10 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
   public async create({
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
     type,
     user_id,
@@ -84,7 +94,10 @@ class RestaurantsRepository implements IRestaurantsRepository {
     Object.assign(restaurant, {
       id: uuid(),
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       type,
       user_id,
@@ -108,7 +121,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
     const findRestaurants = this.restaurants.filter(
       restaurant =>
         restaurant.name === name &&
-        restaurant.address === address &&
+        restaurant.street === address &&
         restaurant.cost === cost &&
         restaurant.rating === rating &&
         restaurant.type === type &&

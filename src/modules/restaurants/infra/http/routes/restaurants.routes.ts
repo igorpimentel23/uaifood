@@ -16,7 +16,10 @@ restaurantsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      address: Joi.string().required(),
+      street: Joi.string().required(),
+      street_number: Joi.number().required(),
+      city: Joi.string().required(),
+      state: Joi.string().required(),
       cost: Joi.number().required(),
       type: Joi.string().required(),
     },

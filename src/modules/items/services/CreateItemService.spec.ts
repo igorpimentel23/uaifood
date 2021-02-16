@@ -3,6 +3,7 @@ import AppError from '@shared/errors/AppError';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeRestaurantsRepository from '@modules/restaurants/repositories/fakes/FakeRestaurantsRepository';
 import CreateRestaurantService from '@modules/restaurants/services/CreateRestaurantService';
+import FakePositionProvider from '@shared/container/providers/PositionProvider/fakes/FakePositionProvider';
 import FakeItemsRepository from '../repositories/fakes/FakeItemsRepository';
 import CreateItemService from './CreateItemService';
 
@@ -11,12 +12,14 @@ let createItem: CreateItemService;
 let createRestaurant: CreateRestaurantService;
 let fakeCacheProvider: FakeCacheProvider;
 let fakeRestaurantsRepository: FakeRestaurantsRepository;
+let fakePositionProvider: FakePositionProvider;
 
 describe('CreateItem', () => {
   beforeEach(() => {
     fakeItemsRepository = new FakeItemsRepository();
     fakeCacheProvider = new FakeCacheProvider();
     fakeRestaurantsRepository = new FakeRestaurantsRepository();
+    fakePositionProvider = new FakePositionProvider();
 
     createItem = new CreateItemService(
       fakeItemsRepository,
@@ -26,6 +29,7 @@ describe('CreateItem', () => {
 
     createRestaurant = new CreateRestaurantService(
       fakeRestaurantsRepository,
+      fakePositionProvider,
       fakeCacheProvider,
     );
   });
@@ -33,7 +37,10 @@ describe('CreateItem', () => {
   it('should be able to create a new Item', async () => {
     const restaurant = await createRestaurant.execute({
       name: 'Restaurant',
-      address: 'Address',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
       cost: 20,
       type: 'Italian',
       user_id: 'user_id',
@@ -66,7 +73,10 @@ describe('CreateItem', () => {
   it('should not be able to create a new Item if the user do not own the restaurant', async () => {
     const restaurant = await createRestaurant.execute({
       name: 'Restaurant',
-      address: 'Address',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
       cost: 20,
       type: 'Italian',
       user_id: 'user_id',
@@ -85,7 +95,10 @@ describe('CreateItem', () => {
   it('should not be able to create a new Item if the item already exists', async () => {
     const restaurant = await createRestaurant.execute({
       name: 'Restaurant',
-      address: 'Address',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
       cost: 20,
       type: 'Italian',
       user_id: 'user_id',

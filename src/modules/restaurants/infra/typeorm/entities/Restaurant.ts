@@ -21,7 +21,16 @@ class Restaurant {
   name: string;
 
   @Column()
-  address: string;
+  street: string;
+
+  @Column()
+  street_number: number;
+
+  @Column()
+  city: string;
+
+  @Column()
+  state: string;
 
   @Column()
   lat: number;

@@ -24,7 +24,19 @@ export default class CreateRestaurants1613428820801
             type: 'varchar',
           },
           {
-            name: 'address',
+            name: 'street',
+            type: 'varchar',
+          },
+          {
+            name: 'street_number',
+            type: 'integer',
+          },
+          {
+            name: 'city',
+            type: 'varchar',
+          },
+          {
+            name: 'state',
             type: 'varchar',
           },
           {
@@ -39,6 +51,7 @@ export default class CreateRestaurants1613428820801
             name: 'rating',
             type: 'integer',
             isNullable: true,
+            default: 0,
           },
           {
             name: 'cost',

@@ -13,7 +13,6 @@ export default interface IRestaurantsRepository {
   findSameRestaurant(
     name: string,
     type: string,
-    restaurant_id?: string,
   ): Promise<Restaurant | undefined>;
   findById(id: string): Promise<Restaurant | undefined>;
 }

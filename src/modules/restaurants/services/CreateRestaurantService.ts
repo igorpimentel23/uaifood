@@ -4,10 +4,14 @@ import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 import AppError from '@shared/errors/AppError';
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IPositionProvider from '@shared/container/providers/PositionProvider/models/IPositionProvider';
 
 interface IRequest {
   name: string;
-  address: string;
+  street: string;
+  street_number: number;
+  city: string;
+  state: string;
   cost: number;
   type: string;
   user_id: string;
@@ -19,13 +23,19 @@ class CreateRestaurantService {
     @inject('RestaurantsRepository')
     private restaurantsRepository: IRestaurantsRepository,
 
+    @inject('PositionProvider')
+    private positionProvider: IPositionProvider,
+
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
     type,
     user_id,
@@ -35,16 +45,29 @@ class CreateRestaurantService {
       type,
     );
 
-    const lat = -25.101944;
-    const lng = -50.159222;
-
     if (findRestaurant) {
       throw new AppError('This restaurant already exists');
     }
 
+    const coord = await this.positionProvider.getCoord({
+      street,
+      street_number,
+      city,
+      state,
+    });
+
+    if (!coord) {
+      throw new AppError('Could not find address');
+    }
+
+    const [lat, lng] = coord;
+
     const restaurant = await this.restaurantsRepository.create({
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       type,
       user_id,

@@ -68,7 +68,10 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
   public async create({
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
     type,
     user_id,
@@ -77,7 +80,10 @@ class RestaurantsRepository implements IRestaurantsRepository {
   }: ICreateRestaurantDTO): Promise<Restaurant> {
     const restaurant = this.ormRepository.create({
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       type,
       user_id,

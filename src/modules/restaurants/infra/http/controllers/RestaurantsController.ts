@@ -28,13 +28,24 @@ export default class RestaurantController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { name, address, cost, type } = request.body;
+    const {
+      name,
+      street,
+      street_number,
+      city,
+      state,
+      cost,
+      type,
+    } = request.body;
 
     const createRestaurant = container.resolve(CreateRestaurantService);
 
     const restaurant = await createRestaurant.execute({
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       type,
       user_id,

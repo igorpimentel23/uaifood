@@ -1,69 +1,90 @@
-/* import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
-import FakeRestaurantsRepository from '../repositories/fakes/FakeRestaurantsRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+import FakePositionProvider from '@shared/container/providers/PositionProvider/fakes/FakePositionProvider';
+import FakeRestaurantsRepository from '../repositories/fakes/FakeRestaurantsRepository';
+import CreateRestaurantService from './CreateRestaurantService';
 import DeleteRestaurantService from './DeleteRestaurantService';
 
 let fakeRestaurantsRepository: FakeRestaurantsRepository;
-let deleteRestaurant: DeleteRestaurantService;
-let fakeNotificationsRepository: FakeNotificationsRepository;
+let createRestaurant: CreateRestaurantService;
 let fakeCacheProvider: FakeCacheProvider;
+let fakePositionProvider: FakePositionProvider;
+let deleteRestaurant: DeleteRestaurantService;
 
-describe('DeleteRestaurant', () => {
+describe('CreateRestaurant', () => {
   beforeEach(() => {
     fakeRestaurantsRepository = new FakeRestaurantsRepository();
-    fakeNotificationsRepository = new FakeNotificationsRepository();
     fakeCacheProvider = new FakeCacheProvider();
+    fakePositionProvider = new FakePositionProvider();
+
+    createRestaurant = new CreateRestaurantService(
+      fakeRestaurantsRepository,
+      fakePositionProvider,
+      fakeCacheProvider,
+    );
 
     deleteRestaurant = new DeleteRestaurantService(
       fakeRestaurantsRepository,
-      fakeNotificationsRepository,
       fakeCacheProvider,
     );
   });
 
   it('should be able to delete a Restaurant', async () => {
-    const restaurant = await fakeRestaurantsRepository.create({
-      provider_id: 'provider',
-      user_id: 'user',
-      date: new Date(),
+    const restaurant = await createRestaurant.execute({
+      name: 'Restaurant',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
 
     await deleteRestaurant.execute({
-      user_id: 'user',
+      user_id: 'user_id',
       restaurant_id: restaurant.id,
     });
   });
 
-  it('Should not be able to delete an unexisting restaurant', async () => {
-    await fakeRestaurantsRepository.create({
-      provider_id: 'provider',
-      user_id: 'user',
-      date: new Date(),
+  it('should not be able to delete a restaurant if the Restaurant does not exist', async () => {
+    await createRestaurant.execute({
+      name: 'Restaurant',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
 
     await expect(
-      await deleteRestaurant.execute({
-        user_id: 'user',
-        restaurant_id: 'restaurant.id',
+      deleteRestaurant.execute({
+        user_id: 'user_id',
+        restaurant_id: 'other_restaurant_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to delete an restaurant if it is not the owner or the provider of the restaurant', async () => {
-    await fakeRestaurantsRepository.create({
-      provider_id: 'provider',
-      user_id: 'user',
-      date: new Date(),
+  it('should not be able to delete a restaurant if the Restaurant does not exist', async () => {
+    const restaurant = await createRestaurant.execute({
+      name: 'Restaurant',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
 
     await expect(
-      await deleteRestaurant.execute({
-        user_id: 'user2',
-        restaurant_id: 'restaurant.id',
+      deleteRestaurant.execute({
+        user_id: 'other_user_id',
+        restaurant_id: restaurant.id,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 });
- */
