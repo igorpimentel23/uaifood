@@ -10,6 +10,10 @@ export default interface IRestaurantsRepository {
   show(id: string): Promise<Restaurant | undefined>;
   delete(id: string): Promise<void>;
   update(data: IUpdateRestaurantDTO): Promise<Restaurant>;
-  findSameRestaurant(name: string, type: string, restaurant_id?: string): Promise<Restaurant | undefined>;
+  findSameRestaurant(
+    name: string,
+    type: string,
+    restaurant_id?: string,
+  ): Promise<Restaurant | undefined>;
   findById(id: string): Promise<Restaurant | undefined>;
 }

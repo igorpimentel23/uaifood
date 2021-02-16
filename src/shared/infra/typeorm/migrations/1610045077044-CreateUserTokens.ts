@@ -45,7 +45,7 @@ export default class CreateUserTokens1610045077044
             onUpdate: 'CASCADE',
           },
         ],
-      })
+      }),
     );
   }
 

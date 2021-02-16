@@ -8,7 +8,6 @@ import {
 import uploadConfig from '@config/upload';
 
 import { Exclude, Expose } from 'class-transformer';
-import { string } from '@hapi/joi';
 
 @Entity('users')
 class User {

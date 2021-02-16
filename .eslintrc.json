@@ -18,8 +18,13 @@
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
     "no-use-before-define": "off",
+    "no-useless-constructor": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/camelcase": "off",
+    "camelcase": "off",
+    "eslint-disable-next-line prettier/prettier": "off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/no-var-requires" : "off",
+    "import/no-extraneous-dependencies": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

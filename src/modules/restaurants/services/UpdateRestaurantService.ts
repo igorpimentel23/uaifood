@@ -41,12 +41,11 @@ class CreateRestaurantService {
       throw new AppError('This restaurant does not exist');
     }
 
-    if ( user_id !== findRestaurantId.user_id ) {
+    if (user_id !== findRestaurantId.user_id) {
       throw new AppError('You can not edit this restaurant');
     }
 
-
-    const findRestaurant= await this.restaurantsRepository.findSameRestaurant(
+    const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
       name,
       type,
       restaurant_id,

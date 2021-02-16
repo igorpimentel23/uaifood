@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
 import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 import AppError from '@shared/errors/AppError';
@@ -10,6 +11,8 @@ interface IRequest {
   cost: number;
   type: string;
   user_id: string;
+  lat: number;
+  lng: number;
 }
 
 @injectable()
@@ -28,9 +31,10 @@ class CreateRestaurantService {
     cost,
     type,
     user_id,
+    lat,
+    lng,
   }: IRequest): Promise<Restaurant> {
-
-    const findRestaurant= await this.restaurantsRepository.findSameRestaurant(
+    const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
       name,
       type,
     );
@@ -45,6 +49,8 @@ class CreateRestaurantService {
       cost,
       type,
       user_id,
+      lat,
+      lng,
     });
 
     await this.cacheProvider.invalidatePrefix('restaurants');

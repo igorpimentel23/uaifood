@@ -19,6 +19,7 @@ restaurantsRouter.post(
       address: Joi.string().required(),
       cost: Joi.number().required(),
       type: Joi.string().required(),
+      lat:
     },
   }),
   restaurantsController.create,

@@ -19,20 +19,17 @@ class RestaurantsRepository implements IRestaurantsRepository {
     return findRestaurant;
   }
 
-  public async findSameRestaurant(name: string, type: string, restaurant_id?: string): Promise<Restaurant | undefined> {
-
-    const id = restaurant_id ? restaurant_id : null;
+  public async findSameRestaurant(
+    name: string,
+    type: string,
+    restaurant_id?: string,
+  ): Promise<Restaurant | undefined> {
+    const id = restaurant_id || null;
 
     const findRestaurant = await this.ormRepository.findOne({
       where: [{ name, type, id: Not(id) }],
     });
     return findRestaurant;
-  }
-
-  public async delete(id: string): Promise<void> {
-    await this.ormRepository.delete({
-      id,
-    });
   }
 
   public async update({
@@ -55,6 +52,12 @@ class RestaurantsRepository implements IRestaurantsRepository {
     return restaurant;
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete({
+      id,
+    });
+  }
+
   public async show(id: string): Promise<Restaurant | undefined> {
     const findRestaurant = await this.ormRepository.findOne({
       where: { id },
@@ -69,6 +72,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
     cost,
     type,
     user_id,
+    lat,
+    lng,
   }: ICreateRestaurantDTO): Promise<Restaurant> {
     const restaurant = this.ormRepository.create({
       name,
@@ -76,6 +81,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
       cost,
       type,
       user_id,
+      lat,
+      lng,
     });
 
     await this.ormRepository.save(restaurant);
@@ -91,7 +98,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     type = null,
     user_id = null,
   }: IListRestaurantDTO): Promise<Restaurant[]> {
-
     const restaurants = await this.ormRepository.find({
       where: [
         { name },
@@ -99,8 +105,9 @@ class RestaurantsRepository implements IRestaurantsRepository {
         { cost },
         { rating },
         { type },
-        { user_id }
-      ]
+        { user_id },
+      ],
+      relations: ['items'],
     });
 
     return restaurants;

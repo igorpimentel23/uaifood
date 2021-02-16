@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import Item from '@modules/items/infra/typeorm/entities/Item';
 
 @Entity('restaurants')
 class Restaurant {
@@ -20,6 +22,12 @@ class Restaurant {
 
   @Column()
   address: string;
+
+  @Column()
+  lat: number;
+
+  @Column()
+  lng: number;
 
   @Column()
   rating: number;
@@ -36,6 +44,9 @@ class Restaurant {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @OneToMany(() => Item, item => item.restaurant)
+  items: Item[];
 
   @CreateDateColumn()
   created_at: Date;
