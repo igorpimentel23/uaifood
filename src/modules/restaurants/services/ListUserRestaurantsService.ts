@@ -14,12 +14,11 @@ class ListUserRestaurantsService {
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
+
   public async execute(user_id: string): Promise<Restaurant[]> {
     const cacheKey = `user-restaurants:${user_id}`;
 
-    let restaurants = await this.cacheProvider.recover<Restaurant[]>(
-      cacheKey,
-    );
+    let restaurants = await this.cacheProvider.recover<Restaurant[]>(cacheKey);
 
     if (!restaurants) {
       restaurants = await this.restaurantsRepository.index({ user_id });

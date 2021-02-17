@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -123,7 +123,18 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,6 +151,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,8 +164,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -156,6 +171,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,12 +180,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,7 +220,10 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 &nbsp;
 interface IRequest {
   name?: string | null;
-  address?: string | null;
+  street?: string | null;
+  street_number?: string | null;
+  city?: string | null;
+  state?: string | null;
   cost?: number | null;
   rating?: number | null;
   type?: string | null;
@@ -217,17 +242,22 @@ interface IRequest {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  public async <span class="cstat-no" title="statement not covered" >e</span>xecute({</span>
     name<span class="cstat-no" title="statement not covered" >,</span>
-    address<span class="cstat-no" title="statement not covered" >,</span>
+    street<span class="cstat-no" title="statement not covered" >,</span>
+    street_number<span class="cstat-no" title="statement not covered" >,</span>
+    city<span class="cstat-no" title="statement not covered" >,</span>
+    state<span class="cstat-no" title="statement not covered" >,</span>
     cost<span class="cstat-no" title="statement not covered" >,</span>
     rating<span class="cstat-no" title="statement not covered" >,</span>
     type<span class="cstat-no" title="statement not covered" >,</span>
     user_id<span class="cstat-no" title="statement not covered" >,</span>
   }: IRequest): Promise&lt;Restaurant[]&gt; {
     const <span class="cstat-no" title="statement not covered" >cacheKey = `restaurants:${name ? `name:${name}:` : ''}${</span>
-      address ? `address:${address}:` : ''
-    }${cost ? `cost:${cost}:` : ''}${rating ? `rating:${rating}:` : ''}${
-      type ? `type:${type}:` : ''
-    }${user_id ? `user_id:${user_id}:` : ''}`;
+      street ? `street:${street}:` : ''
+    }${street_number ? `street_number:${street_number}:` : ''}${
+      city ? `city:${city}:` : ''
+    }${state ? `state:${state}:` : ''}${cost ? `cost:${cost}:` : ''}${
+      rating ? `rating:${rating}:` : ''
+    }${type ? `type:${type}:` : ''}${user_id ? `user_id:${user_id}:` : ''}`;
 &nbsp;
     let <span class="cstat-no" title="statement not covered" >findRestaurants = <span class="cstat-no" title="statement not covered" >await this.cacheProvider.recover&lt;</span></span>
       Restaurant[] | undefined
@@ -236,7 +266,10 @@ interface IRequest {
     if (<span class="cstat-no" title="statement not covered" >!f</span>indRestaurants) {
 <span class="cstat-no" title="statement not covered" >      findRestaurants = <span class="cstat-no" title="statement not covered" >await this.restaurantsRepository.index({</span></span>
         name,
-        address,
+        street,
+        street_number,
+        city,
+        state,
         cost,
         rating,
         type,
@@ -262,7 +295,7 @@ interface IRequest {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Feb 16 2021 22:26:55 GMT+0000 (Coordinated Universal Time)
+                at Wed Feb 17 2021 00:46:17 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

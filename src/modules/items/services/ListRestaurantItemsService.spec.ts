@@ -14,7 +14,7 @@ let fakeRestaurantsRepository: FakeRestaurantsRepository;
 let listRestaurantItems: ListRestaurantItemsService;
 let fakePositionProvider: FakePositionProvider;
 
-describe('CreateItem', () => {
+describe('ListRestaurantItems', () => {
   beforeEach(() => {
     fakeItemsRepository = new FakeItemsRepository();
     fakeCacheProvider = new FakeCacheProvider();
@@ -52,13 +52,13 @@ describe('CreateItem', () => {
     });
 
     const restaurant2 = await createRestaurant.execute({
-      name: 'Restaurant',
+      name: 'Restaurant2',
       street: 'Street',
-      street_number: 10,
+      street_number: 12,
       city: 'city',
       state: 'state',
       cost: 20,
-      type: 'Italian',
+      type: 'Chinese',
       user_id: 'user_id',
     });
 
@@ -87,6 +87,7 @@ describe('CreateItem', () => {
     });
 
     const list = await listRestaurantItems.execute(restaurant.id);
+    await listRestaurantItems.execute(restaurant.id);
 
     expect(list).toEqual([item2, item3]);
   });

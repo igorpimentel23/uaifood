@@ -10,13 +10,26 @@ import { classToClass } from 'class-transformer';
 
 export default class RestaurantController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { name, address, cost, rating, type, user_id } = request.body;
+    const {
+      name,
+      street,
+      street_number,
+      city,
+      state,
+      cost,
+      rating,
+      type,
+      user_id,
+    } = request.body;
 
     const listRestaurants = container.resolve(ListRestaurantsService);
 
     const restaurants = await listRestaurants.execute({
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       rating,
       type,
@@ -70,14 +83,27 @@ export default class RestaurantController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { restaurant_id, name, address, cost, rating, type } = request.body;
+    const {
+      restaurant_id,
+      name,
+      street,
+      street_number,
+      city,
+      state,
+      cost,
+      rating,
+      type,
+    } = request.body;
 
     const updateRestaurant = container.resolve(UpdateRestaurantService);
 
     const restaurant = await updateRestaurant.execute({
       restaurant_id,
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       rating,
       type,

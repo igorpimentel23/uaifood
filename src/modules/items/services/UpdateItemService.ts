@@ -7,7 +7,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 interface IRequest {
   item_id: string;
   name: string;
-  rating: number;
+  rating?: number;
   cost: number;
   restaurant_id: string;
   user_id: string;

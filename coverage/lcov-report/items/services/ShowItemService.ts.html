@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -94,80 +94,80 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { injectable, inject } from 'tsyringe';</span>
-<span class="cstat-no" title="statement not covered" >import AppError from '@shared/errors/AppError';</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { injectable, inject } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import Item from '@modules/items/infra/typeorm/entities/Item';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-<span class="cstat-no" title="statement not covered" >import { classToClass } from 'class-transformer';</span>
+import { classToClass } from 'class-transformer';
 &nbsp;
 @injectable()
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >class <span class="cstat-no" title="statement not covered" >S</span></span>howItemService {</span>
-<span class="fstat-no" title="function not covered" >  constructor(</span>
+class ShowItemService {
+  constructor(
     @inject('ItemsRepository')
-    private <span class="cstat-no" title="statement not covered" >itemsRepository: IItemsRepository,</span>
+    private itemsRepository: IItemsRepository,
 &nbsp;
     @inject('CacheProvider')
-    private <span class="cstat-no" title="statement not covered" >cacheProvider: ICacheProvider,</span>
+    private cacheProvider: ICacheProvider,
   ) {}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  public async <span class="cstat-no" title="statement not covered" >e</span>xecute(item_id: string): Promise&lt;Item&gt; {</span>
-    const <span class="cstat-no" title="statement not covered" >cacheKey = `single-item:${item_id}`;</span>
+  public async execute(item_id: string): Promise&lt;Item&gt; {
+    const cacheKey = `single-item:${item_id}`;
 &nbsp;
-    let <span class="cstat-no" title="statement not covered" >findItem = <span class="cstat-no" title="statement not covered" >await this.cacheProvider.recover&lt;Item | undefined&gt;(cacheKey);</span></span>
+    let findItem = await this.cacheProvider.recover&lt;Item | undefined&gt;(cacheKey);
 &nbsp;
-    if (<span class="cstat-no" title="statement not covered" >!f</span>indItem) {
-<span class="cstat-no" title="statement not covered" >      findItem = <span class="cstat-no" title="statement not covered" >await this.itemsRepository.show(item_id);</span></span>
+    if (!findItem) {
+      findItem = await this.itemsRepository.show(item_id);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!findItem) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new AppError('This item does not exist');</span>
+      if (!findItem) {
+        throw new AppError('This item does not exist');
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      await this.cacheProvider.save(cacheKey, classToClass(findItem));</span>
+      await this.cacheProvider.save(cacheKey, classToClass(findItem));
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >    return findItem;</span></span>
+    return findItem;
   }
-<span class="cstat-no" title="statement not covered" >}</span>
+}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default ShowItemService;</span>
+export default ShowItemService;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -175,7 +175,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Feb 16 2021 22:26:55 GMT+0000 (Coordinated Universal Time)
+                at Wed Feb 17 2021 00:46:17 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

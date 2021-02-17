@@ -12,7 +12,7 @@ let fakeCacheProvider: FakeCacheProvider;
 let fakePositionProvider: FakePositionProvider;
 let updateRestaurant: UpdateRestaurantService;
 
-describe('CreateRestaurant', () => {
+describe('UpdateRestaurant', () => {
   beforeEach(() => {
     fakeRestaurantsRepository = new FakeRestaurantsRepository();
     fakeCacheProvider = new FakeCacheProvider();
@@ -83,7 +83,7 @@ describe('CreateRestaurant', () => {
       updateRestaurant.execute({
         restaurant_id: restaurant.id,
         name: 'Restaurant',
-        street: 'Street',
+        street: 'Street1',
         street_number: 10,
         city: 'city',
         state: 'state',
@@ -116,7 +116,6 @@ describe('CreateRestaurant', () => {
         city: 'city',
         state: 'state',
         cost: 20,
-        rating: 5,
         type: 'Italian',
         user_id: 'user_id',
       }),
@@ -135,18 +134,65 @@ describe('CreateRestaurant', () => {
       user_id: 'user_id',
     });
 
+    await updateRestaurant.execute({
+      restaurant_id: restaurant.id,
+      name: 'Restaurant old1',
+      street: 'Street old',
+      street_number: 11,
+      city: 'city old',
+      state: 'state old',
+      cost: 25,
+      type: 'Italian old',
+      user_id: 'user_id',
+    });
+
+    await updateRestaurant.execute({
+      restaurant_id: restaurant.id,
+      name: 'Restaurant old2',
+      street: 'Street old',
+      street_number: 11,
+      city: 'city old',
+      state: 'state old2',
+      cost: 25,
+      type: 'Italian old',
+      user_id: 'user_id',
+    });
+
+    await updateRestaurant.execute({
+      restaurant_id: restaurant.id,
+      name: 'Restaurant old3',
+      street: 'Street old',
+      street_number: 11,
+      city: 'city old',
+      state: 'state old2',
+      cost: 25,
+      type: 'Italian old',
+      user_id: 'user_id',
+    });
+
+    await updateRestaurant.execute({
+      restaurant_id: restaurant.id,
+      name: 'Restaurant old4',
+      street: 'Street old',
+      street_number: 11,
+      city: 'city old',
+      state: 'state old2',
+      cost: 25,
+      type: 'Italian old',
+      user_id: 'user_id',
+    });
+
     await expect(
       updateRestaurant.execute({
         restaurant_id: restaurant.id,
-        name: 'Restaurant',
-        street: 'Street',
-        street_number: 10,
-        city: 'city',
-        state: 'state',
-        cost: 20,
-        rating: 5,
-        type: 'Italian',
-        user_id: 'other_user_id',
+        name: 'Restaurant old7',
+        street: '',
+        street_number: 0,
+        city: '',
+        state: '',
+        cost: 25,
+        type: 'Italian old',
+        user_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -166,14 +212,13 @@ describe('CreateRestaurant', () => {
     await expect(
       updateRestaurant.execute({
         restaurant_id: restaurant.id,
-        name: 'Restaurant',
-        street: '',
-        street_number: 0,
-        city: '',
-        state: '',
-        cost: 20,
-        rating: 5,
-        type: 'Italian',
+        name: 'Restaurant old',
+        street: 'Street old',
+        street_number: 11,
+        city: 'city old',
+        state: 'state old',
+        cost: 25,
+        type: 'Italian old',
         user_id: 'other_user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);

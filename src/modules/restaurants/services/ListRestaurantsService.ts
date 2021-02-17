@@ -7,7 +7,10 @@ import { classToClass } from 'class-transformer';
 
 interface IRequest {
   name?: string | null;
-  address?: string | null;
+  street?: string | null;
+  street_number?: number | null;
+  city?: string | null;
+  state?: string | null;
   cost?: number | null;
   rating?: number | null;
   type?: string | null;
@@ -26,17 +29,22 @@ class ShowRestaurantService {
 
   public async execute({
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
     rating,
     type,
     user_id,
   }: IRequest): Promise<Restaurant[]> {
     const cacheKey = `restaurants:${name ? `name:${name}:` : ''}${
-      address ? `address:${address}:` : ''
-    }${cost ? `cost:${cost}:` : ''}${rating ? `rating:${rating}:` : ''}${
-      type ? `type:${type}:` : ''
-    }${user_id ? `user_id:${user_id}:` : ''}`;
+      street ? `street:${street}:` : ''
+    }${street_number ? `street_number:${street_number}:` : ''}${
+      city ? `city:${city}:` : ''
+    }${state ? `state:${state}:` : ''}${cost ? `cost:${cost}:` : ''}${
+      rating ? `rating:${rating}:` : ''
+    }${type ? `type:${type}:` : ''}${user_id ? `user_id:${user_id}:` : ''}`;
 
     let findRestaurants = await this.cacheProvider.recover<
       Restaurant[] | undefined
@@ -45,7 +53,10 @@ class ShowRestaurantService {
     if (!findRestaurants) {
       findRestaurants = await this.restaurantsRepository.index({
         name,
-        address,
+        street,
+        street_number,
+        city,
+        state,
         cost,
         rating,
         type,

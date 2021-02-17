@@ -16,7 +16,7 @@ let fakeCacheProvider: FakeCacheProvider;
 let fakeRestaurantsRepository: FakeRestaurantsRepository;
 let fakePositionProvider: FakePositionProvider;
 
-describe('CreateItem', () => {
+describe('UpdateItem', () => {
   beforeEach(() => {
     fakeItemsRepository = new FakeItemsRepository();
     fakeCacheProvider = new FakeCacheProvider();
@@ -96,7 +96,6 @@ describe('CreateItem', () => {
         item_id: item.id,
         name: 'Feijão',
         cost: 20.0,
-        rating: 5,
         restaurant_id: item.restaurant_id,
         user_id: 'other_user_id',
       }),

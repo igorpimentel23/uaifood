@@ -37,7 +37,7 @@ class ShowRestaurantService {
         throw new AppError('This restaurant does not exist');
       }
 
-      if ( user_id !== findRestaurant.user_id ) {
+      if (user_id !== findRestaurant.user_id) {
         throw new AppError('You can not see this restaurant');
       }
 

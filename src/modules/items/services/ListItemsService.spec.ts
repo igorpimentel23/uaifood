@@ -14,7 +14,7 @@ let fakeRestaurantsRepository: FakeRestaurantsRepository;
 let listItems: ListItemsService;
 let fakePositionProvider: FakePositionProvider;
 
-describe('CreateItem', () => {
+describe('ListItems', () => {
   beforeEach(() => {
     fakeItemsRepository = new FakeItemsRepository();
     fakeCacheProvider = new FakeCacheProvider();
@@ -71,6 +71,11 @@ describe('CreateItem', () => {
       restaurant_id: restaurant.id,
       user_id: 'user_id',
     });
+
+    await listItems.execute({ name: 'Macarrão' });
+    await listItems.execute({ name: 'Macarrão' });
+    await listItems.execute({ name: 'Macarrão', restaurant_id: restaurant.id });
+    await listItems.execute({ rating: 3 });
 
     const list = await listItems.execute({ cost: 10.5 });
 

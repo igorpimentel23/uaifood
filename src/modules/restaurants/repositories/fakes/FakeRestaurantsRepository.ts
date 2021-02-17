@@ -112,20 +112,26 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
   public async index({
     name = null,
-    address = null,
-    cost = -1,
-    rating = -1,
+    street = null,
+    street_number = null,
+    city = null,
+    state = null,
+    cost = null,
+    rating = null,
     type = null,
     user_id = null,
   }: IListRestaurantDTO): Promise<Restaurant[]> {
     const findRestaurants = this.restaurants.filter(
       restaurant =>
-        restaurant.name === name &&
-        restaurant.street === address &&
-        restaurant.cost === cost &&
-        restaurant.rating === rating &&
-        restaurant.type === type &&
-        restaurant.user_id === user_id,
+        (name ? restaurant.name === name : true) &&
+        (street ? restaurant.street === street : true) &&
+        (street_number ? restaurant.street_number === street_number : true) &&
+        (city ? restaurant.city === city : true) &&
+        (state ? restaurant.state === state : true) &&
+        (cost ? restaurant.cost === cost : true) &&
+        (rating ? restaurant.rating === rating : true) &&
+        (type ? restaurant.type === type : true) &&
+        (user_id ? restaurant.user_id === user_id : true),
     );
 
     return findRestaurants;

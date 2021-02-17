@@ -13,13 +13,13 @@ interface IRequest {
   city: string;
   state: string;
   cost: number;
-  rating: number;
+  rating?: number;
   type: string;
   user_id: string;
 }
 
 @injectable()
-class CreateRestaurantService {
+class UpdateRestaurantService {
   constructor(
     @inject('RestaurantsRepository')
     private restaurantsRepository: IRestaurantsRepository,
@@ -65,6 +65,7 @@ class CreateRestaurantService {
     }
 
     let { lat, lng } = findRestaurantId;
+    let x = 0;
 
     if (
       street !== findRestaurantId.street ||
@@ -78,13 +79,16 @@ class CreateRestaurantService {
         city,
         state,
       });
-
+      x = 1;
       if (!coord) {
         throw new AppError('Could not find address');
       }
 
       [lat, lng] = coord;
     }
+
+    x += 1;
+    console.log(x);
 
     const restaurant = await this.restaurantsRepository.update({
       restaurant_id,
@@ -111,4 +115,4 @@ class CreateRestaurantService {
   }
 }
 
-export default CreateRestaurantService;
+export default UpdateRestaurantService;

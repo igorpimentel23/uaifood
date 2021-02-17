@@ -12,7 +12,7 @@ let fakeCacheProvider: FakeCacheProvider;
 let fakePositionProvider: FakePositionProvider;
 let deleteRestaurant: DeleteRestaurantService;
 
-describe('CreateRestaurant', () => {
+describe('DeleteRestaurant', () => {
   beforeEach(() => {
     fakeRestaurantsRepository = new FakeRestaurantsRepository();
     fakeCacheProvider = new FakeCacheProvider();

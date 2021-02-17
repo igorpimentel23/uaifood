@@ -1,4 +1,4 @@
-import { getRepository, Repository, Raw, MoreThan, Not, Any } from 'typeorm';
+import { getRepository, Repository, Not } from 'typeorm';
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
 import IUpdateRestaurantDTO from '@modules/restaurants/dtos/IUpdateRestaurantDTO';
@@ -35,7 +35,10 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async update({
     restaurant_id,
     name,
-    address,
+    street,
+    street_number,
+    city,
+    state,
     cost,
     type,
     user_id,
@@ -43,7 +46,10 @@ class RestaurantsRepository implements IRestaurantsRepository {
     const restaurant = await this.ormRepository.save({
       id: restaurant_id,
       name,
-      address,
+      street,
+      street_number,
+      city,
+      state,
       cost,
       type,
       user_id,
@@ -98,21 +104,55 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
   public async index({
     name = null,
-    address = null,
-    cost = -1,
-    rating = -1,
+    street = null,
+    street_number = null,
+    city = null,
+    state = null,
+    cost = null,
+    rating = null,
     type = null,
     user_id = null,
   }: IListRestaurantDTO): Promise<Restaurant[]> {
+    let query = {};
+
+    if (name) {
+      query = { ...query, name };
+    }
+
+    if (street) {
+      query = { ...query, street };
+    }
+
+    if (street_number) {
+      query = { ...query, street_number };
+    }
+
+    if (city) {
+      query = { ...query, city };
+    }
+
+    if (state) {
+      query = { ...query, state };
+    }
+
+    if (cost) {
+      query = { ...query, cost };
+    }
+
+    if (rating) {
+      query = { ...query, rating };
+    }
+
+    if (type) {
+      query = { ...query, type };
+    }
+
+    if (user_id) {
+      query = { ...query, type };
+    }
+
     const restaurants = await this.ormRepository.find({
-      where: [
-        { name },
-        { address },
-        { cost },
-        { rating },
-        { type },
-        { user_id },
-      ],
+      where: [query],
       relations: ['items'],
     });
 

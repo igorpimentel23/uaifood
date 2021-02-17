@@ -14,7 +14,7 @@ export default class FakePositionProvider implements IPositionProvider {
     city,
     state,
   }: AddressProps): Promise<number[] | null> {
-    if (street && street_number && city && state) {
+    if (street || street_number || city || state) {
       return [-25.101944, -50.159222];
     }
     return null;

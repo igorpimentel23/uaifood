@@ -16,7 +16,7 @@ let fakeRestaurantsRepository: FakeRestaurantsRepository;
 let showItem: ShowItemService;
 let fakePositionProvider: FakePositionProvider;
 
-describe('CreateItem', () => {
+describe('ShowItem', () => {
   beforeEach(() => {
     fakeItemsRepository = new FakeItemsRepository();
     fakeCacheProvider = new FakeCacheProvider();
@@ -75,6 +75,7 @@ describe('CreateItem', () => {
     });
 
     const item = await showItem.execute(item1.id);
+    await showItem.execute(item1.id);
 
     expect(item).toEqual(item1);
   });
