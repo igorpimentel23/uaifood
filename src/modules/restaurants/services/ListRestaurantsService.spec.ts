@@ -1,69 +1,109 @@
-/* import AppError from '@shared/errors/AppError';
-
-import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
-import FakeRestaurantsRepository from '../repositories/fakes/FakeRestaurantsRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import DeleteRestaurantService from './DeleteRestaurantService';
+import FakePositionProvider from '@shared/container/providers/PositionProvider/fakes/FakePositionProvider';
+import FakeRestaurantsRepository from '../repositories/fakes/FakeRestaurantsRepository';
+import CreateRestaurantService from './CreateRestaurantService';
+import ListRestaurantsService from './ListRestaurantsService';
 
 let fakeRestaurantsRepository: FakeRestaurantsRepository;
-let deleteRestaurant: DeleteRestaurantService;
-let fakeNotificationsRepository: FakeNotificationsRepository;
+let createRestaurant: CreateRestaurantService;
 let fakeCacheProvider: FakeCacheProvider;
+let fakePositionProvider: FakePositionProvider;
+let listRestaurants: ListRestaurantsService;
 
-describe('DeleteRestaurant', () => {
+describe('ListUserRestaurants', () => {
   beforeEach(() => {
     fakeRestaurantsRepository = new FakeRestaurantsRepository();
-    fakeNotificationsRepository = new FakeNotificationsRepository();
     fakeCacheProvider = new FakeCacheProvider();
+    fakePositionProvider = new FakePositionProvider();
 
-    deleteRestaurant = new DeleteRestaurantService(
+    createRestaurant = new CreateRestaurantService(
       fakeRestaurantsRepository,
-      fakeNotificationsRepository,
+      fakePositionProvider,
       fakeCacheProvider,
     );
+
+    listRestaurants = new ListRestaurantsService(fakeRestaurantsRepository);
   });
 
-  it('should be able to delete a Restaurant', async () => {
-    const restaurant = await fakeRestaurantsRepository.create({
-      provider_id: 'provider',
-      user_id: 'user',
-      date: new Date(),
+  it('should be able to list all the restaurants with all the attributes searched in common', async () => {
+    const restaurant = await createRestaurant.execute({
+      name: 'Restaurant',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
 
-    await deleteRestaurant.execute({
-      user_id: 'user',
-      restaurant_id: restaurant.id,
+    const restaurant2 = await createRestaurant.execute({
+      name: 'Restaurant2',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
+
+    const restaurant3 = await createRestaurant.execute({
+      name: 'Restaurant3',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Japanese',
+      user_id: 'user_id2',
+    });
+
+    const list = await listRestaurants.execute({ type: 'Italian', cost: 20 });
+
+    expect(list).toEqual([restaurant, restaurant2]);
   });
 
-  it('Should not be able to delete an unexisting restaurant', async () => {
-    await fakeRestaurantsRepository.create({
-      provider_id: 'provider',
-      user_id: 'user',
-      date: new Date(),
+  it('should be able to list all the restaurants within a given radius', async () => {
+    const restaurant = await createRestaurant.execute({
+      name: 'Restaurant',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
 
-    await expect(
-      await deleteRestaurant.execute({
-        user_id: 'user',
-        restaurant_id: 'restaurant.id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('Should not be able to delete an restaurant if it is not the owner or the provider of the restaurant', async () => {
-    await fakeRestaurantsRepository.create({
-      provider_id: 'provider',
-      user_id: 'user',
-      date: new Date(),
+    const restaurant2 = await createRestaurant.execute({
+      name: 'Restaurant2',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+      user_id: 'user_id',
     });
 
-    await expect(
-      await deleteRestaurant.execute({
-        user_id: 'user2',
-        restaurant_id: 'restaurant.id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+    const restaurant3 = await createRestaurant.execute({
+      name: 'Restaurant3',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'far',
+      cost: 20,
+      type: 'Japanese',
+      user_id: 'user_id2',
+    });
+
+    const list = await listRestaurants.execute({
+      radius: 2,
+      lat: -25.101944,
+      lng: -50.159222,
+    });
+
+    expect(list).toEqual([restaurant, restaurant2]);
   });
 });
- */

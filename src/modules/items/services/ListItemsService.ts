@@ -32,7 +32,7 @@ class ShowItemService {
       cost ? `cost:${cost}:` : ''
     }${rating ? `rating:${rating}:` : ''}${
       restaurant_id ? `restaurant_id:${restaurant_id}:` : ''
-    }`;
+    }`; // criar funcao generate cachekey
 
     let findItems = await this.cacheProvider.recover<Item[] | undefined>(
       cacheKey,

@@ -21,8 +21,9 @@ itemsRouter.get(
       restaurant_id: Joi.string().uuid(),
     },
   }),
-  itemsController.index,
+  itemsController.index, // passar por query
 );
+
 itemsRouter.post(
   '/',
   celebrate({
@@ -34,7 +35,9 @@ itemsRouter.post(
   }),
   itemsController.create,
 );
-itemsRouter.get('/', itemsController.show);
+
+itemsRouter.get('/', itemsController.show); // passar pelo id
+
 itemsRouter.put(
   '/',
   celebrate({
@@ -47,8 +50,9 @@ itemsRouter.put(
     },
   }),
   itemsController.update,
-);
-itemsRouter.delete('/', itemsController.delete);
+); // passar pelo id
+
+itemsRouter.delete('/', itemsController.delete); // passar pelo id
 itemsRouter.get('/me', restaurantItemsController.index);
 
 export default itemsRouter;

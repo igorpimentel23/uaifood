@@ -1,4 +1,5 @@
-import { getRepository, Repository, Not } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
+
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
 import IUpdateRestaurantDTO from '@modules/restaurants/dtos/IUpdateRestaurantDTO';
@@ -22,12 +23,9 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async findSameRestaurant(
     name: string,
     type: string,
-    restaurant_id?: string,
   ): Promise<Restaurant | undefined> {
-    const id = restaurant_id || null;
-
     const findRestaurant = await this.ormRepository.findOne({
-      where: [{ name, type, id: Not(id) }],
+      where: [{ name, type }],
     });
     return findRestaurant;
   }
@@ -67,7 +65,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async show(id: string): Promise<Restaurant | undefined> {
     const findRestaurant = await this.ormRepository.findOne({
       where: { id },
-      relations: ['user'],
+      relations: ['user', 'items'],
     });
     return findRestaurant;
   }
@@ -148,7 +146,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
     }
 
     if (user_id) {
-      query = { ...query, type };
+      query = { ...query, user_id };
     }
 
     const restaurants = await this.ormRepository.find({

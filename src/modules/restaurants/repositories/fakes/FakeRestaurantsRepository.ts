@@ -88,6 +88,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
     cost,
     type,
     user_id,
+    lat,
+    lng,
   }: ICreateRestaurantDTO): Promise<Restaurant> {
     const restaurant = new Restaurant();
 
@@ -101,6 +103,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
       cost,
       type,
       user_id,
+      lat,
+      lng,
       user: {
         id: user_id,
       },

@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
-import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
 
 let fakeUsersRepository: FakeUserRepository;
@@ -19,7 +19,7 @@ describe('SendForgotPasswordEmail', () => {
     sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
       fakeMailProvider,
-      fakeUserTokensRepository
+      fakeUserTokensRepository,
     );
   });
 
@@ -43,7 +43,7 @@ describe('SendForgotPasswordEmail', () => {
     await expect(
       sendForgotPasswordEmail.execute({
         email: 'johndoe@example.com',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 

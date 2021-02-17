@@ -21,11 +21,11 @@ export default class PositionProvider implements IPositionProvider {
     const address = `${street}, ${street_number}, ${city}, ${state}`;
     const geoCoder = nodeGeocoder(positionConfig);
 
-    geoCoder.geocode(address).then(response => {
-      if (response[0].latitude && response[0].longitude) {
-        coord = [response[0].latitude, response[0].longitude];
-      }
-    });
+    const response = await geoCoder.geocode(address);
+
+    if (response[0].latitude && response[0].longitude) {
+      coord = [response[0].latitude, response[0].longitude];
+    }
 
     return coord;
   }

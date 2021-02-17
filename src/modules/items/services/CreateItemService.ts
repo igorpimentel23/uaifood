@@ -33,11 +33,6 @@ class CreateItemService {
     user_id,
     rating = 0,
   }: IRequest): Promise<Item> {
-    const findItem = await this.itemsRepository.findSameItem(
-      name,
-      restaurant_id,
-    );
-
     const findRestaurant = await this.restaurantsRepository.show(restaurant_id);
 
     if (!findRestaurant) {
@@ -46,9 +41,14 @@ class CreateItemService {
 
     if (user_id !== findRestaurant.user.id) {
       throw new AppError(
-        'You can not create an item for a restaurant you do not own',
+        'You cannot create an item for a restaurant you do not own',
       );
     }
+
+    const findItem = await this.itemsRepository.findSameItem(
+      name,
+      restaurant_id,
+    );
 
     if (findItem) {
       throw new AppError('This item already exists');
@@ -67,6 +67,12 @@ class CreateItemService {
     await this.cacheProvider.invalidate(`restaurant-items:${restaurant_id}`);
 
     await this.cacheProvider.invalidate(`single-item:${item.id}`);
+
+    await this.cacheProvider.invalidatePrefix('restaurants');
+
+    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
+
+    await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
 
     return item;
   }

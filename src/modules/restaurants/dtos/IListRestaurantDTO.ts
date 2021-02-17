@@ -8,4 +8,7 @@ export default interface IListRestaurantDTO {
   rating?: number | null;
   type?: string | null;
   user_id?: string | null;
+  radius?: number | null;
+  lat?: number | null;
+  lng?: number | null;
 }

@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageAvatar';
+import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 
 let fakeUsersRepository: FakeUserRepository;
@@ -15,7 +15,7 @@ describe('UpdateUserAvatar', () => {
 
     updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
-      fakeStorageProvider
+      fakeStorageProvider,
     );
   });
 
@@ -39,7 +39,7 @@ describe('UpdateUserAvatar', () => {
       updateUserAvatar.execute({
         user_id: 'no-id',
         avatarFilename: 'avatar.jpg',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 

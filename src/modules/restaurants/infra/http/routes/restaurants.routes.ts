@@ -26,6 +26,7 @@ restaurantsRouter.post(
   }),
   restaurantsController.create,
 );
+
 restaurantsRouter.put(
   '/',
   celebrate({
@@ -43,6 +44,7 @@ restaurantsRouter.put(
   }),
   restaurantsController.update,
 );
+
 restaurantsRouter.get(
   '/all',
   celebrate({
@@ -63,8 +65,11 @@ restaurantsRouter.get(
   }),
   restaurantsController.index,
 );
-restaurantsRouter.get('/', restaurantsController.show);
-restaurantsRouter.delete('/', restaurantsController.delete);
+
+restaurantsRouter.get('/', restaurantsController.show); // passar pelo id
+
+restaurantsRouter.delete('/', restaurantsController.delete); // passar pelo id
+
 restaurantsRouter.get('/me', userRestaurantsController.index);
 
 export default restaurantsRouter;

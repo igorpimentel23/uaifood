@@ -38,6 +38,14 @@ class DeleteItemService {
     );
 
     await this.cacheProvider.invalidate(`single-item:${item_id}`);
+
+    await this.cacheProvider.invalidatePrefix('restaurants');
+
+    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
+
+    await this.cacheProvider.invalidate(
+      `single-restaurant:${findItem.restaurant_id}`,
+    );
   }
 }
 

@@ -20,8 +20,9 @@ class UpdateProfileService {
     private usersRepository: IUsersRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider
+    private hashProvider: IHashProvider,
   ) {}
+
   public async execute({
     user_id,
     name,
@@ -43,14 +44,14 @@ class UpdateProfileService {
 
     if (password && !old_password) {
       throw new AppError(
-        'You must inform the last password to set a new password'
+        'You must inform the last password to set a new password',
       );
     }
 
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
-        user.password
+        user.password,
       );
 
       if (!checkOldPassword) {

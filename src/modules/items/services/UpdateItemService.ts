@@ -64,6 +64,12 @@ class CreateItemService {
 
     await this.cacheProvider.invalidate(`single-item:${item.id}`);
 
+    await this.cacheProvider.invalidatePrefix('restaurants');
+
+    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
+
+    await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
+
     return item;
   }
 }

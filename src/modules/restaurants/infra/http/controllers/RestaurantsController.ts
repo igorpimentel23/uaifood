@@ -20,6 +20,9 @@ export default class RestaurantController {
       rating,
       type,
       user_id,
+      radius,
+      lat,
+      lng,
     } = request.body;
 
     const listRestaurants = container.resolve(ListRestaurantsService);
@@ -34,6 +37,9 @@ export default class RestaurantController {
       rating,
       type,
       user_id,
+      radius,
+      lat,
+      lng,
     });
 
     return response.json(classToClass(restaurants));

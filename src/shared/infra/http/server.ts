@@ -5,7 +5,7 @@ import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 import { errors } from 'celebrate';
 import 'express-async-errors';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 import upladoConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
@@ -45,8 +45,8 @@ app.use(
   },
 );
 
-const listenPort = parseInt(process.env.LISTEN_PORT || "80", 10);
+const listenPort = parseInt(process.env.LISTEN_PORT || '80', 10);
 
 app.listen(listenPort, () =>
-  console.log(`🚀 Server started on port ${listenPort}!`)
+  console.log(`🚀 Server started on port ${listenPort}!`),
 );

@@ -25,8 +25,9 @@ class AuthenticateUserService {
     private usersRepository: IUsersRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider
+    private hashProvider: IHashProvider,
   ) {}
+
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
@@ -36,7 +37,7 @@ class AuthenticateUserService {
 
     const passwordMatched = await this.hashProvider.compareHash(
       password,
-      user.password
+      user.password,
     );
 
     if (!passwordMatched) {
@@ -47,7 +48,7 @@ class AuthenticateUserService {
 
     const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: expiresIn,
+      expiresIn,
     });
 
     return {

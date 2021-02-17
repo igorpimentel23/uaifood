@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
+import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import UpdateProfileService from './UpdateProfileService';
 
 let fakeUsersRepository: FakeUserRepository;
@@ -15,7 +15,7 @@ describe('UpdateProfile', () => {
 
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
     );
   });
 
@@ -54,7 +54,7 @@ describe('UpdateProfile', () => {
         user_id: user.id,
         name: 'John Doe',
         email: 'john@example.com',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
@@ -89,7 +89,7 @@ describe('UpdateProfile', () => {
         name: 'Richard Roe',
         email: 'richardroe@email.com',
         password: 'drowssap',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
@@ -107,7 +107,7 @@ describe('UpdateProfile', () => {
         email: 'richardroe@email.com',
         password: 'drowssap',
         old_password: 'saapword',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
@@ -117,7 +117,7 @@ describe('UpdateProfile', () => {
         user_id: 'nonexisting-id',
         name: 'John Doe',
         email: 'john@example.com',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 });
