@@ -1,4 +1,9 @@
-import { getRepository, Repository } from 'typeorm';
+import {
+  getRepository,
+  LessThanOrEqual,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
@@ -107,6 +112,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
     city = null,
     state = null,
     cost = null,
+    less_than = null,
+    greater_than = null,
     rating = null,
     type = null,
     user_id = null,
@@ -135,6 +142,13 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
     if (cost) {
       query = { ...query, cost };
+    } else {
+      if (greater_than) {
+        query = { ...query, cost: MoreThanOrEqual(greater_than) };
+      }
+      if (less_than) {
+        query = { ...query, cost: LessThanOrEqual(less_than) };
+      }
     }
 
     if (rating) {

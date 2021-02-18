@@ -11,6 +11,8 @@ interface IRequest {
   city?: string | null;
   state?: string | null;
   cost?: number | null;
+  greater_than?: number | null;
+  less_than?: number | null;
   rating?: number | null;
   type?: string | null;
   user_id?: string | null;
@@ -27,18 +29,20 @@ class ShowRestaurantService {
   ) {}
 
   public async execute({
-    name,
-    street,
-    street_number,
-    city,
-    state,
-    cost,
-    rating,
-    type,
-    user_id,
-    radius,
-    lat,
-    lng,
+    name = null,
+    street = null,
+    street_number = null,
+    city = null,
+    state = null,
+    cost = null,
+    greater_than = null,
+    less_than = null,
+    rating = null,
+    type = null,
+    user_id = null,
+    radius = null,
+    lat = null,
+    lng = null,
   }: IRequest): Promise<Restaurant[]> {
     let findRestaurants = await this.restaurantsRepository.index({
       name,
@@ -47,6 +51,8 @@ class ShowRestaurantService {
       city,
       state,
       cost,
+      greater_than,
+      less_than,
       rating,
       type,
       user_id,

@@ -14,14 +14,16 @@ itemsRouter.use(ensureAuthenticated);
 itemsRouter.get(
   '/all',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.QUERY]: {
       name: Joi.string(),
-      rating: Joi.number(),
-      cost: Joi.number(),
+      rating: Joi.number().integer().min(0).max(5),
+      cost: Joi.number().min(0),
+      less_than: Joi.number(),
+      greater_than: Joi.number(),
       restaurant_id: Joi.string().uuid(),
     },
   }),
-  itemsController.index, // passar por query
+  itemsController.index,
 );
 
 itemsRouter.post(
@@ -29,14 +31,22 @@ itemsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      cost: Joi.number().required(),
+      cost: Joi.number().min(0).required(),
       restaurant_id: Joi.string().uuid(),
     },
   }),
   itemsController.create,
 );
 
-itemsRouter.get('/', itemsController.show); // passar pelo id
+itemsRouter.get(
+  '/:item_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      item_id: Joi.string().uuid().required(),
+    },
+  }),
+  itemsController.show,
+);
 
 itemsRouter.put(
   '/',
@@ -44,15 +54,32 @@ itemsRouter.put(
     [Segments.BODY]: {
       item_id: Joi.string().uuid().required(),
       name: Joi.string().required(),
-      cost: Joi.number().required(),
-      rating: Joi.number(),
+      cost: Joi.number().min(0).required(),
+      rating: Joi.number().integer().min(0).max(5),
       restaurant_id: Joi.string().uuid(),
     },
   }),
   itemsController.update,
-); // passar pelo id
+);
 
-itemsRouter.delete('/', itemsController.delete); // passar pelo id
-itemsRouter.get('/me', restaurantItemsController.index);
+itemsRouter.delete(
+  '/:item_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      item_id: Joi.string().uuid().required(),
+    },
+  }),
+  itemsController.delete,
+);
+
+itemsRouter.get(
+  '/:restaurant_id/me',
+  celebrate({
+    [Segments.PARAMS]: {
+      restaurant_id: Joi.string().uuid().required(),
+    },
+  }),
+  restaurantItemsController.index,
+);
 
 export default itemsRouter;

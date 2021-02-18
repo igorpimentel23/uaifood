@@ -65,7 +65,6 @@ class UpdateRestaurantService {
     }
 
     let { lat, lng } = findRestaurantId;
-    let x = 0;
 
     if (
       street !== findRestaurantId.street ||
@@ -79,16 +78,13 @@ class UpdateRestaurantService {
         city,
         state,
       });
-      x = 1;
+
       if (!coord) {
         throw new AppError('Could not find address');
       }
 
       [lat, lng] = coord;
     }
-
-    x += 1;
-    console.log(x);
 
     const restaurant = await this.restaurantsRepository.update({
       restaurant_id,

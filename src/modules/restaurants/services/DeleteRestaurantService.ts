@@ -38,6 +38,12 @@ class DeleteRestaurantService {
     await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
+
+    await this.cacheProvider.invalidatePrefix('items');
+
+    await this.cacheProvider.invalidate(`restaurant-items:${restaurant_id}`);
+
+    await this.cacheProvider.invalidatePrefix(`single-item`);
   }
 }
 

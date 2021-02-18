@@ -1,4 +1,4 @@
-import { getRepository, Repository, Not } from 'typeorm';
+import { getRepository, Repository, Not, MoreThanOrEqual, Like } from 'typeorm';
 import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import ICreateItemDTO from '@modules/items/dtos/ICreateItemDTO';
 import IUpdateItemDTO from '@modules/items/dtos/IUpdateItemDTO';
@@ -83,12 +83,14 @@ class ItemsRepository implements IItemsRepository {
     name = null,
     rating = null,
     cost = null,
+    greater_than = null,
+    less_than = null,
     restaurant_id = null,
   }: IListItemDTO): Promise<Item[]> {
     let query = {};
 
     if (name) {
-      query = { ...query, name };
+      query = { ...query, name: Like(`%${name}`) };
     }
 
     if (rating) {
@@ -97,6 +99,13 @@ class ItemsRepository implements IItemsRepository {
 
     if (cost) {
       query = { ...query, cost };
+    } else {
+      if (greater_than) {
+        query = { ...query, cost: MoreThanOrEqual(greater_than) };
+      }
+      if (less_than) {
+        query = { ...query, cost: MoreThanOrEqual(less_than) };
+      }
     }
 
     if (restaurant_id) {

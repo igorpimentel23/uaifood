@@ -5,6 +5,8 @@ export default interface IListRestaurantDTO {
   city?: string | null;
   state?: string | null;
   cost?: number | null;
+  less_than?: number | null;
+  greater_than?: number | null;
   rating?: number | null;
   type?: string | null;
   user_id?: string | null;

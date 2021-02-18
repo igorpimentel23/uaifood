@@ -6,11 +6,11 @@ import { classToClass } from 'class-transformer';
 
 export default class UserItemsController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { restaurant_id } = request.query;
+    const { restaurant_id } = request.params;
 
     const listRestaurantItems = container.resolve(ListRestaurantItemsService);
 
-    const items = await listRestaurantItems.execute(String(restaurant_id));
+    const items = await listRestaurantItems.execute(restaurant_id);
 
     return response.json(classToClass(items));
   }

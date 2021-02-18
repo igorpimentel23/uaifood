@@ -17,10 +17,10 @@ restaurantsRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       street: Joi.string().required(),
-      street_number: Joi.number().required(),
+      street_number: Joi.number().integer().min(0).required(),
       city: Joi.string().required(),
       state: Joi.string().required(),
-      cost: Joi.number().required(),
+      cost: Joi.number().min(0).required(),
       type: Joi.string().required(),
     },
   }),
@@ -34,11 +34,11 @@ restaurantsRouter.put(
       restaurant_id: Joi.string().uuid().required(),
       name: Joi.string().required(),
       street: Joi.string().required(),
-      street_number: Joi.number().required(),
+      street_number: Joi.number().integer().min(0).required(),
       city: Joi.string().required(),
       state: Joi.string().required(),
-      cost: Joi.number().required(),
-      rating: Joi.number(),
+      cost: Joi.number().min(0).required(),
+      rating: Joi.number().integer().min(0).max(5),
       type: Joi.string().required(),
     },
   }),
@@ -48,14 +48,14 @@ restaurantsRouter.put(
 restaurantsRouter.get(
   '/all',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.QUERY]: {
       name: Joi.string(),
       street: Joi.string(),
-      street_number: Joi.number(),
+      street_number: Joi.number().integer().min(0),
       city: Joi.string(),
       state: Joi.string(),
-      cost: Joi.number(),
-      rating: Joi.number(),
+      cost: Joi.number().min(0),
+      rating: Joi.number().integer().min(0).max(5),
       type: Joi.string(),
       user_id: Joi.string(),
       radius: Joi.number(),
@@ -66,9 +66,25 @@ restaurantsRouter.get(
   restaurantsController.index,
 );
 
-restaurantsRouter.get('/', restaurantsController.show); // passar pelo id
+restaurantsRouter.get(
+  '/:restaurant_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      restaurant_id: Joi.string().uuid().required(),
+    },
+  }),
+  restaurantsController.show,
+);
 
-restaurantsRouter.delete('/', restaurantsController.delete); // passar pelo id
+restaurantsRouter.delete(
+  '/:restaurant_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      restaurant_id: Joi.string().uuid().required(),
+    },
+  }),
+  restaurantsController.delete,
+);
 
 restaurantsRouter.get('/me', userRestaurantsController.index);
 
