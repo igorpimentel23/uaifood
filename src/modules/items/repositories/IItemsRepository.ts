@@ -10,6 +10,10 @@ export default interface IItemsRepository {
   show(id: string): Promise<Item | undefined>;
   delete(id: string): Promise<void>;
   update(data: IUpdateItemDTO): Promise<Item>;
-  findSameItem(name: string, restaurant_id: string): Promise<Item | undefined>;
+  findSameItem(
+    name: string,
+    restaurant_id: string,
+    item_id?: string,
+  ): Promise<Item | undefined>;
   findById(id: string): Promise<Item | undefined>;
 }

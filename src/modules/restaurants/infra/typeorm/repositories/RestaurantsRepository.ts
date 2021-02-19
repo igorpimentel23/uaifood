@@ -2,6 +2,7 @@ import {
   getRepository,
   LessThanOrEqual,
   MoreThanOrEqual,
+  Not,
   Repository,
 } from 'typeorm';
 
@@ -28,9 +29,16 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async findSameRestaurant(
     name: string,
     type: string,
+    restaurant_id?: string,
   ): Promise<Restaurant | undefined> {
+    let query = {};
+
+    if (restaurant_id) {
+      query = { id: Not(restaurant_id) };
+    }
+
     const findRestaurant = await this.ormRepository.findOne({
-      where: [{ name, type }],
+      where: [{ ...query, name, type }],
     });
     return findRestaurant;
   }

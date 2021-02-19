@@ -58,6 +58,7 @@ class UpdateRestaurantService {
     const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
       name,
       type,
+      restaurant_id,
     );
 
     if (findRestaurant) {

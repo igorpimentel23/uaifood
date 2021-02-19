@@ -23,9 +23,16 @@ class ItemsRepository implements IItemsRepository {
   public async findSameItem(
     name: string,
     restaurant_id: string,
+    item_id?: string,
   ): Promise<Item | undefined> {
+    let query = {};
+
+    if (item_id) {
+      query = { id: Not(item_id) };
+    }
+
     const findItem = await this.ormRepository.findOne({
-      where: [{ name, restaurant_id }],
+      where: [{ ...query, name, restaurant_id }],
       relations: ['restaurant', 'restaurant.user'],
     });
     return findItem;
@@ -90,7 +97,7 @@ class ItemsRepository implements IItemsRepository {
     let query = {};
 
     if (name) {
-      query = { ...query, name: Like(`%${name}`) };
+      query = { ...query, name: Like(`%${name}%`) };
     }
 
     if (rating) {
@@ -114,6 +121,7 @@ class ItemsRepository implements IItemsRepository {
 
     const items = await this.ormRepository.find({
       where: [query],
+      relations: ['restaurant'],
     });
 
     return items;

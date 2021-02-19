@@ -44,6 +44,7 @@ class CreateItemService {
     const findItem = await this.itemsRepository.findSameItem(
       name,
       restaurant_id,
+      item_id,
     );
 
     if (findItem) {

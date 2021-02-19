@@ -11,6 +11,8 @@ const userRestaurantsController = new UserRestaurantsController();
 
 restaurantsRouter.use(ensureAuthenticated);
 
+restaurantsRouter.get('/me', userRestaurantsController.index);
+
 restaurantsRouter.post(
   '/',
   celebrate({
@@ -85,7 +87,5 @@ restaurantsRouter.delete(
   }),
   restaurantsController.delete,
 );
-
-restaurantsRouter.get('/me', userRestaurantsController.index);
 
 export default restaurantsRouter;
