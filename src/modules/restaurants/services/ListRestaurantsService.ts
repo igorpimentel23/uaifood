@@ -1,5 +1,4 @@
 import { injectable, inject } from 'tsyringe';
-import { getDistance } from 'geolib';
 
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
@@ -60,16 +59,6 @@ class ShowRestaurantService {
       lat,
       lng,
     });
-
-    /* if (radius && lat && lng) {
-      findRestaurants = findRestaurants.filter(restaurant => {
-        const dist = getDistance(
-          { latitude: restaurant.lat, longitude: restaurant.lng },
-          { latitude: lat, longitude: lng },
-        );
-        return dist / 1000 <= radius;
-      });
-    } */
 
     return findRestaurants;
   }

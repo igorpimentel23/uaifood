@@ -16,9 +16,10 @@ services:
       - redis
 
   postgresql:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile.postgres
+    image: postgis/postgis
+    # build:
+     # context: ./
+      # dockerfile: ./Dockerfile.postgres
     container_name: uaifood.postgres
     ports:
         - ${POSTGRES_PORT}:${POSTGRES_PORT}

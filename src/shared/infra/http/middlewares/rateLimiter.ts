@@ -35,6 +35,7 @@ function getFibonacciBlockDurationMinutes(
   );
 }
 
+// eslint-disable-next-line consistent-return
 export default async function rateLimiter(
   request: Request,
   response: Response,

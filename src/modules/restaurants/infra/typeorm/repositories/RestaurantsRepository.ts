@@ -6,6 +6,7 @@ import {
   Not,
   Repository,
 } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
@@ -96,6 +97,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
     lat,
     lng,
   }: ICreateRestaurantDTO): Promise<Restaurant> {
+    const geolocation = `POINT(${lng} ${lat})`;
+
     const restaurant = this.ormRepository.create({
       name,
       street,
@@ -107,6 +110,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
       user_id,
       lat,
       lng,
+      geolocation,
     });
 
     await this.ormRepository.save(restaurant);
@@ -126,11 +130,13 @@ class RestaurantsRepository implements IRestaurantsRepository {
     rating = null,
     type = null,
     user_id = null,
-    radius = null,
+    radius = 0,
     lat = null,
     lng = null,
   }: IListRestaurantDTO): Promise<Restaurant[]> {
     let query = {};
+
+    const queryBuilder = this.ormRepository.createQueryBuilder('restaurants');
 
     if (name) {
       query = { ...query, name: Like(`%${name}%`) };
@@ -175,10 +181,18 @@ class RestaurantsRepository implements IRestaurantsRepository {
       query = { ...query, user_id };
     }
 
-    const restaurants = await this.ormRepository.find({
-      where: [query],
-      relations: ['items'],
-    });
+    if (radius && lat && lng) {
+      queryBuilder.where(
+        'ST_Distance(restaurants.geolocation, ST_MakePoint(:lng, :lat)) < :radius',
+        { lng, lat, radius: radius * 1000 },
+      );
+    }
+
+    if (Object.keys(query).length) {
+      queryBuilder.where(query);
+    }
+
+    const restaurants = await queryBuilder.getMany();
 
     return restaurants;
   }

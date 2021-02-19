@@ -39,6 +39,9 @@ class Restaurant {
   lng: number;
 
   @Column()
+  geolocation: string;
+
+  @Column()
   rating: number;
 
   @Column()
