@@ -44,7 +44,7 @@ class ShowRestaurantService {
     lat = null,
     lng = null,
   }: IRequest): Promise<Restaurant[]> {
-    let findRestaurants = await this.restaurantsRepository.index({
+    const findRestaurants = await this.restaurantsRepository.index({
       name,
       street,
       street_number,
@@ -56,9 +56,12 @@ class ShowRestaurantService {
       rating,
       type,
       user_id,
+      radius,
+      lat,
+      lng,
     });
 
-    if (radius && lat && lng) {
+    /* if (radius && lat && lng) {
       findRestaurants = findRestaurants.filter(restaurant => {
         const dist = getDistance(
           { latitude: restaurant.lat, longitude: restaurant.lng },
@@ -66,7 +69,7 @@ class ShowRestaurantService {
         );
         return dist / 1000 <= radius;
       });
-    }
+    } */
 
     return findRestaurants;
   }

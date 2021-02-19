@@ -98,6 +98,22 @@ describe('ListUserRestaurants', () => {
       user_id: 'user_id2',
     });
 
+    await listRestaurants.execute({
+      name: 'Restaurant3',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'far',
+      less_than: 50,
+      rating: 5,
+      type: 'Japanese',
+      user_id: 'user_id2',
+    });
+
+    await listRestaurants.execute({
+      greater_than: 20,
+    });
+
     const list = await listRestaurants.execute({
       radius: 2,
       lat: -25.101944,

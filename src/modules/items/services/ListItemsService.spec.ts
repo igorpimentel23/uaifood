@@ -118,7 +118,8 @@ describe('ListItems', () => {
       user_id: 'user_id',
     });
 
-    const list = await listItems.execute({ cost: 10.5, rating: 3 });
+    await listItems.execute({ less_than: 12, rating: 3 });
+    const list = await listItems.execute({ greater_than: 10, rating: 3 });
 
     expect(list).toEqual([item2]);
   });

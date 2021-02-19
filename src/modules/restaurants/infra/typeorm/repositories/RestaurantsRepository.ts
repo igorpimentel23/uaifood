@@ -1,6 +1,7 @@
 import {
   getRepository,
   LessThanOrEqual,
+  Like,
   MoreThanOrEqual,
   Not,
   Repository,
@@ -125,11 +126,14 @@ class RestaurantsRepository implements IRestaurantsRepository {
     rating = null,
     type = null,
     user_id = null,
+    radius = null,
+    lat = null,
+    lng = null,
   }: IListRestaurantDTO): Promise<Restaurant[]> {
     let query = {};
 
     if (name) {
-      query = { ...query, name };
+      query = { ...query, name: Like(`%${name}%`) };
     }
 
     if (street) {

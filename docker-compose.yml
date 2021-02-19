@@ -16,7 +16,9 @@ services:
       - redis
 
   postgresql:
-    image: postgres:13-alpine
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.postgres
     container_name: uaifood.postgres
     ports:
         - ${POSTGRES_PORT}:${POSTGRES_PORT}

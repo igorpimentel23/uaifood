@@ -48,6 +48,10 @@ export default class CreateRestaurants1613428820801
             type: 'float',
           },
           {
+            name: 'geolocation',
+            type: 'geography(point)',
+          },
+          {
             name: 'rating',
             type: 'integer',
             isNullable: true,
