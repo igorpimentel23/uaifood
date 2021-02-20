@@ -121,4 +121,58 @@ describe('ListItems', () => {
 
     expect(list).toEqual([item2]);
   });
+
+  it('should be able to list Items within a given radius', async () => {
+    const restaurant = await createRestaurant.execute({
+      name: 'Restaurant',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'state',
+      cost: 20,
+      type: 'Italian',
+    });
+
+    const restaurant2 = await createRestaurant.execute({
+      name: 'Restaurant3',
+      street: 'Street',
+      street_number: 10,
+      city: 'city',
+      state: 'far',
+      cost: 20,
+      type: 'Japanese',
+    });
+
+    const item1 = await createItem.execute({
+      name: 'Arroz',
+      cost: 14.5,
+      rating: 4,
+      restaurant_id: restaurant.id,
+      avatar: 'avatar',
+    });
+
+    const item2 = await createItem.execute({
+      name: 'Macarrão',
+      cost: 10.5,
+      rating: 3,
+      restaurant_id: restaurant.id,
+      avatar: 'avatar',
+    });
+
+    const item3 = await createItem.execute({
+      name: 'Feijão',
+      cost: 10.5,
+      rating: 4,
+      restaurant_id: restaurant2.id,
+      avatar: 'avatar',
+    });
+
+    const list = await listItems.execute({
+      radius: 2,
+      lat: -25.101944,
+      lng: -50.159222,
+    });
+
+    expect(list).toEqual([item1, item2]);
+  });
 });

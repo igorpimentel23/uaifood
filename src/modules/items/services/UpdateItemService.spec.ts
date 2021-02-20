@@ -99,7 +99,6 @@ describe('UpdateItem', () => {
         item_id: 'other_item_id',
         name: 'Feijão',
         cost: 20.0,
-        rating: 5,
         restaurant_id: item.restaurant_id,
         avatar: 'avatar',
       }),
