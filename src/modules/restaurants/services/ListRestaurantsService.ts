@@ -14,7 +14,6 @@ interface IRequest {
   less_than?: number | null;
   rating?: number | null;
   type?: string | null;
-  user_id?: string | null;
   radius?: number | null;
   lat?: number | null;
   lng?: number | null;
@@ -38,7 +37,6 @@ class ShowRestaurantService {
     less_than = null,
     rating = null,
     type = null,
-    user_id = null,
     radius = null,
     lat = null,
     lng = null,
@@ -54,7 +52,6 @@ class ShowRestaurantService {
       less_than,
       rating,
       type,
-      user_id,
       radius,
       lat,
       lng,

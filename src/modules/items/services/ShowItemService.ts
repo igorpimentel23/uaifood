@@ -3,7 +3,6 @@ import AppError from '@shared/errors/AppError';
 import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import Item from '@modules/items/infra/typeorm/entities/Item';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import { classToClass } from 'class-transformer';
 
 @injectable()
 class ShowItemService {
@@ -27,7 +26,7 @@ class ShowItemService {
         throw new AppError('This item does not exist');
       }
 
-      await this.cacheProvider.save(cacheKey, classToClass(findItem));
+      await this.cacheProvider.save(cacheKey, findItem);
     }
 
     return findItem;

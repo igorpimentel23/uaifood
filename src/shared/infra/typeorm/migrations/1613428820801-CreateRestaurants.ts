@@ -66,11 +66,6 @@ export default class CreateRestaurants1613428820801
             type: 'varchar',
           },
           {
-            name: 'user_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
@@ -83,22 +78,9 @@ export default class CreateRestaurants1613428820801
         ],
       }),
     );
-
-    await queryRunner.createForeignKey(
-      'restaurants',
-      new TableForeignKey({
-        name: 'RestaurantUser',
-        columnNames: ['user_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'users',
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
-      }),
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('restaurants', 'RestaurantUser');
     await queryRunner.dropTable('restaurants');
   }
 }

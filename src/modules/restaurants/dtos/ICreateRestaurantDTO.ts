@@ -7,7 +7,6 @@ export default interface ICreateRestaurantDTO {
   cost: number;
   rating?: number;
   type: string;
-  user_id: string;
   lat: number;
   lng: number;
 }

@@ -48,7 +48,6 @@ describe('ListRestaurantItems', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const restaurant2 = await createRestaurant.execute({
@@ -59,7 +58,6 @@ describe('ListRestaurantItems', () => {
       state: 'state',
       cost: 20,
       type: 'Chinese',
-      user_id: 'user_id',
     });
 
     const item1 = await createItem.execute({
@@ -67,7 +65,7 @@ describe('ListRestaurantItems', () => {
       cost: 14.5,
       rating: 4,
       restaurant_id: restaurant2.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     const item2 = await createItem.execute({
@@ -75,7 +73,7 @@ describe('ListRestaurantItems', () => {
       cost: 10.5,
       rating: 3,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     const item3 = await createItem.execute({
@@ -83,7 +81,7 @@ describe('ListRestaurantItems', () => {
       cost: 10.5,
       rating: 4,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     const list = await listRestaurantItems.execute(restaurant.id);

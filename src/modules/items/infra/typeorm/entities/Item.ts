@@ -31,6 +31,12 @@ class Item {
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: Restaurant;
 
+  @Column()
+  geolocation: string;
+
+  @Column()
+  avatar: string;
+
   @CreateDateColumn()
   created_at: Date;
 

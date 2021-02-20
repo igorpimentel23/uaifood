@@ -4,12 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
   OneToMany,
 } from 'typeorm';
 
-import User from '@modules/users/infra/typeorm/entities/User';
 import Item from '@modules/items/infra/typeorm/entities/Item';
 
 @Entity('restaurants')
@@ -49,13 +46,6 @@ class Restaurant {
 
   @Column()
   type: string;
-
-  @Column()
-  user_id: string;
-
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
 
   @OneToMany(() => Item, item => item.restaurant)
   items: Item[];

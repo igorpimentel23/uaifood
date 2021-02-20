@@ -3,6 +3,7 @@ import Item from '@modules/items/infra/typeorm/entities/Item';
 import AppError from '@shared/errors/AppError';
 import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 
 interface IRequest {
   item_id: string;
@@ -10,7 +11,7 @@ interface IRequest {
   rating?: number;
   cost: number;
   restaurant_id: string;
-  user_id: string;
+  avatar: string;
 }
 
 @injectable()
@@ -18,6 +19,9 @@ class CreateItemService {
   constructor(
     @inject('ItemsRepository')
     private itemsRepository: IItemsRepository,
+
+    @inject('RestaurantsRepository')
+    private restaurantsRepository: IRestaurantsRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
@@ -29,16 +33,18 @@ class CreateItemService {
     cost,
     rating = 0,
     restaurant_id,
-    user_id,
+    avatar,
   }: IRequest): Promise<Item> {
+    const findRestaurant = await this.restaurantsRepository.show(restaurant_id);
+
+    if (!findRestaurant) {
+      throw new AppError('This restaurant does not exist');
+    }
+
     const findItemId = await this.itemsRepository.findById(item_id);
 
     if (!findItemId) {
       throw new AppError('This item does not exist');
-    }
-
-    if (user_id !== findItemId.restaurant.user.id) {
-      throw new AppError('You can not edit this item');
     }
 
     const findItem = await this.itemsRepository.findSameItem(
@@ -51,12 +57,16 @@ class CreateItemService {
       throw new AppError('This item already exists');
     }
 
+    const { geolocation } = findRestaurant;
+
     const item = await this.itemsRepository.update({
       item_id,
       name,
       cost,
       rating,
       restaurant_id,
+      avatar,
+      geolocation,
     });
 
     await this.cacheProvider.invalidatePrefix('items');
@@ -66,8 +76,6 @@ class CreateItemService {
     await this.cacheProvider.invalidate(`single-item:${item.id}`);
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
 

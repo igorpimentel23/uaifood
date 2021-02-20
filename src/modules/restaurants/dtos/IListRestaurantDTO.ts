@@ -9,7 +9,6 @@ export default interface IListRestaurantDTO {
   greater_than?: number | null;
   rating?: number | null;
   type?: string | null;
-  user_id?: string | null;
   radius?: number | null;
   lat?: number | null;
   lng?: number | null;

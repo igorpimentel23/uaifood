@@ -43,14 +43,13 @@ describe('CreateItem', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const item = await createItem.execute({
       name: 'Arroz',
       cost: 10.5,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     expect(item).toHaveProperty('id');
@@ -65,29 +64,7 @@ describe('CreateItem', () => {
         name: 'Arroz',
         cost: 10.5,
         restaurant_id: 'restaurant_id',
-        user_id: 'user_id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('should not be able to create a new Item if the user do not own the restaurant', async () => {
-    const restaurant = await createRestaurant.execute({
-      name: 'Restaurant',
-      street: 'Street',
-      street_number: 10,
-      city: 'city',
-      state: 'state',
-      cost: 20,
-      type: 'Italian',
-      user_id: 'user_id',
-    });
-
-    await expect(
-      createItem.execute({
-        name: 'Arroz',
-        cost: 10.5,
-        restaurant_id: restaurant.id,
-        user_id: 'other_user_id',
+        avatar: 'avatar',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -101,14 +78,13 @@ describe('CreateItem', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await createItem.execute({
       name: 'Arroz',
       cost: 10.5,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     await expect(
@@ -116,7 +92,7 @@ describe('CreateItem', () => {
         name: 'Arroz',
         cost: 10.5,
         restaurant_id: restaurant.id,
-        user_id: 'user_id',
+        avatar: 'avatar',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

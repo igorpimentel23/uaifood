@@ -40,7 +40,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     const updatedRestaurant = await updateRestaurant.execute({
@@ -53,7 +52,6 @@ describe('UpdateRestaurant', () => {
       cost: 20,
       rating: 5,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     expect(updatedRestaurant.id).toBe(restaurant.id);
@@ -64,7 +62,6 @@ describe('UpdateRestaurant', () => {
     expect(updatedRestaurant.cost).toBe(20);
     expect(updatedRestaurant.rating).toBe(5);
     expect(updatedRestaurant.type).toBe('Italian');
-    expect(updatedRestaurant.user_id).toBe('user_id');
   });
 
   it('should not be able to update a restaurant if there is another one with the same name and type', async () => {
@@ -76,7 +73,6 @@ describe('UpdateRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await expect(
@@ -90,7 +86,6 @@ describe('UpdateRestaurant', () => {
         rating: 5,
         cost: 20,
         type: 'Italian',
-        user_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -104,7 +99,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     await expect(
@@ -117,7 +111,6 @@ describe('UpdateRestaurant', () => {
         state: 'state',
         cost: 20,
         type: 'Italian',
-        user_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -131,7 +124,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     await updateRestaurant.execute({
@@ -143,7 +135,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     await updateRestaurant.execute({
@@ -155,7 +146,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old2',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     await updateRestaurant.execute({
@@ -167,7 +157,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old2',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     await updateRestaurant.execute({
@@ -179,7 +168,6 @@ describe('UpdateRestaurant', () => {
       state: 'state old2',
       cost: 25,
       type: 'Italian old',
-      user_id: 'user_id',
     });
 
     await expect(
@@ -192,34 +180,6 @@ describe('UpdateRestaurant', () => {
         state: '',
         cost: 25,
         type: 'Italian old',
-        user_id: 'user_id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('should not be able to update a restaurant if the user does not own the Restaurant', async () => {
-    const restaurant = await createRestaurant.execute({
-      name: 'Restaurant old',
-      street: 'Street old',
-      street_number: 11,
-      city: 'city old',
-      state: 'state old',
-      cost: 25,
-      type: 'Italian old',
-      user_id: 'user_id',
-    });
-
-    await expect(
-      updateRestaurant.execute({
-        restaurant_id: restaurant.id,
-        name: 'Restaurant old',
-        street: 'Street old',
-        street_number: 11,
-        city: 'city old',
-        state: 'state old',
-        cost: 25,
-        type: 'Italian old',
-        user_id: 'other_user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

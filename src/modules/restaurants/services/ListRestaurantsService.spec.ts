@@ -10,7 +10,7 @@ let fakeCacheProvider: FakeCacheProvider;
 let fakePositionProvider: FakePositionProvider;
 let listRestaurants: ListRestaurantsService;
 
-describe('ListUserRestaurants', () => {
+describe('ListRestaurants', () => {
   beforeEach(() => {
     fakeRestaurantsRepository = new FakeRestaurantsRepository();
     fakeCacheProvider = new FakeCacheProvider();
@@ -34,7 +34,6 @@ describe('ListUserRestaurants', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const restaurant2 = await createRestaurant.execute({
@@ -45,7 +44,6 @@ describe('ListUserRestaurants', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const restaurant3 = await createRestaurant.execute({
@@ -56,7 +54,6 @@ describe('ListUserRestaurants', () => {
       state: 'state',
       cost: 20,
       type: 'Japanese',
-      user_id: 'user_id2',
     });
 
     const list = await listRestaurants.execute({ type: 'Italian', cost: 20 });
@@ -73,7 +70,6 @@ describe('ListUserRestaurants', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const restaurant2 = await createRestaurant.execute({
@@ -84,7 +80,6 @@ describe('ListUserRestaurants', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const restaurant3 = await createRestaurant.execute({
@@ -95,7 +90,6 @@ describe('ListUserRestaurants', () => {
       state: 'far',
       cost: 20,
       type: 'Japanese',
-      user_id: 'user_id2',
     });
 
     await listRestaurants.execute({
@@ -107,7 +101,6 @@ describe('ListUserRestaurants', () => {
       less_than: 50,
       rating: 5,
       type: 'Japanese',
-      user_id: 'user_id2',
     });
 
     await listRestaurants.execute({

@@ -9,8 +9,8 @@ interface IRequest {
   name: string;
   cost: number;
   restaurant_id: string;
-  user_id: string;
   rating?: number;
+  avatar: string;
 }
 
 @injectable()
@@ -30,19 +30,13 @@ class CreateItemService {
     name,
     cost,
     restaurant_id,
-    user_id,
     rating = 0,
+    avatar,
   }: IRequest): Promise<Item> {
     const findRestaurant = await this.restaurantsRepository.show(restaurant_id);
 
     if (!findRestaurant) {
       throw new AppError('This restaurant does not exist');
-    }
-
-    if (user_id !== findRestaurant.user.id) {
-      throw new AppError(
-        'You cannot create an item for a restaurant you do not own',
-      );
     }
 
     const findItem = await this.itemsRepository.findSameItem(
@@ -54,12 +48,15 @@ class CreateItemService {
       throw new AppError('This item already exists');
     }
 
+    const { geolocation } = findRestaurant;
+
     const item = await this.itemsRepository.create({
       name,
       cost,
       restaurant_id,
-      user_id,
       rating,
+      avatar,
+      geolocation,
     });
 
     await this.cacheProvider.invalidatePrefix('items');
@@ -69,8 +66,6 @@ class CreateItemService {
     await this.cacheProvider.invalidate(`single-item:${item.id}`);
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
 

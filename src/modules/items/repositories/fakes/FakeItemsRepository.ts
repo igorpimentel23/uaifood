@@ -63,7 +63,6 @@ class ItemsRepository implements IItemsRepository {
     name,
     cost,
     restaurant_id,
-    user_id,
     rating,
   }: ICreateItemDTO): Promise<Item> {
     const item = new Item();
@@ -74,7 +73,6 @@ class ItemsRepository implements IItemsRepository {
       cost,
       restaurant_id,
       rating,
-      restaurant: { user: { id: user_id } },
     });
 
     this.items.push(item);

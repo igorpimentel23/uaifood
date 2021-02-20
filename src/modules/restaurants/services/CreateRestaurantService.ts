@@ -14,7 +14,6 @@ interface IRequest {
   state: string;
   cost: number;
   type: string;
-  user_id: string;
 }
 
 @injectable()
@@ -38,7 +37,6 @@ class CreateRestaurantService {
     state,
     cost,
     type,
-    user_id,
   }: IRequest): Promise<Restaurant> {
     const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
       name,
@@ -70,14 +68,11 @@ class CreateRestaurantService {
       state,
       cost,
       type,
-      user_id,
       lat,
       lng,
     });
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(`single-restaurant:${restaurant.id}`);
 

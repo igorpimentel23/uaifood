@@ -38,7 +38,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     cost,
     rating,
     type,
-    user_id,
     lat,
     lng,
   }: IUpdateRestaurantDTO): Promise<Restaurant> {
@@ -54,7 +53,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
       cost,
       rating,
       type,
-      user_id,
       lat,
       lng,
     });
@@ -87,7 +85,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     state,
     cost,
     type,
-    user_id,
     lat,
     lng,
   }: ICreateRestaurantDTO): Promise<Restaurant> {
@@ -102,12 +99,8 @@ class RestaurantsRepository implements IRestaurantsRepository {
       state,
       cost,
       type,
-      user_id,
       lat,
       lng,
-      user: {
-        id: user_id,
-      },
     });
 
     this.restaurants.push(restaurant);
@@ -123,7 +116,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     cost = null,
     rating = null,
     type = null,
-    user_id = null,
   }: IListRestaurantDTO): Promise<Restaurant[]> {
     const findRestaurants = this.restaurants.filter(
       restaurant =>
@@ -134,8 +126,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
         (state ? restaurant.state === state : true) &&
         (cost ? restaurant.cost === cost : true) &&
         (rating ? restaurant.rating === rating : true) &&
-        (type ? restaurant.type === type : true) &&
-        (user_id ? restaurant.user_id === user_id : true),
+        (type ? restaurant.type === type : true),
     );
 
     return findRestaurants;

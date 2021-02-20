@@ -47,7 +47,6 @@ describe('ShowItem', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const item1 = await createItem.execute({
@@ -55,7 +54,7 @@ describe('ShowItem', () => {
       cost: 14.5,
       rating: 4,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     const item2 = await createItem.execute({
@@ -63,7 +62,7 @@ describe('ShowItem', () => {
       cost: 10.5,
       rating: 3,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     const item3 = await createItem.execute({
@@ -71,7 +70,7 @@ describe('ShowItem', () => {
       cost: 10.5,
       rating: 4,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     const item = await showItem.execute(item1.id);
@@ -89,7 +88,6 @@ describe('ShowItem', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const item1 = await createItem.execute({
@@ -97,7 +95,7 @@ describe('ShowItem', () => {
       cost: 14.5,
       rating: 4,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     await expect(showItem.execute('no_id')).rejects.toBeInstanceOf(AppError);

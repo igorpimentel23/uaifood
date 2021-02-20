@@ -39,11 +39,9 @@ describe('DeleteRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await deleteRestaurant.execute({
-      user_id: 'user_id',
       restaurant_id: restaurant.id,
     });
   });
@@ -57,33 +55,11 @@ describe('DeleteRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await expect(
       deleteRestaurant.execute({
-        user_id: 'user_id',
         restaurant_id: 'other_restaurant_id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('should not be able to delete a restaurant if the Restaurant does not exist', async () => {
-    const restaurant = await createRestaurant.execute({
-      name: 'Restaurant',
-      street: 'Street',
-      street_number: 10,
-      city: 'city',
-      state: 'state',
-      cost: 20,
-      type: 'Italian',
-      user_id: 'user_id',
-    });
-
-    await expect(
-      deleteRestaurant.execute({
-        user_id: 'other_user_id',
-        restaurant_id: restaurant.id,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

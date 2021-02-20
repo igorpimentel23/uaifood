@@ -3,10 +3,9 @@ import { injectable, inject } from 'tsyringe';
 import Item from '@modules/items/infra/typeorm/entities/Item';
 import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import { classToClass } from 'class-transformer';
 
 @injectable()
-class ListUserItemsService {
+class ListRestaurantItemsService {
   constructor(
     @inject('ItemsRepository')
     private itemsRepository: IItemsRepository,
@@ -23,11 +22,11 @@ class ListUserItemsService {
     if (!items) {
       items = await this.itemsRepository.index({ restaurant_id });
 
-      await this.cacheProvider.save(cacheKey, classToClass(items));
+      await this.cacheProvider.save(cacheKey, items);
     }
 
     return items;
   }
 }
 
-export default ListUserItemsService;
+export default ListRestaurantItemsService;

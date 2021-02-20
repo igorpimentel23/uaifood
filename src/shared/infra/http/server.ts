@@ -7,7 +7,6 @@ import { errors } from 'celebrate';
 import 'express-async-errors';
 import dotenv from 'dotenv';
 
-import upladoConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
 import routes from './routes';
@@ -21,7 +20,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(upladoConfig.uploadsFolder));
 app.use(rateLimiter);
 app.use(routes);
 

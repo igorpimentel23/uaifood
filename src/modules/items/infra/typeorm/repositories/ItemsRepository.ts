@@ -15,7 +15,7 @@ class ItemsRepository implements IItemsRepository {
   public async findById(id: string): Promise<Item | undefined> {
     const findItem = await this.ormRepository.findOne({
       where: { id },
-      relations: ['restaurant', 'restaurant.user'],
+      relations: ['restaurant'],
     });
     return findItem;
   }
@@ -33,7 +33,7 @@ class ItemsRepository implements IItemsRepository {
 
     const findItem = await this.ormRepository.findOne({
       where: [{ ...query, name, restaurant_id }],
-      relations: ['restaurant', 'restaurant.user'],
+      relations: ['restaurant'],
     });
     return findItem;
   }
@@ -44,6 +44,7 @@ class ItemsRepository implements IItemsRepository {
     rating = 0,
     cost,
     restaurant_id,
+    geolocation,
   }: IUpdateItemDTO): Promise<Item> {
     const item = await this.ormRepository.save({
       id: item_id,
@@ -51,6 +52,7 @@ class ItemsRepository implements IItemsRepository {
       rating,
       cost,
       restaurant_id,
+      geolocation,
     });
 
     return item;
@@ -65,7 +67,7 @@ class ItemsRepository implements IItemsRepository {
   public async show(id: string): Promise<Item | undefined> {
     const findItem = await this.ormRepository.findOne({
       where: { id },
-      relations: ['restaurant', 'restaurant.user'],
+      relations: ['restaurant'],
     });
     return findItem;
   }
@@ -74,11 +76,15 @@ class ItemsRepository implements IItemsRepository {
     name,
     cost,
     restaurant_id,
+    geolocation,
+    avatar,
   }: ICreateItemDTO): Promise<Item> {
     const item = this.ormRepository.create({
       name,
       cost,
       restaurant_id,
+      geolocation,
+      avatar,
     });
 
     await this.ormRepository.save(item);
@@ -93,8 +99,15 @@ class ItemsRepository implements IItemsRepository {
     greater_than = null,
     less_than = null,
     restaurant_id = null,
+    radius = null,
+    lat = null,
+    lng = null,
   }: IListItemDTO): Promise<Item[]> {
     let query = {};
+
+    const queryBuilder = this.ormRepository
+      .createQueryBuilder('items')
+      .leftJoinAndSelect('items.restaurant', 'restaurant');
 
     if (name) {
       query = { ...query, name: Like(`%${name}%`) };
@@ -119,10 +132,23 @@ class ItemsRepository implements IItemsRepository {
       query = { ...query, restaurant_id };
     }
 
-    const items = await this.ormRepository.find({
+    if (radius && lat && lng) {
+      queryBuilder.where(
+        'ST_Distance(items.geolocation, ST_MakePoint(:lng, :lat)) < :radius',
+        { lng, lat, radius: radius * 1000 },
+      );
+    }
+
+    if (Object.keys(query).length) {
+      queryBuilder.where(query);
+    }
+
+    const items = await queryBuilder.getMany();
+
+    /* const items = await this.ormRepository.find({
       where: [query],
       relations: ['restaurant'],
-    });
+    }); */
 
     return items;
   }

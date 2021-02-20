@@ -39,16 +39,13 @@ describe('ShowRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await showRestaurant.execute({
-      user_id: 'user_id',
       restaurant_id: restaurant.id,
     });
 
     await showRestaurant.execute({
-      user_id: 'user_id',
       restaurant_id: restaurant.id,
     });
   });
@@ -62,33 +59,11 @@ describe('ShowRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await expect(
       showRestaurant.execute({
-        user_id: 'user_id',
         restaurant_id: 'restaurant.id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('should not be able to show a restaurant if the user does not own it', async () => {
-    const restaurant = await createRestaurant.execute({
-      name: 'Restaurant',
-      street: 'Street',
-      street_number: 10,
-      city: 'city',
-      state: 'state',
-      cost: 20,
-      type: 'Italian',
-      user_id: 'user_id',
-    });
-
-    await expect(
-      showRestaurant.execute({
-        user_id: 'other_user_id',
-        restaurant_id: restaurant.id,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

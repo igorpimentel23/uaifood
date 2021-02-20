@@ -6,7 +6,6 @@ import {
   Not,
   Repository,
 } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
@@ -54,7 +53,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     state,
     cost,
     type,
-    user_id,
   }: IUpdateRestaurantDTO): Promise<Restaurant> {
     const restaurant = await this.ormRepository.save({
       id: restaurant_id,
@@ -65,7 +63,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
       state,
       cost,
       type,
-      user_id,
     });
 
     return restaurant;
@@ -80,7 +77,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
   public async show(id: string): Promise<Restaurant | undefined> {
     const findRestaurant = await this.ormRepository.findOne({
       where: { id },
-      relations: ['user', 'items'],
+      relations: ['items'],
     });
     return findRestaurant;
   }
@@ -93,7 +90,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     state,
     cost,
     type,
-    user_id,
     lat,
     lng,
   }: ICreateRestaurantDTO): Promise<Restaurant> {
@@ -107,7 +103,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
       state,
       cost,
       type,
-      user_id,
       lat,
       lng,
       geolocation,
@@ -129,7 +124,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     greater_than = null,
     rating = null,
     type = null,
-    user_id = null,
     radius = 0,
     lat = null,
     lng = null,
@@ -175,10 +169,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
     if (type) {
       query = { ...query, type };
-    }
-
-    if (user_id) {
-      query = { ...query, user_id };
     }
 
     if (radius && lat && lng) {

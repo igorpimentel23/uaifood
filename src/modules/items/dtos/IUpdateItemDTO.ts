@@ -4,4 +4,6 @@ export default interface IUpdateItemDTO {
   rating?: number;
   cost: number;
   restaurant_id: string;
+  avatar: string;
+  geolocation: string;
 }

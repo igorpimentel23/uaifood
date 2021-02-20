@@ -47,18 +47,16 @@ describe('DeleteItem', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     const item = await createItem.execute({
       name: 'Arroz',
       cost: 10.5,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     await deleteItem.execute({
-      user_id: 'user_id',
       item_id: item.id,
     });
   });
@@ -72,47 +70,18 @@ describe('DeleteItem', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await createItem.execute({
       name: 'Arroz',
       cost: 10.5,
       restaurant_id: restaurant.id,
-      user_id: 'user_id',
+      avatar: 'avatar',
     });
 
     await expect(
       deleteItem.execute({
-        user_id: 'user_id',
         item_id: 'item.id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('Should not be able to delete an item if the user do not own the item', async () => {
-    const restaurant = await createRestaurant.execute({
-      name: 'Restaurant',
-      street: 'Street',
-      street_number: 10,
-      city: 'city',
-      state: 'state',
-      cost: 20,
-      type: 'Italian',
-      user_id: 'user_id',
-    });
-
-    const item = await createItem.execute({
-      name: 'Arroz',
-      cost: 10.5,
-      restaurant_id: restaurant.id,
-      user_id: 'user_id',
-    });
-
-    await expect(
-      deleteItem.execute({
-        user_id: 'other_user_id',
-        item_id: item.id,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

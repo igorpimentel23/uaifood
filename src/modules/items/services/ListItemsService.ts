@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe';
 import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import Item from '@modules/items/infra/typeorm/entities/Item';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import { classToClass } from 'class-transformer';
 
 interface IRequest {
   name?: string | null;
@@ -11,6 +10,9 @@ interface IRequest {
   greater_than?: number | null;
   less_than?: number | null;
   restaurant_id?: string | null;
+  radius?: number | null;
+  lat?: number | null;
+  lng?: number | null;
 }
 
 @injectable()
@@ -30,31 +32,21 @@ class ShowItemService {
     greater_than = null,
     less_than = null,
     restaurant_id = null,
+    radius = null,
+    lat = null,
+    lng = null,
   }: IRequest): Promise<Item[]> {
-    const cacheKey = `items:${name ? `name:${name}:` : ''}${
-      cost ? `cost:${cost}:` : ''
-    }${greater_than ? `greater_than:${greater_than}:` : ''}${
-      less_than ? `less_than:${less_than}:` : ''
-    }${rating ? `rating:${rating}:` : ''}${
-      restaurant_id ? `restaurant_id:${restaurant_id}:` : ''
-    }`;
-
-    let findItems = await this.cacheProvider.recover<Item[] | undefined>(
-      cacheKey,
-    );
-
-    if (!findItems) {
-      findItems = await this.itemsRepository.index({
-        name,
-        rating,
-        cost,
-        greater_than,
-        less_than,
-        restaurant_id,
-      });
-
-      await this.cacheProvider.save(cacheKey, classToClass(findItems));
-    }
+    const findItems = await this.itemsRepository.index({
+      name,
+      rating,
+      cost,
+      greater_than,
+      less_than,
+      restaurant_id,
+      radius,
+      lat,
+      lng,
+    });
 
     return findItems;
   }

@@ -4,7 +4,6 @@ import IRestaurantsRepository from '@modules/restaurants/repositories/IRestauran
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
-  user_id: string;
   restaurant_id: string;
 }
 
@@ -18,7 +17,7 @@ class DeleteRestaurantService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ user_id, restaurant_id }: IRequest): Promise<void> {
+  public async execute({ restaurant_id }: IRequest): Promise<void> {
     const findRestaurant = await this.restaurantsRepository.findById(
       restaurant_id,
     );
@@ -27,15 +26,9 @@ class DeleteRestaurantService {
       throw new AppError('This restaurant does not exist');
     }
 
-    if (user_id !== findRestaurant.user_id) {
-      throw new AppError('You can not delete this restaurant');
-    }
-
     await this.restaurantsRepository.delete(restaurant_id);
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
 

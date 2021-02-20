@@ -32,9 +32,17 @@ export default class CreateItems1613481043615 implements MigrationInterface {
             type: 'decimal',
           },
           {
+            name: 'avatar',
+            type: 'varchar',
+          },
+          {
             name: 'restaurant_id',
             type: 'uuid',
             isNullable: true,
+          },
+          {
+            name: 'geolocation',
+            type: 'geography(point)',
           },
           {
             name: 'created_at',

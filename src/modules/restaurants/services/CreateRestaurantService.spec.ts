@@ -32,7 +32,6 @@ describe('CreateRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     expect(restaurant).toHaveProperty('id');
@@ -42,7 +41,6 @@ describe('CreateRestaurant', () => {
     expect(restaurant.state).toBe('state');
     expect(restaurant.cost).toBe(20);
     expect(restaurant.type).toBe('Italian');
-    expect(restaurant.user_id).toBe('user_id');
   });
 
   it('should not be able to create a restaurant if there is another one with the same name and type', async () => {
@@ -54,7 +52,6 @@ describe('CreateRestaurant', () => {
       state: 'state',
       cost: 20,
       type: 'Italian',
-      user_id: 'user_id',
     });
 
     await expect(
@@ -66,7 +63,6 @@ describe('CreateRestaurant', () => {
         state: 'state',
         cost: 20,
         type: 'Italian',
-        user_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -81,7 +77,6 @@ describe('CreateRestaurant', () => {
         state: '',
         cost: 20,
         type: 'Italian',
-        user_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

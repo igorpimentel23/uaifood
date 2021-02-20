@@ -4,7 +4,6 @@ import IItemsRepository from '@modules/items/repositories/IItemsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
-  user_id: string;
   item_id: string;
 }
 
@@ -18,15 +17,11 @@ class DeleteItemService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ user_id, item_id }: IRequest): Promise<void> {
+  public async execute({ item_id }: IRequest): Promise<void> {
     const findItem = await this.itemsRepository.findById(item_id);
 
     if (!findItem) {
       throw new AppError('This item does not exist');
-    }
-
-    if (user_id !== findItem.restaurant.user.id) {
-      throw new AppError('You can not delete this item');
     }
 
     await this.itemsRepository.delete(item_id);
@@ -40,8 +35,6 @@ class DeleteItemService {
     await this.cacheProvider.invalidate(`single-item:${item_id}`);
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(
       `single-restaurant:${findItem.restaurant_id}`,

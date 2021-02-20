@@ -15,7 +15,6 @@ interface IRequest {
   cost: number;
   rating?: number;
   type: string;
-  user_id: string;
 }
 
 @injectable()
@@ -41,7 +40,6 @@ class UpdateRestaurantService {
     cost,
     rating = 0,
     type,
-    user_id,
   }: IRequest): Promise<Restaurant> {
     const findRestaurantId = await this.restaurantsRepository.findById(
       restaurant_id,
@@ -49,10 +47,6 @@ class UpdateRestaurantService {
 
     if (!findRestaurantId) {
       throw new AppError('This restaurant does not exist');
-    }
-
-    if (user_id !== findRestaurantId.user_id) {
-      throw new AppError('You can not edit this restaurant');
     }
 
     const findRestaurant = await this.restaurantsRepository.findSameRestaurant(
@@ -97,14 +91,11 @@ class UpdateRestaurantService {
       cost,
       rating,
       type,
-      user_id,
       lat,
       lng,
     });
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`user-restaurants:${user_id}`);
 
     await this.cacheProvider.invalidate(`single-restaurant:${restaurant.id}`);
 

@@ -2,9 +2,8 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import ListRestaurantItemsService from '@modules/items/services/ListRestaurantItemsService';
-import { classToClass } from 'class-transformer';
 
-export default class UserItemsController {
+export default class RestaurantItemsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { restaurant_id } = request.params;
 
@@ -12,6 +11,6 @@ export default class UserItemsController {
 
     const items = await listRestaurantItems.execute(restaurant_id);
 
-    return response.json(classToClass(items));
+    return response.json(items);
   }
 }

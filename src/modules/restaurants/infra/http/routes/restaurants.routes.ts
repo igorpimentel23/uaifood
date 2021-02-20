@@ -1,17 +1,10 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import RestaurantsController from '@modules/restaurants/infra/http/controllers/RestaurantsController';
-import UserRestaurantsController from '@modules/restaurants/infra/http/controllers/UserRestaurantsController';
 
 const restaurantsRouter = Router();
 const restaurantsController = new RestaurantsController();
-const userRestaurantsController = new UserRestaurantsController();
-
-restaurantsRouter.use(ensureAuthenticated);
-
-restaurantsRouter.get('/me', userRestaurantsController.index);
 
 restaurantsRouter.post(
   '/',
@@ -59,8 +52,7 @@ restaurantsRouter.get(
       cost: Joi.number().min(0),
       rating: Joi.number().integer().min(0).max(5),
       type: Joi.string(),
-      user_id: Joi.string(),
-      radius: Joi.number(),
+      radius: Joi.number().min(0),
       lat: Joi.number(),
       lng: Joi.number(),
     },

@@ -6,7 +6,6 @@ import DeleteRestaurantService from '@modules/restaurants/services/DeleteRestaur
 import UpdateRestaurantService from '@modules/restaurants/services/UpdateRestaurantService';
 import ShowRestaurantService from '@modules/restaurants/services/ShowRestaurantService';
 import ListRestaurantsService from '@modules/restaurants/services/ListRestaurantsService';
-import { classToClass } from 'class-transformer';
 
 export default class RestaurantController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -21,7 +20,6 @@ export default class RestaurantController {
       less_than,
       rating,
       type,
-      user_id,
       radius,
       lat,
       lng,
@@ -69,10 +67,6 @@ export default class RestaurantController {
       query = { ...query, type: String(type) };
     }
 
-    if (user_id) {
-      query = { ...query, user_id: String(user_id) };
-    }
-
     if (radius) {
       query = { ...query, radius: Number(radius) };
     }
@@ -89,11 +83,10 @@ export default class RestaurantController {
 
     const restaurants = await listRestaurants.execute(query);
 
-    return response.json(classToClass(restaurants));
+    return response.json(restaurants);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
     const {
       name,
       street,
@@ -114,28 +107,24 @@ export default class RestaurantController {
       state,
       cost,
       type,
-      user_id,
     });
 
     return response.json(restaurant);
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
     const { restaurant_id } = request.params;
 
     const showRestaurant = container.resolve(ShowRestaurantService);
 
     const restaurant = await showRestaurant.execute({
       restaurant_id,
-      user_id,
     });
 
-    return response.json(classToClass(restaurant));
+    return response.json(restaurant);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
     const {
       restaurant_id,
       name,
@@ -160,20 +149,17 @@ export default class RestaurantController {
       cost,
       rating,
       type,
-      user_id,
     });
 
     return response.json(restaurant);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
     const { restaurant_id } = request.params;
 
     const deleteRestaurant = container.resolve(DeleteRestaurantService);
 
     await deleteRestaurant.execute({
-      user_id,
       restaurant_id,
     });
 

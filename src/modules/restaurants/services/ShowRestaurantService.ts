@@ -3,10 +3,8 @@ import AppError from '@shared/errors/AppError';
 import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import { classToClass } from 'class-transformer';
 
 interface IRequest {
-  user_id: string;
   restaurant_id: string;
 }
 
@@ -20,10 +18,7 @@ class ShowRestaurantService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({
-    user_id,
-    restaurant_id,
-  }: IRequest): Promise<Restaurant> {
+  public async execute({ restaurant_id }: IRequest): Promise<Restaurant> {
     const cacheKey = `single-restaurant:${restaurant_id}`;
 
     let findRestaurant = await this.cacheProvider.recover<
@@ -37,11 +32,7 @@ class ShowRestaurantService {
         throw new AppError('This restaurant does not exist');
       }
 
-      if (user_id !== findRestaurant.user_id) {
-        throw new AppError('You can not see this restaurant');
-      }
-
-      await this.cacheProvider.save(cacheKey, classToClass(findRestaurant));
+      await this.cacheProvider.save(cacheKey, findRestaurant);
     }
 
     return findRestaurant;
