@@ -1,88 +1,259 @@
-# Project Title
+# Uaifood Backend
 
-One Paragraph of project description goes here
+API em NodeJS para cadastro, alteração, atualização e consulta de restaurantes e itens dos restaurantes.
 
-## Getting Started
+## Começando
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Estas instruções te darão uma cópia do projeto pronta para rodar na sua máquina local para propositos de testes.
 
-### Prerequisites
+### Pré-requisitos
 
-What things you need to install the software and how to install them
+Para a instalação do projeto, é necessário que o Docker Compose esteja instalado na máquina.
 
-```
-Give examples
-```
+[Docker Compose](https://docs.docker.com/compose/install/)
 
-### Installing
+### Instalando
 
-A step by step series of examples that tell you how to get a development env running
+Depois de clonar e baixar o projeto, crie um arquivo .env na raiz do projeto e utilizar as informações do arquivo .env.example.
 
-Say what the step will be
+Então, abra o terminal de comando na pasta do projeto, e execute:
 
 ```
-Give the example
+docker-compose up build -d
 ```
 
-And repeat
+Após o término, para verificar se os containers foram construidos com sucesso, executar o comando:
 
 ```
-until finished
+docker ps
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Os seguintes dados devem aparecer:
+
+```
+CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                    NAMES
+2418232d34ad        uaifood_uaifood          "docker-entrypoint.s…"   4 minutes ago       Up 3 minutes        0.0.0.0:80->80/tcp       uaifood.web
+01ddb76b9dc5        postgis/postgis          "docker-entrypoint.s…"   18 hours ago        Up 4 minutes        0.0.0.0:5432->5432/tcp   uaifood.postgres
+6ad03c795ee3        redis:6-alpine           "docker-entrypoint.s…"   18 hours ago        Up 4 minutes        0.0.0.0:6379->6379/tcp   uaifood.redis
+```
+
+Feito isso, para a instalação das migrations, executar:
+
+```
+./container
+```
+
+e em seguida:
+
+```
+yarn typeorm migration:run
+```
+
+Para verificar se o projeto está rodando perfeitamente, acesse:
+
+```
+http://0.0.0.0/items/all
+```
+
+A resposta deverá ser um array vazio
+
+```
+// 20210221131948
+// http://0.0.0.0/items/all
+
+[
+  
+]
+```
+
+### Rotas da aplicação
+
+#### Parâmetros
+
+- name (string) : Nome do item ou restaurante
+- rating (integer de 1 a 5) : Avaliação do item ou do restaurante
+- cost (number maior igual a 0) : Custo do item ou do restaurante
+- less_than (number) : Parâmetro para comparação do custo do item ou do restaurante
+- greater_than (number) : Parâmetro para comparação do custo do item ou do restaurante
+- radius (number maior igual a 0) : Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+- lat (number) : Latitude
+- lng (number) : Longitude
+- avatar (string) : Avatar do item ou do restaurante
+- item_id (uuid) : Número unico de identificação do item
+- street (string) (obrigatório) : Rua para definição de geolocalização do restaurante
+- street_number (integer maior igual a 0) (obrigatório) : Numero da rua para definição de geolocalização do restaurante
+- city (string) (obrigatório): Cidade para definição de geolocalização do restaurante
+- state (string) (obrigatório) : Estado para definição de geolocalização do restaurante
+- type (string) (obrigatório) : Tipo de cozinha do restaurante
+- city_for_geo (string) : Cidade para pesquisa de restaurantes em um raio de 30 km
+
+#### Itens
+
+1. GET(items/restaurants)
+
+Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
+
+Query:
+
+- name (string)
+- rating (integer de 1 a 5)
+- cost (number maior igual a 0)
+- less_than (number)
+- greater_than (number)
+- restaurant_id (uuid)
+- radius (number maior igual a 0)
+- lat (number)
+- lng (number)
+
+2. GET(items/all)
+
+Retorna todos os itens que possuem os requisitos pesquisados.
+
+Query:
+
+- name (string)
+- rating (integer de 1 a 5)
+- cost (number maior igual a 0)
+- less_than (number)
+- greater_than (number)
+- restaurant_id (uuid)
+- radius (number maior igual a 0)
+- lat (number)
+- lng (number)
+
+3. POST(items/)
+
+Cria um item.
+
+Body (JSON):
+
+- name (string) (obrigatório)
+- cost (number maior igual a 0) (obrigatório)
+- restaurant_id (uuid) (obrigatório)
+- avatar (string) (obrigatório)
+
+4. GET(items/:item_id)
+
+Retorna o item.
+
+Params:
+
+- item_id (uuid) (obrigatório)
+
+5. POST(items/)
+
+Cria um item.
+
+Body (JSON):
+
+- item_id (uuid) (obrigatório)
+- name (string) (obrigatório)
+- cost (number maior igual a 0) (obrigatório)
+- rating (integer de 1 a 5)
+- restaurant_id (uuid) (obrigatório)
+- avatar (string) (obrigatório)
+
+6. DELETE(items/:item_id)
+
+Retorna o item.
+
+Params:
+
+- item_id (uuid) (obrigatório)
+
+7. GET(items/:restaurant_id/me)
+
+Retorna os items de um restaurante.
+
+Params:
+
+- restaurante (uuid) (obrigatório)
+
+#### Restaurantes
+
+1. GET(restaurants/types)
+
+Retorna todas as categorias dos restaurantes cadastrados.
+
+2. POST(restaurants/)
+
+Cria um restaurante.
+
+Body (JSON):
+
+- name (string) (obrigatório)
+- street (string) (obrigatório)
+- street_number (integer maior igual a 0) (obrigatório)
+- city (string) (obrigatório)
+- state (string) (obrigatório)
+- cost (number maior igual a 0) (obrigatório)
+- type (string) (obrigatório)
+
+3. PUT(restaurants/)
+
+Atualiza um restaurante.
+
+Body (JSON):
+
+- restaurant_id (uuid) (obrigatório)
+- name (string) (obrigatório)
+- street (string) (obrigatório)
+- street_number (integer maior igual a 0) (obrigatório)
+- city (string) (obrigatório)
+- state (string) (obrigatório)
+- cost (number maior igual a 0) (obrigatório)
+- rating (integer de 1 a 5) (obrigatório)
+- type (string) (obrigatório)
+
+4. GET(restaurants/all)
+
+Retorna todos os restaurantes que possuem os requisitos pesquisados.
+
+Query:
+
+- name (string)
+- street (string)
+- street_number (integer maior igual a 0)
+- city (string)
+- state (string)
+- cost (number maior igual a 0)
+- rating (integer de 1 a 5)
+- type (string)
+- radius (number maior igual a 0)
+- lat (number)
+- lng (number)
+- city_for_geo (string)
+
+5. GET(restaurants/:restaurant_id)
+
+Retorna um restaurante.
+
+Params:
+
+- restaurant_id (uuid)
+
+6. DELETE(restaurants/:restaurant_id)
+
+Deleta um restaurante.
+
+Params:
+
+- restaurant_id (uuid)
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Para executar os testes automatizados da aplicação, na pasta raiz da aplicação, executar:
 
 ```
-Give an example
+yarn test
 ```
 
-### And coding style tests
+## Autores
 
-Explain what these tests test and why
+* **Igor Pimentel** - *Trabalho inicial* - [igorpimentel23](https://github.com/igorpimentel23)
 
-```
-Give an example
-```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
+## Licença
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
