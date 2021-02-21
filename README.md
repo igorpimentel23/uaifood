@@ -91,178 +91,178 @@ A resposta deverá ser um array vazio
 
 1. GET(items/restaurants)
 
-Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
+    Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
 
-Query:
+    Query:
 
-- name (string)
-- rating (integer de 1 a 5)
-- cost (number maior igual a 0)
-- less_than (number)
-- greater_than (number)
-- restaurant_id (uuid)
-- radius (number maior igual a 0)
-- lat (number)
-- lng (number)
+    - name (string)
+    - rating (integer de 1 a 5)
+    - cost (number maior igual a 0)
+    - less_than (number)
+    - greater_than (number)
+    - restaurant_id (uuid)
+    - radius (number maior igual a 0)
+    - lat (number)
+    - lng (number)
 
 
 
 2. GET(items/all)
 
-Retorna todos os itens que possuem os requisitos pesquisados.
+    Retorna todos os itens que possuem os requisitos pesquisados.
 
-Query:
+    Query:
 
-- name (string)
-- rating (integer de 1 a 5)
-- cost (number maior igual a 0)
-- less_than (number)
-- greater_than (number)
-- restaurant_id (uuid)
-- radius (number maior igual a 0)
-- lat (number)
-- lng (number)
+    - name (string)
+    - rating (integer de 1 a 5)
+    - cost (number maior igual a 0)
+    - less_than (number)
+    - greater_than (number)
+    - restaurant_id (uuid)
+    - radius (number maior igual a 0)
+    - lat (number)
+    - lng (number)
 
 
 
 3. POST(items/)
 
-Cria um item.
+    Cria um item.
 
-Body (JSON):
+    Body (JSON):
 
-- name (string) (obrigatório)
-- cost (number maior igual a 0) (obrigatório)
-- restaurant_id (uuid) (obrigatório)
-- avatar (string) (obrigatório)
+    - name (string) (obrigatório)
+    - cost (number maior igual a 0) (obrigatório)
+    - restaurant_id (uuid) (obrigatório)
+    - avatar (string) (obrigatório)
 
 
 
 4. GET(items/:item_id)
 
-Retorna o item.
+    Retorna o item.
 
-Params:
+    Params:
 
-- item_id (uuid) (obrigatório)
+    - item_id (uuid) (obrigatório)
 
 
 
 5. POST(items/)
 
-Cria um item.
+    Cria um item.
 
-Body (JSON):
+    Body (JSON):
 
-- item_id (uuid) (obrigatório)
-- name (string) (obrigatório)
-- cost (number maior igual a 0) (obrigatório)
-- rating (integer de 1 a 5)
-- restaurant_id (uuid) (obrigatório)
-- avatar (string) (obrigatório)
+    - item_id (uuid) (obrigatório)
+    - name (string) (obrigatório)
+    - cost (number maior igual a 0) (obrigatório)
+    - rating (integer de 1 a 5)
+    - restaurant_id (uuid) (obrigatório)
+    - avatar (string) (obrigatório)
 
 
 
 6. DELETE(items/:item_id)
 
-Retorna o item.
+    Retorna o item.
 
-Params:
+    Params:
 
-- item_id (uuid) (obrigatório)
+    - item_id (uuid) (obrigatório)
 
 
 
 7. GET(items/:restaurant_id/me)
 
-Retorna os items de um restaurante.
+    Retorna os items de um restaurante.
 
-Params:
+    Params:
 
-- restaurante (uuid) (obrigatório)
+    - restaurante (uuid) (obrigatório)
 
 
 
 #### Restaurantes
 
-1. GET(restaurants/types)
+    1. GET(restaurants/types)
 
-Retorna todas as categorias dos restaurantes cadastrados.
+    Retorna todas as categorias dos restaurantes cadastrados.
 
 
 
 2. POST(restaurants/)
 
-Cria um restaurante.
+    Cria um restaurante.
 
-Body (JSON):
+    Body (JSON):
 
-- name (string) (obrigatório)
-- street (string) (obrigatório)
-- street_number (integer maior igual a 0) (obrigatório)
-- city (string) (obrigatório)
-- state (string) (obrigatório)
-- cost (number maior igual a 0) (obrigatório)
-- type (string) (obrigatório)
+    - name (string) (obrigatório)
+    - street (string) (obrigatório)
+    - street_number (integer maior igual a 0) (obrigatório)
+    - city (string) (obrigatório)
+    - state (string) (obrigatório)
+    - cost (number maior igual a 0) (obrigatório)
+    - type (string) (obrigatório)
 
 
 
 3. PUT(restaurants/)
 
-Atualiza um restaurante.
+    Atualiza um restaurante.
 
-Body (JSON):
+    Body (JSON):
 
-- restaurant_id (uuid) (obrigatório)
-- name (string) (obrigatório)
-- street (string) (obrigatório)
-- street_number (integer maior igual a 0) (obrigatório)
-- city (string) (obrigatório)
-- state (string) (obrigatório)
-- cost (number maior igual a 0) (obrigatório)
-- rating (integer de 1 a 5) (obrigatório)
-- type (string) (obrigatório)
+    - restaurant_id (uuid) (obrigatório)
+    - name (string) (obrigatório)
+    - street (string) (obrigatório)
+    - street_number (integer maior igual a 0) (obrigatório)
+    - city (string) (obrigatório)
+    - state (string) (obrigatório)
+    - cost (number maior igual a 0) (obrigatório)
+    - rating (integer de 1 a 5) (obrigatório)
+    - type (string) (obrigatório)
 
 
 
 4. GET(restaurants/all)
 
-Retorna todos os restaurantes que possuem os requisitos pesquisados.
+    Retorna todos os restaurantes que possuem os requisitos pesquisados.
 
-Query:
+    Query:
 
-- name (string)
-- street (string)
-- street_number (integer maior igual a 0)
-- city (string)
-- state (string)
-- cost (number maior igual a 0)
-- rating (integer de 1 a 5)
-- type (string)
-- radius (number maior igual a 0)
-- lat (number)
-- lng (number)
-- city_for_geo (string)
+    - name (string)
+    - street (string)
+    - street_number (integer maior igual a 0)
+    - city (string)
+    - state (string)
+    - cost (number maior igual a 0)
+    - rating (integer de 1 a 5)
+    - type (string)
+    - radius (number maior igual a 0)
+    - lat (number)
+    - lng (number)
+    - city_for_geo (string)
 
 
 
 5. GET(restaurants/:restaurant_id)
 
-Retorna um restaurante.
+    Retorna um restaurante.
 
-Params:
+    Params:
 
-- restaurant_id (uuid)
+    - restaurant_id (uuid)
 
 
 
 6. DELETE(restaurants/:restaurant_id)
 
-Deleta um restaurante.
+    Deleta um restaurante.
 
-Params:
+    Params:
 
-- restaurant_id (uuid)
+    - restaurant_id (uuid)
 
 
 
