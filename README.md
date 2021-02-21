@@ -21,7 +21,7 @@ Depois de clonar e baixar o projeto, excute o comando:
 cp .env.example .env
 ```
 
-Então, abra o terminal de comando na pasta do projeto, e execute:
+Então, execute:
 
 ```
 docker-compose up --build -d
@@ -104,18 +104,17 @@ A resposta deverá ser o seguinte JSON:
     }
     ```
 
-    ```
-    Parâmetro     | Tipo    |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    name          | string  |  Nome do item (obrigatório)
-    street        | string  |  Rua para definição de geolocalização do restaurante (obrigatório)
-    street_number | string  |  Numero da rua para definição de geolocalização do restaurante (obrigatório)
-    city          | string  |  Cidade para definição de geolocalização do restaurante (obrigatório)
-    state         | string  |  Estado para definição de geolocalização do restaurante (obrigatório)
-    rating        | integer |  Avaliação do item (de 1 a 5) (obrigatório)
-    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
-    avatar        | string  | Posição para pesquisa (obrigatório)
-    ```
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+name | string | Nome do item (obrigatório)
+street | string | Rua para definição de geolocalização do restaurante (obrigatório)
+street_number | string | Numero da rua para definição de geolocalização do restaurante (obrigatório)
+city | string | Cidade para definição de geolocalização do restaurante (obrigatório)
+state | string | Estado para definição de geolocalização do restaurante (obrigatório)
+rating | integer | Avaliação do item (de 1 a 5) (obrigatório)
+cost | number | Custo do item (maior igual a 0) (obrigatório)
+avatar | string | Posição para pesquisa (obrigatório)
+
 
 
 
@@ -143,19 +142,17 @@ A resposta deverá ser o seguinte JSON:
     }
     ```
 
-    ```
-    Parâmetro     | Tipo    |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    retaurant_id  | uuid    |  Identificação do restaurante (obrigatório)
-    name          | string  |  Nome do item (obrigatório)
-    street        | string  |  Rua para definição de geolocalização do restaurante (obrigatório)
-    street_number | string  |  Numero da rua para definição de geolocalização do restaurante (obrigatório)
-    city          | string  |  Cidade para definição de geolocalização do restaurante (obrigatório)
-    state         | string  |  Estado para definição de geolocalização do restaurante (obrigatório)
-    rating        | integer |  Avaliação do item (de 1 a 5) (obrigatório)
-    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
-    type          | string  |  Tipo de cozinha do restaurante (obrigatório)
-    ```
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+retaurant_id | uuid | Identificação do restaurante (obrigatório)
+name | string | Nome do item (obrigatório)
+street | string | Rua para definição de geolocalização do restaurante (obrigatório)
+street_number | string | Numero da rua para definição de geolocalização do restaurante (obrigatório)
+city | string | Cidade para definição de geolocalização do restaurante (obrigatório)
+state | string | Estado para definição de geolocalização do restaurante (obrigatório)
+rating | integer | Avaliação do item (de 1 a 5) (obrigatório)
+cost | number | Custo do item (maior igual a 0) (obrigatório)
+type | string | Tipo de cozinha do restaurante (obrigatório)
 
 
 * GET api/v1/restaurants
@@ -168,21 +165,21 @@ A resposta deverá ser o seguinte JSON:
     api/v1/restaurants?name=XXXXX?street=XXXXXXXXXX (...)
     ```
 
-    ```
-    Parâmetro     | Tipo    |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    name          | string  |  Nome do item
-    street        | string  |  Rua para definição de geolocalização do restaurante
-    street_number | string  |  Numero da rua para definição de geolocalização do restaurante
-    city          | string  |  Cidade para definição de geolocalização do restaurante
-    state         | string  |  Estado para definição de geolocalização do restaurante
-    rating        | integer |  Avaliação do item (de 1 a 5)
-    cost          | number  |  Custo do item (maior igual a 0)
-    type          | string  |  Tipo de cozinha do restaurante
-    radius        | number  |  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-    lat           | number  |  Posição para pesquisa
-    lng           | number  |  Posição para pesquisa
-    ```
+
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+name | string | Nome do item
+street | string | Rua para definição de geolocalização do restaurante
+street_number | string | Numero da rua para definição de geolocalização do restaurante
+city | string | Cidade para definição de geolocalização do restaurante
+state | string | Estado para definição de geolocalização do restaurante
+rating | integer | Avaliação do item (de 1 a 5)
+cost | number | Custo do item (maior igual a 0)
+type | string | Tipo de cozinha do restaurante
+radius | number | Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+lat | number | Posição para pesquisa
+lng | number | Posição para pesquisa
+
 
 
 * GET api/v1/restaurants/{restaurant_id}
@@ -195,11 +192,10 @@ A resposta deverá ser o seguinte JSON:
     api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
     ```
 
-    ```
-    Parâmetro     |  Tipo  |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    retaurant_id  |  uuid  |  Identificação do restaurante (obrigatório)
-    ```
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+retaurant_id | uuid | Identificação do restaurante (obrigatório)
+
 
 
 * DELETE api/v1/restaurants/{restaurant_id}
@@ -212,13 +208,13 @@ A resposta deverá ser o seguinte JSON:
     api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
     ```
 
-    ```
-    Parâmetro     |  Tipo   |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    retaurant_id  |  uuid   |  Identificação do restaurante (obrigatório)
-    ```
 
-    * GET api/v1/restaurants/related
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+retaurant_id | uuid | Identificação do restaurante (obrigatório)
+
+
+  * GET api/v1/restaurants/related
 
     Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
 
@@ -228,19 +224,18 @@ A resposta deverá ser o seguinte JSON:
     api/v1/restaurants/related?name=XXXXX?street=XXXXXXXXX(...)
     ```
 
-    ```
-    Parâmetro     |  Tipo   |  Descrição
-    ----------------------------------------------------------------------------------------------------
-    name          | string  |  Nome do item
-    rating        | integer |  Avaliação do item (de 1 a 5)
-    cost          | number	|  Custo do item (maior igual a 0)
-    less_than     | number  |  Parâmetro para comparação do custo do item
-    greater_than  | number  |  Parâmetro para comparação do custo do item
-    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence
-    radius        | number  |  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-    lat           | number  |  Posição para pesquisa
-    lng           | number  |  Posição para pesquisa
-    ```
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+name | string | Nome do item
+rating | integer | Avaliação do item (de 1 a 5)
+cost | number | Custo do item (maior igual a 0)
+less_than | number | Parâmetro para comparação do custo do item
+greater_than | number | Parâmetro para comparação do custo do item
+retaurant_id | uuid | Identificação do restaurante ao qual o item pertence
+radius | number | Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+lat | number | Posição para pesquisa
+lng | number | Posição para pesquisa
+
 
 
 #### Itens
@@ -255,19 +250,18 @@ A resposta deverá ser o seguinte JSON:
     api/v1/items?name=XXXXX?street=XXXXXXXXX(...)
     ```
 
-    ```
-    Parâmetro     | Tipo    |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    name          | string  |  Nome do item
-    rating        | integer |  Avaliação do item (de 1 a 5)
-    cost          | number  |  Custo do item (maior igual a 0)
-    less_than     | number  |  Parâmetro para comparação do custo do item
-    greater_than  | number  |  Parâmetro para comparação do custo do item
-    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence
-    radius        | number  |  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-    lat           | number  |  Posição para pesquisa
-    lng           | number  |  Posição para pesquisa
-    ```
+Parâmetro | Tipo |  Descrição
+------------- | ------------- | -------------
+name | string | Nome do item
+rating | integer | Avaliação do item (de 1 a 5)
+cost | number | Custo do item (maior igual a 0)
+less_than | number | Parâmetro para comparação do custo do item
+greater_than | number | Parâmetro para comparação do custo do item
+retaurant_id | uuid | Identificação do restaurante ao qual o item pertence
+radius | number | Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+lat | number | Posição para pesquisa
+lng | number | Posição para pesquisa
+
 
 
 * POST api/v1/items
@@ -289,14 +283,12 @@ A resposta deverá ser o seguinte JSON:
     }
     ```
 
-    ```
-    Parâmetro     | Tipo    |  Descrição
-    ---------------------------------------------------------------------------------------------
-    name          | string  |  Nome do item (obrigatório)
-    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
-    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence (obrigatório)
-    avatar        | string  |  Posição para pesquisa (obrigatório)
-    ```
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+name | string | Nome do item (obrigatório)
+cost | number | Custo do item (maior igual a 0) (obrigatório)
+retaurant_id | uuid | Identificação do restaurante ao qual o item pertence (obrigatório)
+avatar | string | Posição para pesquisa (obrigatório)
 
 
 
@@ -310,11 +302,10 @@ A resposta deverá ser o seguinte JSON:
     api/v1/items/123nbjb-1b2jk3bjk-jb12312
     ```
 
-    ```
-    Parâmetro	    |  Tipo	  |  Descrição
-    --------------------------------------------------------------------------------
-    item_id       |  uuid   |  Número unico de identificação do item (obrigatório)
-    ```
+    Parâmetro | Tipo | Descrição
+    ------------- | ------------- | -------------
+    item_id | uuid | Número unico de identificação do item (obrigatório)
+
 
 
 * POST api/v1/items/
@@ -338,16 +329,16 @@ A resposta deverá ser o seguinte JSON:
     }
     ```
 
-    ```
-    Parâmetro     | Tipo    |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    item_id       | uuid    |  Número unico de identificação do item (obrigatório)
-    name          | string  |  Nome do item (obrigatório)
-    rating        | integer |  Avaliação do item (de 1 a 5) (obrigatório)
-    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
-    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence (obrigatório)
-    avatar        | string  |  Posição para pesquisa (obrigatório)
-    ```
+
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+item_id| uuid | Número unico de identificação do item (obrigatório)
+name | string | Nome do item (obrigatório)
+rating | integer | Avaliação do item (de 1 a 5) (obrigatório)
+cost | number | Custo do item (maior igual a 0) (obrigatório)
+retaurant_id | uuid | Identificação do restaurante ao qual o item pertence (obrigatório)
+avatar | string | Posição para pesquisa (obrigatório)
+
 
 
 
@@ -361,11 +352,10 @@ A resposta deverá ser o seguinte JSON:
     api/v1/items/123nbjb-1b2jk3bjk-jb12312
     ```
 
-    ```
-    Parâmetro	    |  Tipo	  |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    item_id       |  uuid   |  Número unico de identificação do item (obrigatório)
-    ```
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+item_id | uuid | Número unico de identificação do item (obrigatório)
+
 
 
 
@@ -379,11 +369,11 @@ A resposta deverá ser o seguinte JSON:
     api/v1/items/123nbjb-1b2jk3bjk-jb12312/me
     ```
 
-    ```
-    Parâmetro     |  Tipo   |  Descrição
-    ---------------------------------------------------------------------------------------------------
-    restaurant_id |  uuid   |  Número unico de identificação do restaurante (obrigatório)
-    ```
+
+Parâmetro | Tipo | Descrição
+------------- | ------------- | -------------
+restaurant_id | uuid | Número unico de identificação do restaurante (obrigatório)
+
 
 ## Executando testes
 
