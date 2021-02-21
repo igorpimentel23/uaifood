@@ -76,8 +76,9 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/restaurants/types
-
+    ```
 
 
 * POST api/v1/restaurants/
@@ -86,8 +87,11 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/restaurants/
-
+    ```
+    
+    ```
     {
       name: "Restaurante",
       street "Rua Exemplo",
@@ -98,7 +102,9 @@ A resposta deverá ser o seguinte JSON:
       cost: 80,
       avatar: "http://www.exemplo.com/avatar.jpg",,
     }
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     name	        | string	|  Nome do item (obrigatório)
@@ -109,7 +115,7 @@ A resposta deverá ser o seguinte JSON:
     rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
     cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
     avatar        | string	|  Posição para pesquisa (obrigatório)
-
+    ```
 
 
 
@@ -119,8 +125,11 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/restaurants/
-
+    ```
+    
+    ```
     {
       retaurant_id: "123nbjb-1b2jk3bjk-jb12312",
       name: "Restaurant",
@@ -132,7 +141,9 @@ A resposta deverá ser o seguinte JSON:
       cost: 90,
       type: "Japonesa",
     }
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
@@ -144,7 +155,7 @@ A resposta deverá ser o seguinte JSON:
     rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
     cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
     type          | string	|  Tipo de cozinha do restaurante (obrigatório)
-
+    ```
 
 
 * GET api/v1/restaurants/all
@@ -153,8 +164,11 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/restaurants/all?name=XXXXX?street=XXXXXXXXXX (...)
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     name	        | string	|  Nome do item
@@ -168,7 +182,7 @@ A resposta deverá ser o seguinte JSON:
     radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
     lat	          | number	|  Posição para pesquisa
     lng	          | number	|  Posição para pesquisa
-
+    ```
 
 
 * GET api/v1/restaurants/:restaurant_id
@@ -176,13 +190,16 @@ A resposta deverá ser o seguinte JSON:
     Retorna um restaurante.
 
     Exemplo:
-
+    
+    ```
     api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
-
+    ```
 
 
 * DELETE(api/v1/restaurants/:restaurant_id)
@@ -190,13 +207,17 @@ A resposta deverá ser o seguinte JSON:
     Deleta um restaurante.
 
     Exemplo:
-
+    
+    ```
     api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
-
+    ```
+    
 #### Itens
 
 * GET api/v1/items/restaurants
@@ -204,9 +225,12 @@ A resposta deverá ser o seguinte JSON:
     Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
 
     Exemplo:
-
+    
+    ```
     api/v1/items/restaurants?name=XXXXX?street=XXXXXXXXX(...)
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ----------------------------------------------------------------------------------------------------
     name	        | string	|  Nome do item
@@ -218,8 +242,8 @@ A resposta deverá ser o seguinte JSON:
     radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
     lat	          | number	|  Posição para pesquisa
     lng	          | number	|  Posição para pesquisa
-
-
+    ```
+  
 
 
 * GET api/v1/items/all
@@ -227,9 +251,12 @@ A resposta deverá ser o seguinte JSON:
     Retorna todos os itens que possuem os requisitos pesquisados.
 
     Exemplo:
-
+    
+    ```
     api/v1/items/all?name=XXXXX?street=XXXXXXXXX(...)
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     name	        | string	|  Nome do item
@@ -241,7 +268,7 @@ A resposta deverá ser o seguinte JSON:
     radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
     lat	          | number	|  Posição para pesquisa
     lng	          | number	|  Posição para pesquisa
-
+    ```
 
 
 * POST api/v1/items/
@@ -250,22 +277,27 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/items
-
+    ```
+    
+    ```
     {
       name: "Restaurante",
       cost: 50,
       restaurant_id: "123nbjb-1b2jk3bjk-jb12312",
       avatar: "http://www.exemplo.com/avatar.jpg"
     }
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------
     name	        | string	|  Nome do item (obrigatório)
     cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
     retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence (obrigatório)
     avatar        | string	|  Posição para pesquisa (obrigatório)
-
+    ```
 
 
 
@@ -275,12 +307,15 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/items/123nbjb-1b2jk3bjk-jb12312
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     --------------------------------------------------------------------------------
     item_id       | uuid  	|  Número unico de identificação do item (obrigatório)
-
+    ```
 
 
 * POST api/v1/items/
@@ -289,8 +324,11 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/items/
-
+    ```
+    
+    ```
     {
       item_id: "123nbjb-1b2jk3bjk-jb12312",
       name: "Strogonoff",
@@ -299,7 +337,9 @@ A resposta deverá ser o seguinte JSON:
       restaurant_id: "123nbjb-1b2jk3bjk-jb12312",
       avatar: "http://www.exemplo.com/avatar.jpg",
     }
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     item_id       | uuid  	|  Número unico de identificação do item (obrigatório)
@@ -308,7 +348,7 @@ A resposta deverá ser o seguinte JSON:
     cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
     retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence (obrigatório)
     avatar        | string	|  Posição para pesquisa (obrigatório)
-
+    ```
 
 
 
@@ -318,12 +358,15 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/items/123nbjb-1b2jk3bjk-jb12312
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     item_id       |  uuid	  |  Número unico de identificação do item (obrigatório)
-
+    ```
 
 
 
@@ -333,12 +376,15 @@ A resposta deverá ser o seguinte JSON:
 
     Exemplo:
 
+    ```
     api/v1/items/123nbjb-1b2jk3bjk-jb12312/me
-
+    ```
+    
+    ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
     restaurant_id |  uuid  	|  Número unico de identificação do restaurante (obrigatório)
-
+    ```
 
 ## Executando testes
 
