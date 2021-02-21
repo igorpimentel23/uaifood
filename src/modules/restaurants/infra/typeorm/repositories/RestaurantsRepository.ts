@@ -20,6 +20,16 @@ class RestaurantsRepository implements IRestaurantsRepository {
     this.ormRepository = getRepository(Restaurant);
   }
 
+  public async findCategories(): Promise<Restaurant[] | undefined> {
+    const queryBuilder = await this.ormRepository
+      .createQueryBuilder('restaurants')
+      .select('type')
+      .distinct(true)
+      .execute();
+
+    return queryBuilder;
+  }
+
   public async findById(id: string): Promise<Restaurant | undefined> {
     const findRestaurant = await this.ormRepository.findOne({
       where: { id },
@@ -51,6 +61,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
     street_number,
     city,
     state,
+    rating,
     cost,
     type,
   }: IUpdateRestaurantDTO): Promise<Restaurant> {
@@ -61,6 +72,7 @@ class RestaurantsRepository implements IRestaurantsRepository {
       street_number,
       city,
       state,
+      rating,
       cost,
       type,
     });

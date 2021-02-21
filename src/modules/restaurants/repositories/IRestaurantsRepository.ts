@@ -16,4 +16,5 @@ export default interface IRestaurantsRepository {
     restaurant_id?: string,
   ): Promise<Restaurant | undefined>;
   findById(id: string): Promise<Restaurant | undefined>;
+  findCategories(): Promise<Restaurant[] | undefined>;
 }

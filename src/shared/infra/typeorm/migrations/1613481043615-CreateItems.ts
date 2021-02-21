@@ -26,6 +26,7 @@ export default class CreateItems1613481043615 implements MigrationInterface {
             name: 'rating',
             type: 'integer',
             isNullable: true,
+            default: 1,
           },
           {
             name: 'cost',

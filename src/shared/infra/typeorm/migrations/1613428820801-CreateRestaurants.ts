@@ -55,7 +55,7 @@ export default class CreateRestaurants1613428820801
             name: 'rating',
             type: 'integer',
             isNullable: true,
-            default: 0,
+            default: 1,
           },
           {
             name: 'cost',

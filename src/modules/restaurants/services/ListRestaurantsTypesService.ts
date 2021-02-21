@@ -31,51 +31,10 @@ class ShowRestaurantService {
     private positionProvider: IPositionProvider,
   ) {}
 
-  public async execute({
-    name = null,
-    street = null,
-    street_number = null,
-    city = null,
-    state = null,
-    cost = null,
-    greater_than = null,
-    less_than = null,
-    rating = null,
-    type = null,
-    radius = null,
-    lat = null,
-    lng = null,
-    city_for_geo = null,
-  }: IRequest): Promise<Restaurant[]> {
-    let latitude = lat;
-    let longitude = lng;
+  public async execute(): Promise<Restaurant[] | undefined> {
+    const categories = await this.restaurantsRepository.findCategories();
 
-    if (city_for_geo) {
-      const coord = await this.positionProvider.getCoord({
-        city: city_for_geo,
-      });
-      if (coord) {
-        [latitude, longitude] = coord;
-      }
-    }
-
-    const findRestaurants = await this.restaurantsRepository.index({
-      name,
-      street,
-      street_number,
-      city,
-      state,
-      cost,
-      greater_than,
-      less_than,
-      rating,
-      type,
-      radius,
-      lat: latitude,
-      lng: longitude,
-    });
-
-    return findRestaurants;
+    return categories;
   }
 }
 

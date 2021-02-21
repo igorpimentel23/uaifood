@@ -6,6 +6,7 @@ import DeleteRestaurantService from '@modules/restaurants/services/DeleteRestaur
 import UpdateRestaurantService from '@modules/restaurants/services/UpdateRestaurantService';
 import ShowRestaurantService from '@modules/restaurants/services/ShowRestaurantService';
 import ListRestaurantsService from '@modules/restaurants/services/ListRestaurantsService';
+import ListRestaurantsTypesService from '@modules/restaurants/services/ListRestaurantsTypesService';
 
 export default class RestaurantController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -23,6 +24,7 @@ export default class RestaurantController {
       radius,
       lat,
       lng,
+      city_for_geo,
     } = request.query;
 
     let query = {};
@@ -67,16 +69,18 @@ export default class RestaurantController {
       query = { ...query, type: String(type) };
     }
 
-    if (radius) {
-      query = { ...query, radius: Number(radius) };
-    }
-
     if (lat) {
       query = { ...query, lat: Number(lat) };
     }
 
     if (lng) {
       query = { ...query, lng: Number(lng) };
+    }
+
+    if (city_for_geo) {
+      query = { ...query, city_for_geo, radius: 30 };
+    } else if (radius) {
+      query = { ...query, radius: Number(radius) };
     }
 
     const listRestaurants = container.resolve(ListRestaurantsService);
@@ -164,5 +168,13 @@ export default class RestaurantController {
     });
 
     return response.json('Restaurant deleted');
+  }
+
+  public async types(request: Request, response: Response): Promise<Response> {
+    const getTypes = container.resolve(ListRestaurantsTypesService);
+
+    const types = await getTypes.execute();
+
+    return response.json(types);
   }
 }

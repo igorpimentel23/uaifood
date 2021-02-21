@@ -6,6 +6,8 @@ import RestaurantsController from '@modules/restaurants/infra/http/controllers/R
 const restaurantsRouter = Router();
 const restaurantsController = new RestaurantsController();
 
+restaurantsRouter.get('/types', restaurantsController.types);
+
 restaurantsRouter.post(
   '/',
   celebrate({
@@ -33,7 +35,7 @@ restaurantsRouter.put(
       city: Joi.string().required(),
       state: Joi.string().required(),
       cost: Joi.number().min(0).required(),
-      rating: Joi.number().integer().min(0).max(5),
+      rating: Joi.number().integer().min(1).max(5),
       type: Joi.string().required(),
     },
   }),
@@ -50,11 +52,12 @@ restaurantsRouter.get(
       city: Joi.string(),
       state: Joi.string(),
       cost: Joi.number().min(0),
-      rating: Joi.number().integer().min(0).max(5),
+      rating: Joi.number().integer().min(1).max(5),
       type: Joi.string(),
       radius: Joi.number().min(0),
       lat: Joi.number(),
       lng: Joi.number(),
+      city_for_geo: Joi.string(),
     },
   }),
   restaurantsController.index,
