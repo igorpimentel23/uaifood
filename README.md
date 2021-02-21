@@ -4,22 +4,27 @@ API em NodeJS para cadastro, alteração, atualização e consulta de restaurant
 
 ## Começando
 
-Estas instruções te darão uma cópia do projeto pronta para rodar na sua máquina local para propositos de testes.
+Estas instruções te darão uma cópia do projeto pronta para rodar na sua máquina local para propósitos de testes.
 
 ### Pré-requisitos
 
-Para a instalação do projeto, é necessário que o Docker Compose esteja instalado na máquina.
+Para a instalação do projeto, é necessário que o Docker e Docker Compose esteja instalado na máquina.
 
+[Docker](https://docs.docker.com/get-docker/)
 [Docker Compose](https://docs.docker.com/compose/install/)
 
 ### Instalando
 
-Depois de clonar e baixar o projeto, crie um arquivo .env na raiz do projeto e utilizar as informações do arquivo .env.example.
+Depois de clonar e baixar o projeto, excute o comando:
+
+```
+cp .env.example .env
+```
 
 Então, abra o terminal de comando na pasta do projeto, e execute:
 
 ```
-docker-compose up build -d
+docker-compose up --build -d
 ```
 
 Após o término, para verificar se os containers foram construidos com sucesso, executar o comando:
@@ -32,9 +37,9 @@ Os seguintes dados devem aparecer:
 
 ```
 CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                    NAMES
-2418232d34ad        uaifood_uaifood          "docker-entrypoint.s…"   4 minutes ago       Up 3 minutes        0.0.0.0:80->80/tcp       uaifood.web
-01ddb76b9dc5        postgis/postgis          "docker-entrypoint.s…"   18 hours ago        Up 4 minutes        0.0.0.0:5432->5432/tcp   uaifood.postgres
-6ad03c795ee3        redis:6-alpine           "docker-entrypoint.s…"   18 hours ago        Up 4 minutes        0.0.0.0:6379->6379/tcp   uaifood.redis
+xxxxxxxxxxxx        uaifood_uaifood          "docker-entrypoint.s…"   4 minutes ago       Up 3 minutes        0.0.0.0:80->80/tcp       uaifood.web
+yyyyyyyyyyyy        postgis/postgis          "docker-entrypoint.s…"   18 hours ago        Up 4 minutes        0.0.0.0:5432->5432/tcp   uaifood.postgres
+zzzzzzzzzzzz        redis:6-alpine           "docker-entrypoint.s…"   18 hours ago        Up 4 minutes        0.0.0.0:6379->6379/tcp   uaifood.redis
 ```
 
 Feito isso, para a instalação das migrations, executar:
@@ -49,7 +54,7 @@ e em seguida:
 yarn typeorm migration:run
 ```
 
-Para verificar se o projeto está rodando perfeitamente, acesse:
+Para verificar se o projeto está rodando perfeitamente, acesse no navegador:
 
 ```
 http://0.0.0.0/items/all
@@ -62,7 +67,7 @@ A resposta deverá ser um array vazio
 // http://0.0.0.0/items/all
 
 [
-  
+
 ]
 ```
 
