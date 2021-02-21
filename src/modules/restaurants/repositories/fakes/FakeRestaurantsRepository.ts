@@ -9,6 +9,16 @@ import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 class RestaurantsRepository implements IRestaurantsRepository {
   private restaurants: Restaurant[] = [];
 
+  public async findCategories(): Promise<Restaurant[] | undefined> {
+    const categories = this.restaurants.map(restaurant => {
+      let objRestaurant = {} as Restaurant;
+      objRestaurant = { ...objRestaurant, type: restaurant.type };
+      return objRestaurant;
+    });
+
+    return categories;
+  }
+
   public async findById(id: string): Promise<Restaurant | undefined> {
     const findRestaurant = this.restaurants.find(
       restaurant => restaurant.id === id,

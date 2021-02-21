@@ -22,7 +22,10 @@ describe('ListRestaurants', () => {
       fakeCacheProvider,
     );
 
-    listRestaurants = new ListRestaurantsService(fakeRestaurantsRepository);
+    listRestaurants = new ListRestaurantsService(
+      fakeRestaurantsRepository,
+      fakePositionProvider,
+    );
   });
 
   it('should be able to list all the restaurants with all the attributes searched in common', async () => {
@@ -56,6 +59,8 @@ describe('ListRestaurants', () => {
       type: 'Japanese',
     });
 
+    await listRestaurants.execute({ city_for_geo: 'city_wrong' });
+    await listRestaurants.execute({ city_for_geo: 'city' });
     const list = await listRestaurants.execute({ type: 'Italian', cost: 20 });
 
     expect(list).toEqual([restaurant, restaurant2]);

@@ -12,6 +12,75 @@ class ItemsRepository implements IItemsRepository {
     this.ormRepository = getRepository(Item);
   }
 
+  public async findRestaurants({
+    name = null,
+    rating = null,
+    cost = null,
+    greater_than = null,
+    less_than = null,
+    radius = null,
+    lat = null,
+    lng = null,
+  }: IListItemDTO): Promise<Item[] | undefined> {
+    let query = '';
+
+    if (name) {
+      query += `items.name LIKE '%${name}%' `;
+    }
+
+    if (rating) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.rating = ${rating} `;
+    }
+
+    if (cost) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.cost = ${cost} `;
+    }
+
+    if (greater_than) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.cost <= ${greater_than} `;
+    }
+
+    if (less_than) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.cost >= ${less_than} `;
+    }
+
+    if (radius && lat && lng) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `ST_Distance(items.geolocation, ST_MakePoint(${lng}, ${lat})) < ${
+        radius * 1000
+      }`;
+    }
+
+    if (query) {
+      query += 'AND ';
+    }
+
+    const queryBuilder = await this.ormRepository.query(
+      `SELECT * FROM items INNER JOIN restaurants ON (${query}items.restaurant_id = restaurants.id)`,
+    );
+
+    return queryBuilder;
+  }
+
   public async findById(id: string): Promise<Item | undefined> {
     const findItem = await this.ormRepository.findOne({
       where: { id },
@@ -119,13 +188,14 @@ class ItemsRepository implements IItemsRepository {
 
     if (cost) {
       query = { ...query, cost };
-    } else {
-      if (greater_than) {
-        query = { ...query, cost: MoreThanOrEqual(greater_than) };
-      }
-      if (less_than) {
-        query = { ...query, cost: MoreThanOrEqual(less_than) };
-      }
+    }
+
+    if (greater_than) {
+      query = { ...query, cost: MoreThanOrEqual(greater_than) };
+    }
+
+    if (less_than) {
+      query = { ...query, cost: MoreThanOrEqual(less_than) };
     }
 
     if (restaurant_id) {
@@ -144,11 +214,6 @@ class ItemsRepository implements IItemsRepository {
     }
 
     const items = await queryBuilder.getMany();
-
-    /* const items = await this.ormRepository.find({
-      where: [query],
-      relations: ['restaurant'],
-    }); */
 
     return items;
   }

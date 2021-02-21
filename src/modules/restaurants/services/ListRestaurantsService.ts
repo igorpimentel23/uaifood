@@ -22,7 +22,7 @@ interface IRequest {
 }
 
 @injectable()
-class ShowRestaurantService {
+class ListRestaurantsService {
   constructor(
     @inject('RestaurantsRepository')
     private restaurantsRepository: IRestaurantsRepository,
@@ -79,4 +79,4 @@ class ShowRestaurantService {
   }
 }
 
-export default ShowRestaurantService;
+export default ListRestaurantsService;

@@ -14,11 +14,13 @@ export default class FakePositionProvider implements IPositionProvider {
     city,
     state,
   }: AddressProps): Promise<number[] | null> {
-    if (street || street_number || city || state) {
-      if (state === 'far') {
-        return [-26.101944, -51.159222];
+    if (city !== 'city_wrong') {
+      if (street || street_number || city || state) {
+        if (state === 'far') {
+          return [-26.101944, -51.159222];
+        }
+        return [-25.101944, -50.159222];
       }
-      return [-25.101944, -50.159222];
     }
     return null;
   }
