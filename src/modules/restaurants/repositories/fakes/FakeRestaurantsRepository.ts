@@ -4,10 +4,55 @@ import IRestaurantsRepository from '@modules/restaurants/repositories/IRestauran
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
 import IUpdateRestaurantDTO from '@modules/restaurants/dtos/IUpdateRestaurantDTO';
 import IListRestaurantDTO from '@modules/restaurants/dtos/IListRestaurantDTO';
+import IListItemDTO from '@modules/items/dtos/IListItemDTO';
 import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
+import Item from '@modules/items/infra/typeorm/entities/Item';
 
 class RestaurantsRepository implements IRestaurantsRepository {
   private restaurants: Restaurant[] = [];
+
+  private items: Item[] = [];
+
+  public async findRestaurants({
+    name = null,
+    rating = null,
+    cost = null,
+    greater_than = null,
+    less_than = null,
+    radius = null,
+    lat = null,
+    lng = null,
+  }: IListItemDTO): Promise<Restaurant[] | undefined> {
+    const findItems = this.items.filter(
+      item =>
+        (name ? item.name.includes(name) : true) &&
+        (rating ? item.rating === rating : true) &&
+        (cost ? item.cost === cost : true) &&
+        (greater_than ? item.cost <= greater_than : true) &&
+        (less_than ? item.cost >= less_than : true) &&
+        (radius && lat && lng
+          ? this.getDistanceFromLatLonInKm(
+              item.restaurant.lat,
+              item.restaurant.lng,
+              lat,
+              lng,
+            ) <= radius
+          : true),
+    );
+
+    const itemsRestaurants = findItems.map(item => {
+      let objItem = {} as Restaurant;
+      objItem = {
+        ...objItem,
+        id: item.restaurant.id,
+        lat: item.restaurant.lat,
+        lng: item.restaurant.lng,
+      };
+      return objItem;
+    });
+
+    return itemsRestaurants;
+  }
 
   public async findCategories(): Promise<Restaurant[] | undefined> {
     const categories = this.restaurants.map(restaurant => {

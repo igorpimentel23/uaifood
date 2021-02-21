@@ -90,7 +90,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/restaurants/
     ```
-    
+
     ```
     {
       name: "Restaurante",
@@ -103,7 +103,7 @@ A resposta deverá ser o seguinte JSON:
       avatar: "http://www.exemplo.com/avatar.jpg",,
     }
     ```
-    
+
     ```
     Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -128,7 +128,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/restaurants/
     ```
-    
+
     ```
     {
       retaurant_id: "123nbjb-1b2jk3bjk-jb12312",
@@ -142,7 +142,7 @@ A resposta deverá ser o seguinte JSON:
       type: "Japonesa",
     }
     ```
-    
+
     ```
     Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -158,16 +158,16 @@ A resposta deverá ser o seguinte JSON:
     ```
 
 
-* GET api/v1/restaurants/all
+* GET api/v1/restaurants
 
     Retorna todos os restaurantes que possuem os requisitos pesquisados.
 
     Exemplo:
 
     ```
-    api/v1/restaurants/all?name=XXXXX?street=XXXXXXXXXX (...)
+    api/v1/restaurants?name=XXXXX?street=XXXXXXXXXX (...)
     ```
-    
+
     ```
     Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -185,16 +185,16 @@ A resposta deverá ser o seguinte JSON:
     ```
 
 
-* GET api/v1/restaurants/:restaurant_id
+* GET api/v1/restaurants/{restaurant_id}
 
     Retorna um restaurante.
 
     Exemplo:
-    
+
     ```
     api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
     ```
-    
+
     ```
     Parâmetro     |  Tipo  |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -202,34 +202,32 @@ A resposta deverá ser o seguinte JSON:
     ```
 
 
-* DELETE(api/v1/restaurants/:restaurant_id)
+* DELETE api/v1/restaurants/{restaurant_id}
 
     Deleta um restaurante.
 
     Exemplo:
-    
+
     ```
     api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
     ```
-    
+
     ```
     Parâmetro     |  Tipo   |  Descrição
     ---------------------------------------------------------------------------------------------------
     retaurant_id  |  uuid   |  Identificação do restaurante (obrigatório)
     ```
-    
-#### Itens
 
-* GET api/v1/items/restaurants
+    * GET api/v1/restaurants/related
 
     Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
 
     Exemplo:
-    
+
     ```
-    api/v1/items/restaurants?name=XXXXX?street=XXXXXXXXX(...)
+    api/v1/restaurants/related?name=XXXXX?street=XXXXXXXXX(...)
     ```
-    
+
     ```
     Parâmetro     |  Tipo   |  Descrição
     ----------------------------------------------------------------------------------------------------
@@ -243,19 +241,20 @@ A resposta deverá ser o seguinte JSON:
     lat           | number  |  Posição para pesquisa
     lng           | number  |  Posição para pesquisa
     ```
-  
 
 
-* GET api/v1/items/all
+#### Itens
+
+* GET api/v1/items
 
     Retorna todos os itens que possuem os requisitos pesquisados.
 
     Exemplo:
-    
+
     ```
-    api/v1/items/all?name=XXXXX?street=XXXXXXXXX(...)
+    api/v1/items?name=XXXXX?street=XXXXXXXXX(...)
     ```
-    
+
     ```
     Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -271,7 +270,7 @@ A resposta deverá ser o seguinte JSON:
     ```
 
 
-* POST api/v1/items/
+* POST api/v1/items
 
     Cria um item.
 
@@ -280,7 +279,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/items
     ```
-    
+
     ```
     {
       name: "Restaurante",
@@ -289,7 +288,7 @@ A resposta deverá ser o seguinte JSON:
       avatar: "http://www.exemplo.com/avatar.jpg"
     }
     ```
-    
+
     ```
     Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------
@@ -301,7 +300,7 @@ A resposta deverá ser o seguinte JSON:
 
 
 
-* GET api/v1/items/:item_id
+* GET api/v1/items/{item_id}
 
     Retorna o item.
 
@@ -310,7 +309,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/items/123nbjb-1b2jk3bjk-jb12312
     ```
-    
+
     ```
     Parâmetro	    |  Tipo	  |  Descrição
     --------------------------------------------------------------------------------
@@ -327,7 +326,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/items/
     ```
-    
+
     ```
     {
       item_id: "123nbjb-1b2jk3bjk-jb12312",
@@ -338,7 +337,7 @@ A resposta deverá ser o seguinte JSON:
       avatar: "http://www.exemplo.com/avatar.jpg",
     }
     ```
-    
+
     ```
     Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -352,7 +351,7 @@ A resposta deverá ser o seguinte JSON:
 
 
 
-* DELETE api/v1/items/:item_id
+* DELETE api/v1/items/{item_id}
 
     Deleta o item.
 
@@ -361,7 +360,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/items/123nbjb-1b2jk3bjk-jb12312
     ```
-    
+
     ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
@@ -370,7 +369,7 @@ A resposta deverá ser o seguinte JSON:
 
 
 
-* GET api/v1/items/:restaurant_id/me
+* GET api/v1/items/{restaurant_id}/me
 
     Retorna os items de um restaurante.
 
@@ -379,7 +378,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     api/v1/items/123nbjb-1b2jk3bjk-jb12312/me
     ```
-    
+
     ```
     Parâmetro     |  Tipo   |  Descrição
     ---------------------------------------------------------------------------------------------------

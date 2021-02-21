@@ -2,8 +2,8 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 import FakeRestaurantsRepository from '@modules/restaurants/repositories/fakes/FakeRestaurantsRepository';
 import CreateRestaurantService from '@modules/restaurants/services/CreateRestaurantService';
 import FakePositionProvider from '@shared/container/providers/PositionProvider/fakes/FakePositionProvider';
-import FakeItemsRepository from '../repositories/fakes/FakeItemsRepository';
-import CreateItemService from './CreateItemService';
+import CreateItemService from '@modules/items/services/CreateItemService';
+import FakeItemsRepository from '@modules/items/repositories/fakes/FakeItemsRepository';
 import ListItemsRestaurantsService from './ListItemsRestaurantsService';
 
 let fakeItemsRepository: FakeItemsRepository;
@@ -115,25 +115,19 @@ describe('ListItemsRestaurant', () => {
 
     expect(list).toEqual([
       {
-        restaurant: {
-          id: restaurant.id,
-          lat: String(restaurant.lat),
-          lng: String(restaurant.lng),
-        },
+        id: restaurant.id,
+        lat: String(restaurant.lat),
+        lng: String(restaurant.lng),
       },
       {
-        restaurant: {
-          id: restaurant.id,
-          lat: String(restaurant.lat),
-          lng: String(restaurant.lng),
-        },
+        id: restaurant.id,
+        lat: String(restaurant.lat),
+        lng: String(restaurant.lng),
       },
       {
-        restaurant: {
-          id: restaurant2.id,
-          lat: String(restaurant2.lat),
-          lng: String(restaurant2.lng),
-        },
+        id: restaurant2.id,
+        lat: String(restaurant2.lat),
+        lng: String(restaurant2.lng),
       },
     ]);
   });

@@ -8,6 +8,23 @@ const restaurantsController = new RestaurantsController();
 
 restaurantsRouter.get('/types', restaurantsController.types);
 
+restaurantsRouter.get(
+  '/related',
+  celebrate({
+    [Segments.QUERY]: {
+      name: Joi.string(),
+      rating: Joi.number().integer().min(1).max(5),
+      cost: Joi.number().min(0),
+      less_than: Joi.number(),
+      greater_than: Joi.number(),
+      radius: Joi.number().min(0),
+      lat: Joi.number(),
+      lng: Joi.number(),
+    },
+  }),
+  restaurantsController.findRestaurant,
+);
+
 restaurantsRouter.post(
   '/',
   celebrate({
@@ -43,7 +60,7 @@ restaurantsRouter.put(
 );
 
 restaurantsRouter.get(
-  '/all',
+  '/',
   celebrate({
     [Segments.QUERY]: {
       name: Joi.string(),

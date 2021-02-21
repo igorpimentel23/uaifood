@@ -9,42 +9,6 @@ import Item from '@modules/items/infra/typeorm/entities/Item';
 class ItemsRepository implements IItemsRepository {
   private items: Item[] = [];
 
-  public async findRestaurants({
-    name = null,
-    rating = null,
-    cost = null,
-    greater_than = null,
-    less_than = null,
-    radius = null,
-    lat = null,
-    lng = null,
-  }: IListItemDTO): Promise<Item[] | undefined> {
-    const findItems = this.items.filter(
-      item =>
-        (name ? item.name.includes(name) : true) &&
-        (rating ? item.rating === rating : true) &&
-        (cost ? item.cost === cost : true) &&
-        (greater_than ? item.cost <= greater_than : true) &&
-        (less_than ? item.cost >= less_than : true) &&
-        (radius && lat && lng
-          ? this.getDistanceFromLatLonInKm(
-              item.restaurant.lat,
-              item.restaurant.lng,
-              lat,
-              lng,
-            ) <= radius
-          : true),
-    );
-
-    const itemsRestaurants = findItems.map(item => {
-      let objItem = {} as Item;
-      objItem = { ...objItem, restaurant: item.restaurant };
-      return objItem;
-    });
-
-    return itemsRestaurants;
-  }
-
   public async findById(id: string): Promise<Item | undefined> {
     const findItem = this.items.find(item => item.id === id);
 

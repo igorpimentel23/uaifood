@@ -3,6 +3,7 @@ import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
 import IUpdateRestaurantDTO from '@modules/restaurants/dtos/IUpdateRestaurantDTO';
 import IListRestaurantDTO from '@modules/restaurants/dtos/IListRestaurantDTO';
+import IListItemDTO from '@modules/items/dtos/IListItemDTO';
 
 export default interface IRestaurantsRepository {
   index(data: IListRestaurantDTO): Promise<Restaurant[]>;
@@ -17,4 +18,5 @@ export default interface IRestaurantsRepository {
   ): Promise<Restaurant | undefined>;
   findById(id: string): Promise<Restaurant | undefined>;
   findCategories(): Promise<Restaurant[] | undefined>;
+  findRestaurants(data: IListItemDTO): Promise<Restaurant[] | undefined>;
 }

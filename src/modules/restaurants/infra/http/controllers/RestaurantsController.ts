@@ -7,6 +7,7 @@ import UpdateRestaurantService from '@modules/restaurants/services/UpdateRestaur
 import ShowRestaurantService from '@modules/restaurants/services/ShowRestaurantService';
 import ListRestaurantsService from '@modules/restaurants/services/ListRestaurantsService';
 import ListRestaurantsTypesService from '@modules/restaurants/services/ListRestaurantsTypesService';
+import ListItemsRestaurantsService from '@modules/restaurants/services/ListItemsRestaurantsService';
 
 export default class RestaurantController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -176,5 +177,66 @@ export default class RestaurantController {
     const types = await getTypes.execute();
 
     return response.json(types);
+  }
+
+  public async findRestaurant(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const {
+      name,
+      rating,
+      cost,
+      greater_than,
+      less_than,
+      restaurant_id,
+      radius,
+      lat,
+      lng,
+    } = request.query;
+
+    let query = {};
+
+    if (name) {
+      query = { ...query, name: String(name) };
+    }
+
+    if (rating) {
+      query = { ...query, rating: String(rating) };
+    }
+
+    if (cost) {
+      query = { ...query, cost: String(cost) };
+    }
+
+    if (greater_than) {
+      query = { ...query, greater_than: String(greater_than) };
+    }
+
+    if (less_than) {
+      query = { ...query, less_than: String(less_than) };
+    }
+
+    if (restaurant_id) {
+      query = { ...query, restaurant_id: String(restaurant_id) };
+    }
+
+    if (radius) {
+      query = { ...query, radius: String(radius) };
+    }
+
+    if (lat) {
+      query = { ...query, lat: String(lat) };
+    }
+
+    if (lng) {
+      query = { ...query, lng: String(lng) };
+    }
+
+    const listItemsRestaurants = container.resolve(ListItemsRestaurantsService);
+
+    const restaurants = await listItemsRestaurants.execute(query);
+
+    return response.json(restaurants);
   }
 }

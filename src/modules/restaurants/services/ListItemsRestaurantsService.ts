@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import IItemsRepository from '@modules/items/repositories/IItemsRepository';
-import Item from '@modules/items/infra/typeorm/entities/Item';
+import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
+import IRestaurantsRepository from '@modules/restaurants/repositories/IRestaurantsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
@@ -19,7 +19,7 @@ interface IRequest {
 class ListItemsRestaurantsService {
   constructor(
     @inject('ItemsRepository')
-    private itemsRepository: IItemsRepository,
+    private restaurantRepository: IRestaurantsRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
@@ -35,8 +35,8 @@ class ListItemsRestaurantsService {
     radius = null,
     lat = null,
     lng = null,
-  }: IRequest): Promise<Item[] | undefined> {
-    const findItems = await this.itemsRepository.findRestaurants({
+  }: IRequest): Promise<Restaurant[] | undefined> {
+    const findItems = await this.restaurantRepository.findRestaurants({
       name,
       rating,
       cost,

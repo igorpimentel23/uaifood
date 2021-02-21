@@ -16,5 +16,4 @@ export default interface IItemsRepository {
     item_id?: string,
   ): Promise<Item | undefined>;
   findById(id: string): Promise<Item | undefined>;
-  findRestaurants(data: IListItemDTO): Promise<Item[] | undefined>;
 }
