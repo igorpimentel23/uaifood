@@ -17,7 +17,6 @@ itemsRouter.get(
       cost: Joi.number().min(0),
       less_than: Joi.number(),
       greater_than: Joi.number(),
-      restaurant_id: Joi.string().uuid(),
       radius: Joi.number().min(0),
       lat: Joi.number(),
       lng: Joi.number(),
@@ -50,7 +49,7 @@ itemsRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       cost: Joi.number().min(0).required(),
-      restaurant_id: Joi.string().uuid(),
+      restaurant_id: Joi.string().uuid().required(),
       avatar: Joi.string().required(),
     },
   }),
