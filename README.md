@@ -68,7 +68,7 @@ A resposta deverá ser um array vazio
 
 ### Rotas da aplicação
 
-#### Parâmetros
+#### Parâmetros das rotas
 
 - name (string) : Nome do item ou restaurante
 - rating (integer de 1 a 5) : Avaliação do item ou do restaurante
