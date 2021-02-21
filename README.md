@@ -185,9 +185,9 @@ A resposta deverá ser um array vazio
 
 #### Restaurantes
 
-    1. GET(restaurants/types)
+1. GET(restaurants/types)
 
-    Retorna todas as categorias dos restaurantes cadastrados.
+Retorna todas as categorias dos restaurantes cadastrados.
 
 
 
