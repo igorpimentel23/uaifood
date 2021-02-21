@@ -11,6 +11,4 @@ RUN yarn
 
 COPY . /app
 
-RUN npx ts-node-dev src/index.ts
-
 CMD ["yarn", "dev:server"]

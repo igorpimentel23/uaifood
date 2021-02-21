@@ -57,7 +57,7 @@ yarn typeorm migration:run
 Para verificar se o projeto está rodando perfeitamente, acesse no navegador:
 
 ```
-http://0.0.0.0/items/all
+http://localhost/items/all
 ```
 
 A resposta deverá ser um array vazio
