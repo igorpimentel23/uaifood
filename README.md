@@ -105,16 +105,16 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
-    name	        | string	|  Nome do item (obrigatório)
+    name          | string  |  Nome do item (obrigatório)
     street        | string  |  Rua para definição de geolocalização do restaurante (obrigatório)
     street_number | string  |  Numero da rua para definição de geolocalização do restaurante (obrigatório)
     city          | string  |  Cidade para definição de geolocalização do restaurante (obrigatório)
     state         | string  |  Estado para definição de geolocalização do restaurante (obrigatório)
-    rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
-    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
-    avatar        | string	|  Posição para pesquisa (obrigatório)
+    rating        | integer |  Avaliação do item (de 1 a 5) (obrigatório)
+    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
+    avatar        | string  | Posição para pesquisa (obrigatório)
     ```
 
 
@@ -144,17 +144,17 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
-    retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
-    name	        | string	|  Nome do item (obrigatório)
+    retaurant_id  | uuid    |  Identificação do restaurante (obrigatório)
+    name          | string  |  Nome do item (obrigatório)
     street        | string  |  Rua para definição de geolocalização do restaurante (obrigatório)
     street_number | string  |  Numero da rua para definição de geolocalização do restaurante (obrigatório)
     city          | string  |  Cidade para definição de geolocalização do restaurante (obrigatório)
     state         | string  |  Estado para definição de geolocalização do restaurante (obrigatório)
-    rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
-    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
-    type          | string	|  Tipo de cozinha do restaurante (obrigatório)
+    rating        | integer |  Avaliação do item (de 1 a 5) (obrigatório)
+    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
+    type          | string  |  Tipo de cozinha do restaurante (obrigatório)
     ```
 
 
@@ -169,19 +169,19 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
-    name	        | string	|  Nome do item
+    name          | string  |  Nome do item
     street        | string  |  Rua para definição de geolocalização do restaurante
     street_number | string  |  Numero da rua para definição de geolocalização do restaurante
     city          | string  |  Cidade para definição de geolocalização do restaurante
     state         | string  |  Estado para definição de geolocalização do restaurante
-    rating	      | integer	|  Avaliação do item (de 1 a 5)
-    cost	        | number	|  Custo do item (maior igual a 0)
-    type          | string	|  Tipo de cozinha do restaurante
-    radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-    lat	          | number	|  Posição para pesquisa
-    lng	          | number	|  Posição para pesquisa
+    rating        | integer |  Avaliação do item (de 1 a 5)
+    cost          | number  |  Custo do item (maior igual a 0)
+    type          | string  |  Tipo de cozinha do restaurante
+    radius        | number  |  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+    lat           | number  |  Posição para pesquisa
+    lng           | number  |  Posição para pesquisa
     ```
 
 
@@ -196,9 +196,9 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     |  Tipo  |  Descrição
     ---------------------------------------------------------------------------------------------------
-    retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
+    retaurant_id  |  uuid  |  Identificação do restaurante (obrigatório)
     ```
 
 
@@ -213,9 +213,9 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     |  Tipo   |  Descrição
     ---------------------------------------------------------------------------------------------------
-    retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
+    retaurant_id  |  uuid   |  Identificação do restaurante (obrigatório)
     ```
     
 #### Itens
@@ -231,17 +231,17 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     |  Tipo   |  Descrição
     ----------------------------------------------------------------------------------------------------
-    name	        | string	|  Nome do item
-    rating	      | integer	|  Avaliação do item (de 1 a 5)
-    cost	        | number	|  Custo do item (maior igual a 0)
-    less_than	    | number	|  Parâmetro para comparação do custo do item
-    greater_than	| number	|  Parâmetro para comparação do custo do item
-    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence
-    radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-    lat	          | number	|  Posição para pesquisa
-    lng	          | number	|  Posição para pesquisa
+    name          | string  |  Nome do item
+    rating        | integer |  Avaliação do item (de 1 a 5)
+    cost          | number	|  Custo do item (maior igual a 0)
+    less_than     | number  |  Parâmetro para comparação do custo do item
+    greater_than  | number  |  Parâmetro para comparação do custo do item
+    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence
+    radius        | number  |  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+    lat           | number  |  Posição para pesquisa
+    lng           | number  |  Posição para pesquisa
     ```
   
 
@@ -257,17 +257,17 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
-    name	        | string	|  Nome do item
-    rating	      | integer	|  Avaliação do item (de 1 a 5)
-    cost	        | number	|  Custo do item (maior igual a 0)
-    less_than	    | number	|  Parâmetro para comparação do custo do item
-    greater_than	| number	|  Parâmetro para comparação do custo do item
-    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence
-    radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-    lat	          | number	|  Posição para pesquisa
-    lng	          | number	|  Posição para pesquisa
+    name          | string  |  Nome do item
+    rating        | integer |  Avaliação do item (de 1 a 5)
+    cost          | number  |  Custo do item (maior igual a 0)
+    less_than     | number  |  Parâmetro para comparação do custo do item
+    greater_than  | number  |  Parâmetro para comparação do custo do item
+    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence
+    radius        | number  |  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+    lat           | number  |  Posição para pesquisa
+    lng           | number  |  Posição para pesquisa
     ```
 
 
@@ -291,12 +291,12 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------
-    name	        | string	|  Nome do item (obrigatório)
-    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
-    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence (obrigatório)
-    avatar        | string	|  Posição para pesquisa (obrigatório)
+    name          | string  |  Nome do item (obrigatório)
+    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
+    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence (obrigatório)
+    avatar        | string  |  Posição para pesquisa (obrigatório)
     ```
 
 
@@ -314,7 +314,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     Parâmetro	    |  Tipo	  |  Descrição
     --------------------------------------------------------------------------------
-    item_id       | uuid  	|  Número unico de identificação do item (obrigatório)
+    item_id       |  uuid   |  Número unico de identificação do item (obrigatório)
     ```
 
 
@@ -340,14 +340,14 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     | Tipo    |  Descrição
     ---------------------------------------------------------------------------------------------------
-    item_id       | uuid  	|  Número unico de identificação do item (obrigatório)
-    name	        | string	|  Nome do item (obrigatório)
-    rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
-    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
-    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence (obrigatório)
-    avatar        | string	|  Posição para pesquisa (obrigatório)
+    item_id       | uuid    |  Número unico de identificação do item (obrigatório)
+    name          | string  |  Nome do item (obrigatório)
+    rating        | integer |  Avaliação do item (de 1 a 5) (obrigatório)
+    cost          | number  |  Custo do item (maior igual a 0) (obrigatório)
+    retaurant_id  | uuid    |  Identificação do restaurante ao qual o item pertence (obrigatório)
+    avatar        | string  |  Posição para pesquisa (obrigatório)
     ```
 
 
@@ -365,7 +365,7 @@ A resposta deverá ser o seguinte JSON:
     ```
     Parâmetro	    |  Tipo	  |  Descrição
     ---------------------------------------------------------------------------------------------------
-    item_id       |  uuid	  |  Número unico de identificação do item (obrigatório)
+    item_id       |  uuid   |  Número unico de identificação do item (obrigatório)
     ```
 
 
@@ -381,9 +381,9 @@ A resposta deverá ser o seguinte JSON:
     ```
     
     ```
-    Parâmetro	    |  Tipo	  |  Descrição
+    Parâmetro     |  Tipo   |  Descrição
     ---------------------------------------------------------------------------------------------------
-    restaurant_id |  uuid  	|  Número unico de identificação do restaurante (obrigatório)
+    restaurant_id |  uuid   |  Número unico de identificação do restaurante (obrigatório)
     ```
 
 ## Executando testes
