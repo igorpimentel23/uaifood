@@ -68,202 +68,276 @@ A resposta deverá ser o seguinte JSON:
 
 ### Rotas da aplicação
 
-#### Parâmetros das rotas
-
-- name (string) : Nome do item ou restaurante
-- rating (integer de 1 a 5) : Avaliação do item ou do restaurante
-- cost (number maior igual a 0) : Custo do item ou do restaurante
-- less_than (number) : Parâmetro para comparação do custo do item ou do restaurante
-- greater_than (number) : Parâmetro para comparação do custo do item ou do restaurante
-- radius (number maior igual a 0) : Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
-- lat (number) : Latitude
-- lng (number) : Longitude
-- avatar (string) : Avatar do item ou do restaurante
-- item_id (uuid) : Número unico de identificação do item
-- street (string) (obrigatório) : Rua para definição de geolocalização do restaurante
-- street_number (integer maior igual a 0) (obrigatório) : Numero da rua para definição de geolocalização do restaurante
-- city (string) (obrigatório): Cidade para definição de geolocalização do restaurante
-- state (string) (obrigatório) : Estado para definição de geolocalização do restaurante
-- type (string) (obrigatório) : Tipo de cozinha do restaurante
-- city_for_geo (string) : Cidade para pesquisa de restaurantes em um raio de 30 km
-
-#### Itens
-
-1. GET(api/v1/items/restaurants)
-
-    Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
-
-    Query:
-
-    - name (string)
-    - rating (integer de 1 a 5)
-    - cost (number maior igual a 0)
-    - less_than (number)
-    - greater_than (number)
-    - restaurant_id (uuid)
-    - radius (number maior igual a 0)
-    - lat (number)
-    - lng (number)
-
-
-
-2. GET(api/v1/items/all)
-
-    Retorna todos os itens que possuem os requisitos pesquisados.
-
-    Query:
-
-    - name (string)
-    - rating (integer de 1 a 5)
-    - cost (number maior igual a 0)
-    - less_than (number)
-    - greater_than (number)
-    - restaurant_id (uuid)
-    - radius (number maior igual a 0)
-    - lat (number)
-    - lng (number)
-
-
-
-3. POST(api/v1/items/)
-
-    Cria um item.
-
-    Body (JSON):
-
-    - name (string) (obrigatório)
-    - cost (number maior igual a 0) (obrigatório)
-    - restaurant_id (uuid) (obrigatório)
-    - avatar (string) (obrigatório)
-
-
-
-4. GET(api/v1/items/:item_id)
-
-    Retorna o item.
-
-    Params:
-
-    - item_id (uuid) (obrigatório)
-
-
-
-5. POST(api/v1/items/)
-
-    Cria um item.
-
-    Body (JSON):
-
-    - item_id (uuid) (obrigatório)
-    - name (string) (obrigatório)
-    - cost (number maior igual a 0) (obrigatório)
-    - rating (integer de 1 a 5)
-    - restaurant_id (uuid) (obrigatório)
-    - avatar (string) (obrigatório)
-
-
-
-6. DELETE(api/v1/items/:item_id)
-
-    Retorna o item.
-
-    Params:
-
-    - item_id (uuid) (obrigatório)
-
-
-
-7. GET(api/v1/items/:restaurant_id/me)
-
-    Retorna os items de um restaurante.
-
-    Params:
-
-    - restaurante (uuid) (obrigatório)
-
-
-
 #### Restaurantes
 
-1. GET(api/v1/restaurants/types)
+* GET api/v1/restaurants/types
 
     Retorna todas as categorias dos restaurantes cadastrados.
 
+    Exemplo:
+
+    api/v1/restaurants/types
 
 
-2. POST(api/v1/restaurants/)
+
+* POST api/v1/restaurants/
 
     Cria um restaurante.
 
-    Body (JSON):
+    Exemplo:
 
-    - name (string) (obrigatório)
-    - street (string) (obrigatório)
-    - street_number (integer maior igual a 0) (obrigatório)
-    - city (string) (obrigatório)
-    - state (string) (obrigatório)
-    - cost (number maior igual a 0) (obrigatório)
-    - type (string) (obrigatório)
+    api/v1/restaurants/
+
+    {
+      name: "Restaurante",
+      street "Rua Exemplo",
+      street_number: 10,
+      city: "São Paulo",
+      state: "São Paulo",
+      rating: 5,
+      cost: 80,
+      avatar: "http://www.exemplo.com/avatar.jpg",,
+    }
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    name	        | string	|  Nome do item (obrigatório)
+    street        | string  |  Rua para definição de geolocalização do restaurante (obrigatório)
+    street_number | string  |  Numero da rua para definição de geolocalização do restaurante (obrigatório)
+    city          | string  |  Cidade para definição de geolocalização do restaurante (obrigatório)
+    state         | string  |  Estado para definição de geolocalização do restaurante (obrigatório)
+    rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
+    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
+    avatar        | string	|  Posição para pesquisa (obrigatório)
 
 
 
-3. PUT(api/v1/restaurants/)
+
+* PUT api/v1/restaurants/
 
     Atualiza um restaurante.
 
-    Body (JSON):
+    Exemplo:
 
-    - restaurant_id (uuid) (obrigatório)
-    - name (string) (obrigatório)
-    - street (string) (obrigatório)
-    - street_number (integer maior igual a 0) (obrigatório)
-    - city (string) (obrigatório)
-    - state (string) (obrigatório)
-    - cost (number maior igual a 0) (obrigatório)
-    - rating (integer de 1 a 5) (obrigatório)
-    - type (string) (obrigatório)
+    api/v1/restaurants/
+
+    {
+      retaurant_id: "123nbjb-1b2jk3bjk-jb12312",
+      name: "Restaurant",
+      street "Rua Exemplo",
+      street_number: 10,
+      city: "São Paulo",
+      state: "São Paulo",
+      rating: 5,
+      cost: 90,
+      type: "Japonesa",
+    }
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
+    name	        | string	|  Nome do item (obrigatório)
+    street        | string  |  Rua para definição de geolocalização do restaurante (obrigatório)
+    street_number | string  |  Numero da rua para definição de geolocalização do restaurante (obrigatório)
+    city          | string  |  Cidade para definição de geolocalização do restaurante (obrigatório)
+    state         | string  |  Estado para definição de geolocalização do restaurante (obrigatório)
+    rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
+    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
+    type          | string	|  Tipo de cozinha do restaurante (obrigatório)
 
 
 
-4. GET(api/v1/restaurants/all)
+* GET api/v1/restaurants/all
 
     Retorna todos os restaurantes que possuem os requisitos pesquisados.
 
-    Query:
+    Exemplo:
 
-    - name (string)
-    - street (string)
-    - street_number (integer maior igual a 0)
-    - city (string)
-    - state (string)
-    - cost (number maior igual a 0)
-    - rating (integer de 1 a 5)
-    - type (string)
-    - radius (number maior igual a 0)
-    - lat (number)
-    - lng (number)
-    - city_for_geo (string)
+    api/v1/restaurants/all?name=XXXXX?street=XXXXXXXXXX (...)
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    name	        | string	|  Nome do item
+    street        | string  |  Rua para definição de geolocalização do restaurante
+    street_number | string  |  Numero da rua para definição de geolocalização do restaurante
+    city          | string  |  Cidade para definição de geolocalização do restaurante
+    state         | string  |  Estado para definição de geolocalização do restaurante
+    rating	      | integer	|  Avaliação do item (de 1 a 5)
+    cost	        | number	|  Custo do item (maior igual a 0)
+    type          | string	|  Tipo de cozinha do restaurante
+    radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+    lat	          | number	|  Posição para pesquisa
+    lng	          | number	|  Posição para pesquisa
 
 
 
-5. GET(api/v1/restaurants/:restaurant_id)
+* GET api/v1/restaurants/:restaurant_id
 
     Retorna um restaurante.
 
-    Params:
+    Exemplo:
 
-    - restaurant_id (uuid)
+    api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
 
 
 
-6. DELETE(api/v1/restaurants/:restaurant_id)
+* DELETE(api/v1/restaurants/:restaurant_id)
 
     Deleta um restaurante.
 
-    Params:
+    Exemplo:
 
-    - restaurant_id (uuid)
+    api/v1/restaurants/123nbjb-1b2jk3bjk-jb12312
 
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    retaurant_id	| uuid	  |  Identificação do restaurante (obrigatório)
+
+#### Itens
+
+* GET api/v1/items/restaurants
+
+    Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
+
+    Exemplo:
+
+    api/v1/items/restaurants?name=XXXXX?street=XXXXXXXXX(...)
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ----------------------------------------------------------------------------------------------------
+    name	        | string	|  Nome do item
+    rating	      | integer	|  Avaliação do item (de 1 a 5)
+    cost	        | number	|  Custo do item (maior igual a 0)
+    less_than	    | number	|  Parâmetro para comparação do custo do item
+    greater_than	| number	|  Parâmetro para comparação do custo do item
+    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence
+    radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+    lat	          | number	|  Posição para pesquisa
+    lng	          | number	|  Posição para pesquisa
+
+
+
+
+* GET api/v1/items/all
+
+    Retorna todos os itens que possuem os requisitos pesquisados.
+
+    Exemplo:
+
+    api/v1/items/all?name=XXXXX?street=XXXXXXXXX(...)
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    name	        | string	|  Nome do item
+    rating	      | integer	|  Avaliação do item (de 1 a 5)
+    cost	        | number	|  Custo do item (maior igual a 0)
+    less_than	    | number	|  Parâmetro para comparação do custo do item
+    greater_than	| number	|  Parâmetro para comparação do custo do item
+    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence
+    radius	      | number	|  Parâmetro para pesquisa de restaurantes ou itens dentro de um raio em km
+    lat	          | number	|  Posição para pesquisa
+    lng	          | number	|  Posição para pesquisa
+
+
+
+* POST api/v1/items/
+
+    Cria um item.
+
+    Exemplo:
+
+    api/v1/items
+
+    {
+      name: "Restaurante",
+      cost: 50,
+      restaurant_id: "123nbjb-1b2jk3bjk-jb12312",
+      avatar: "http://www.exemplo.com/avatar.jpg"
+    }
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------
+    name	        | string	|  Nome do item (obrigatório)
+    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
+    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence (obrigatório)
+    avatar        | string	|  Posição para pesquisa (obrigatório)
+
+
+
+
+* GET api/v1/items/:item_id
+
+    Retorna o item.
+
+    Exemplo:
+
+    api/v1/items/123nbjb-1b2jk3bjk-jb12312
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    --------------------------------------------------------------------------------
+    item_id       | uuid  	|  Número unico de identificação do item (obrigatório)
+
+
+
+* POST api/v1/items/
+
+    Cria um item.
+
+    Exemplo:
+
+    api/v1/items/
+
+    {
+      item_id: "123nbjb-1b2jk3bjk-jb12312",
+      name: "Strogonoff",
+      rating: 5,
+      cost: 15,
+      restaurant_id: "123nbjb-1b2jk3bjk-jb12312",
+      avatar: "http://www.exemplo.com/avatar.jpg",
+    }
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    item_id       | uuid  	|  Número unico de identificação do item (obrigatório)
+    name	        | string	|  Nome do item (obrigatório)
+    rating	      | integer	|  Avaliação do item (de 1 a 5) (obrigatório)
+    cost	        | number	|  Custo do item (maior igual a 0) (obrigatório)
+    retaurant_id	| uuid	  |  Identificação do restaurante ao qual o item pertence (obrigatório)
+    avatar        | string	|  Posição para pesquisa (obrigatório)
+
+
+
+
+* DELETE api/v1/items/:item_id
+
+    Deleta o item.
+
+    Exemplo:
+
+    api/v1/items/123nbjb-1b2jk3bjk-jb12312
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    item_id       |  uuid	  |  Número unico de identificação do item (obrigatório)
+
+
+
+
+* GET api/v1/items/:restaurant_id/me
+
+    Retorna os items de um restaurante.
+
+    Exemplo:
+
+    api/v1/items/123nbjb-1b2jk3bjk-jb12312/me
+
+    Parâmetro	    |  Tipo	  |  Descrição
+    ---------------------------------------------------------------------------------------------------
+    restaurant_id |  uuid  	|  Número unico de identificação do restaurante (obrigatório)
 
 
 ## Executando testes
