@@ -57,18 +57,13 @@ yarn typeorm migration:run
 Para verificar se o projeto está rodando perfeitamente, acesse no navegador:
 
 ```
-http://localhost/items/all
+http://localhost/api/v1/
 ```
 
-A resposta deverá ser um array vazio
+A resposta deverá ser o seguinte JSON:
 
 ```
-// 20210221131948
-// http://0.0.0.0/items/all
-
-[
-
-]
+{"OK":"OK"}
 ```
 
 ### Rotas da aplicação
@@ -94,7 +89,7 @@ A resposta deverá ser um array vazio
 
 #### Itens
 
-1. GET(items/restaurants)
+1. GET(api/v1/items/restaurants)
 
     Retorna todos os restaurantes que possuem itens com os requisitos pesquisados.
 
@@ -112,7 +107,7 @@ A resposta deverá ser um array vazio
 
 
 
-2. GET(items/all)
+2. GET(api/v1/items/all)
 
     Retorna todos os itens que possuem os requisitos pesquisados.
 
@@ -130,7 +125,7 @@ A resposta deverá ser um array vazio
 
 
 
-3. POST(items/)
+3. POST(api/v1/items/)
 
     Cria um item.
 
@@ -143,7 +138,7 @@ A resposta deverá ser um array vazio
 
 
 
-4. GET(items/:item_id)
+4. GET(api/v1/items/:item_id)
 
     Retorna o item.
 
@@ -153,7 +148,7 @@ A resposta deverá ser um array vazio
 
 
 
-5. POST(items/)
+5. POST(api/v1/items/)
 
     Cria um item.
 
@@ -168,7 +163,7 @@ A resposta deverá ser um array vazio
 
 
 
-6. DELETE(items/:item_id)
+6. DELETE(api/v1/items/:item_id)
 
     Retorna o item.
 
@@ -178,7 +173,7 @@ A resposta deverá ser um array vazio
 
 
 
-7. GET(items/:restaurant_id/me)
+7. GET(api/v1/items/:restaurant_id/me)
 
     Retorna os items de um restaurante.
 
@@ -190,13 +185,13 @@ A resposta deverá ser um array vazio
 
 #### Restaurantes
 
-1. GET(restaurants/types)
+1. GET(api/v1/restaurants/types)
 
     Retorna todas as categorias dos restaurantes cadastrados.
 
 
 
-2. POST(restaurants/)
+2. POST(api/v1/restaurants/)
 
     Cria um restaurante.
 
@@ -212,7 +207,7 @@ A resposta deverá ser um array vazio
 
 
 
-3. PUT(restaurants/)
+3. PUT(api/v1/restaurants/)
 
     Atualiza um restaurante.
 
@@ -230,7 +225,7 @@ A resposta deverá ser um array vazio
 
 
 
-4. GET(restaurants/all)
+4. GET(api/v1/restaurants/all)
 
     Retorna todos os restaurantes que possuem os requisitos pesquisados.
 
@@ -251,7 +246,7 @@ A resposta deverá ser um array vazio
 
 
 
-5. GET(restaurants/:restaurant_id)
+5. GET(api/v1/restaurants/:restaurant_id)
 
     Retorna um restaurante.
 
@@ -261,7 +256,7 @@ A resposta deverá ser um array vazio
 
 
 
-6. DELETE(restaurants/:restaurant_id)
+6. DELETE(api/v1/restaurants/:restaurant_id)
 
     Deleta um restaurante.
 
