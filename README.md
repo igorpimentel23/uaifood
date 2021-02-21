@@ -105,6 +105,8 @@ Query:
 - lat (number)
 - lng (number)
 
+
+
 2. GET(items/all)
 
 Retorna todos os itens que possuem os requisitos pesquisados.
@@ -121,6 +123,8 @@ Query:
 - lat (number)
 - lng (number)
 
+
+
 3. POST(items/)
 
 Cria um item.
@@ -132,6 +136,8 @@ Body (JSON):
 - restaurant_id (uuid) (obrigatório)
 - avatar (string) (obrigatório)
 
+
+
 4. GET(items/:item_id)
 
 Retorna o item.
@@ -139,6 +145,8 @@ Retorna o item.
 Params:
 
 - item_id (uuid) (obrigatório)
+
+
 
 5. POST(items/)
 
@@ -153,6 +161,8 @@ Body (JSON):
 - restaurant_id (uuid) (obrigatório)
 - avatar (string) (obrigatório)
 
+
+
 6. DELETE(items/:item_id)
 
 Retorna o item.
@@ -160,6 +170,8 @@ Retorna o item.
 Params:
 
 - item_id (uuid) (obrigatório)
+
+
 
 7. GET(items/:restaurant_id/me)
 
@@ -169,11 +181,15 @@ Params:
 
 - restaurante (uuid) (obrigatório)
 
+
+
 #### Restaurantes
 
 1. GET(restaurants/types)
 
 Retorna todas as categorias dos restaurantes cadastrados.
+
+
 
 2. POST(restaurants/)
 
@@ -188,6 +204,8 @@ Body (JSON):
 - state (string) (obrigatório)
 - cost (number maior igual a 0) (obrigatório)
 - type (string) (obrigatório)
+
+
 
 3. PUT(restaurants/)
 
@@ -204,6 +222,8 @@ Body (JSON):
 - cost (number maior igual a 0) (obrigatório)
 - rating (integer de 1 a 5) (obrigatório)
 - type (string) (obrigatório)
+
+
 
 4. GET(restaurants/all)
 
@@ -224,6 +244,8 @@ Query:
 - lng (number)
 - city_for_geo (string)
 
+
+
 5. GET(restaurants/:restaurant_id)
 
 Retorna um restaurante.
@@ -231,6 +253,8 @@ Retorna um restaurante.
 Params:
 
 - restaurant_id (uuid)
+
+
 
 6. DELETE(restaurants/:restaurant_id)
 
@@ -240,7 +264,9 @@ Params:
 
 - restaurant_id (uuid)
 
-## Running the tests
+
+
+## Executando testes
 
 Para executar os testes automatizados da aplicação, na pasta raiz da aplicação, executar:
 
