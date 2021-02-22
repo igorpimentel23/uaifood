@@ -73,11 +73,21 @@ class CreateItemService {
 
     await this.cacheProvider.invalidate(`restaurant-items:${restaurant_id}`);
 
+    await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
+
+    if (restaurant_id !== item.restaurant_id) {
+      await this.cacheProvider.invalidate(
+        `restaurant-items:${item.restaurant_id}`,
+      );
+
+      await this.cacheProvider.invalidate(
+        `single-restaurant:${item.restaurant_id}`,
+      );
+    }
+
     await this.cacheProvider.invalidate(`single-item:${item.id}`);
 
     await this.cacheProvider.invalidatePrefix('restaurants');
-
-    await this.cacheProvider.invalidate(`single-restaurant:${restaurant_id}`);
 
     return item;
   }

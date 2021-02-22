@@ -18,7 +18,7 @@ interface IRequest {
 @injectable()
 class ListItemsRestaurantsService {
   constructor(
-    @inject('ItemsRepository')
+    @inject('RestaurantsRepository')
     private restaurantRepository: IRestaurantsRepository,
 
     @inject('CacheProvider')

@@ -11,6 +11,7 @@ import IRestaurantsRepository from '@modules/restaurants/repositories/IRestauran
 import ICreateRestaurantDTO from '@modules/restaurants/dtos/ICreateRestaurantDTO';
 import IUpdateRestaurantDTO from '@modules/restaurants/dtos/IUpdateRestaurantDTO';
 import IListRestaurantDTO from '@modules/restaurants/dtos/IListRestaurantDTO';
+import IListItemDTO from '@modules/items/dtos/IListItemDTO';
 import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
 
 class RestaurantsRepository implements IRestaurantsRepository {
@@ -18,6 +19,75 @@ class RestaurantsRepository implements IRestaurantsRepository {
 
   constructor() {
     this.ormRepository = getRepository(Restaurant);
+  }
+
+  public async findRestaurants({
+    name = null,
+    rating = null,
+    cost = null,
+    greater_than = null,
+    less_than = null,
+    radius = null,
+    lat = null,
+    lng = null,
+  }: IListItemDTO): Promise<Restaurant[] | undefined> {
+    let query = '';
+
+    if (name) {
+      query += `items.name LIKE '%${name}%' `;
+    }
+
+    if (rating) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.rating = ${rating} `;
+    }
+
+    if (cost) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.cost = ${cost} `;
+    }
+
+    if (greater_than) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.cost <= ${greater_than} `;
+    }
+
+    if (less_than) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `items.cost >= ${less_than} `;
+    }
+
+    if (radius && lat && lng) {
+      if (query) {
+        query += 'AND ';
+      }
+
+      query += `ST_Distance(items.geolocation, ST_MakePoint(${lng}, ${lat})) < ${
+        radius * 1000
+      }`;
+    }
+
+    if (query) {
+      query += 'AND ';
+    }
+
+    const queryBuilder = await this.ormRepository.query(
+      `SELECT items.id as item_id, items.name as item_name, items.rating as item_rating, items.cost as item_cost, items.avatar as item_avatar, restaurants.id as restaurant_id, restaurants.name as restaurant_name, street, street_number, city, state, restaurants.cost as restaurant_cost, restaurants.rating as restaurant_rating, type, lat, lng, restaurants.geolocation FROM items INNER JOIN restaurants ON (${query}items.restaurant_id = restaurants.id)`,
+    );
+
+    return queryBuilder;
   }
 
   public async findCategories(): Promise<Restaurant[] | undefined> {
