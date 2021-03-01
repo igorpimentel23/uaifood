@@ -5,10 +5,8 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 
 interface IRequest {
   name?: string | null;
-  rating?: number | null;
-  cost?: number | null;
-  greater_than?: number | null;
-  less_than?: number | null;
+  rating?: number[] | null;
+  cost?: number[] | null;
   restaurant_id?: string | null;
   radius?: number | null;
   lat?: number | null;
@@ -29,8 +27,6 @@ class ListItemsRestaurantsService {
     name = null,
     rating = null,
     cost = null,
-    greater_than = null,
-    less_than = null,
     restaurant_id = null,
     radius = null,
     lat = null,
@@ -40,8 +36,6 @@ class ListItemsRestaurantsService {
       name,
       rating,
       cost,
-      greater_than,
-      less_than,
       restaurant_id,
       radius,
       lat,
