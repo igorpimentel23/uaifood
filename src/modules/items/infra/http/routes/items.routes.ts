@@ -13,7 +13,7 @@ itemsRouter.get(
   celebrate({
     [Segments.QUERY]: {
       name: Joi.string(),
-      rating: Joi.number().integer().min(1).max(5),
+      rating: Joi.array().items(Joi.number().integer().min(1).max(5)),
       cost: Joi.number().min(0),
       less_than: Joi.number(),
       greater_than: Joi.number(),

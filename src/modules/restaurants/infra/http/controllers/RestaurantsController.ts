@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { ParsedQs } from 'qs';
 
 import CreateRestaurantService from '@modules/restaurants/services/CreateRestaurantService';
 import DeleteRestaurantService from '@modules/restaurants/services/DeleteRestaurantService';
@@ -18,8 +19,6 @@ export default class RestaurantController {
       city,
       state,
       cost,
-      greater_than,
-      less_than,
       rating,
       type,
       radius,
@@ -50,24 +49,19 @@ export default class RestaurantController {
       query = { ...query, state: String(state) };
     }
 
-    if (cost) {
-      query = { ...query, cost: Number(cost) };
+    if (cost && Array.isArray(cost) && cost.length !== 0) {
+      cost.forEach((r: string | ParsedQs) => Number(r));
+      query = { ...query, cost };
     }
 
-    if (greater_than) {
-      query = { ...query, greater_than: Number(greater_than) };
+    if (rating && Array.isArray(rating) && rating.length !== 0) {
+      rating.forEach((r: string | ParsedQs) => Number(r));
+      query = { ...query, rating };
     }
 
-    if (less_than) {
-      query = { ...query, less_than: Number(less_than) };
-    }
-
-    if (rating) {
-      query = { ...query, rating: Number(rating) };
-    }
-
-    if (type) {
-      query = { ...query, type: String(type) };
+    if (type && Array.isArray(type) && type.length !== 0) {
+      type.forEach((r: string | ParsedQs) => String(r));
+      query = { ...query, type };
     }
 
     if (lat) {
@@ -201,8 +195,9 @@ export default class RestaurantController {
       query = { ...query, name: String(name) };
     }
 
-    if (rating) {
-      query = { ...query, rating: String(rating) };
+    if (rating && Array.isArray(rating)) {
+      rating.forEach((r: string | ParsedQs) => Number(r));
+      query = { ...query, rating };
     }
 
     if (cost) {

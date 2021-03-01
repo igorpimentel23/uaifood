@@ -13,6 +13,7 @@ import IUpdateRestaurantDTO from '@modules/restaurants/dtos/IUpdateRestaurantDTO
 import IListRestaurantDTO from '@modules/restaurants/dtos/IListRestaurantDTO';
 import IListItemDTO from '@modules/items/dtos/IListItemDTO';
 import Restaurant from '@modules/restaurants/infra/typeorm/entities/Restaurant';
+import RestaurantCostQueryHelper from 'helpers';
 
 class RestaurantsRepository implements IRestaurantsRepository {
   private ormRepository: Repository<Restaurant>;
@@ -25,8 +26,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     name = null,
     rating = null,
     cost = null,
-    greater_than = null,
-    less_than = null,
     radius = null,
     lat = null,
     lng = null,
@@ -51,22 +50,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
       }
 
       query += `items.cost = ${cost} `;
-    }
-
-    if (greater_than) {
-      if (query) {
-        query += 'AND ';
-      }
-
-      query += `items.cost <= ${greater_than} `;
-    }
-
-    if (less_than) {
-      if (query) {
-        query += 'AND ';
-      }
-
-      query += `items.cost >= ${less_than} `;
     }
 
     if (radius && lat && lng) {
@@ -202,8 +185,6 @@ class RestaurantsRepository implements IRestaurantsRepository {
     city = null,
     state = null,
     cost = null,
-    less_than = null,
-    greater_than = null,
     rating = null,
     type = null,
     radius = 0,
@@ -235,26 +216,23 @@ class RestaurantsRepository implements IRestaurantsRepository {
     }
 
     if (cost) {
-      query = { ...query, cost };
-    } else {
-      if (greater_than) {
-        query = { ...query, cost: MoreThanOrEqual(greater_than) };
-      }
-      if (less_than) {
-        query = { ...query, cost: LessThanOrEqual(less_than) };
-      }
-    }
-
-    if (rating) {
-      query = { ...query, rating };
+      queryBuilder.andWhere(`(${RestaurantCostQueryHelper(cost)})`);
     }
 
     if (type) {
-      query = { ...query, type };
+      queryBuilder.andWhere('restaurants.type in (:...type)', {
+        type,
+      });
+    }
+
+    if (rating) {
+      queryBuilder.andWhere('restaurants.rating in (:...rating)', {
+        rating,
+      });
     }
 
     if (radius && lat && lng) {
-      queryBuilder.where(
+      queryBuilder.andWhere(
         'ST_Distance(restaurants.geolocation, ST_MakePoint(:lng, :lat)) < :radius',
         { lng, lat, radius: radius * 1000 },
       );
