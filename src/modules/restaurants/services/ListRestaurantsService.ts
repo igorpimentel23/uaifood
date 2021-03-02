@@ -10,11 +10,9 @@ interface IRequest {
   street_number?: number | null;
   city?: string | null;
   state?: string | null;
-  cost?: number | null;
-  greater_than?: number | null;
-  less_than?: number | null;
-  rating?: number | null;
-  type?: string | null;
+  cost?: number[] | null;
+  rating?: number[] | null;
+  type?: string[] | null;
   radius?: number | null;
   lat?: number | null;
   lng?: number | null;
@@ -38,8 +36,6 @@ class ListRestaurantsService {
     city = null,
     state = null,
     cost = null,
-    greater_than = null,
-    less_than = null,
     rating = null,
     type = null,
     radius = null,
@@ -66,8 +62,6 @@ class ListRestaurantsService {
       city,
       state,
       cost,
-      greater_than,
-      less_than,
       rating,
       type,
       radius,

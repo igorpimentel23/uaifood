@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { ParsedQs } from 'qs';
 
 import CreateItemService from '@modules/items/services/CreateItemService';
 import DeleteItemService from '@modules/items/services/DeleteItemService';
@@ -27,8 +28,9 @@ export default class ItemController {
       query = { ...query, name: String(name) };
     }
 
-    if (rating) {
-      query = { ...query, rating: String(rating) };
+    if (rating && Array.isArray(rating)) {
+      rating.forEach((r: string | ParsedQs) => Number(r));
+      query = { ...query, rating };
     }
 
     if (cost) {

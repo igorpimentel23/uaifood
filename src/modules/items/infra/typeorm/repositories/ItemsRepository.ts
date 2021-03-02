@@ -121,7 +121,9 @@ class ItemsRepository implements IItemsRepository {
     }
 
     if (rating) {
-      query = { ...query, rating };
+      queryBuilder.where('items.rating in (:...rating)', {
+        rating,
+      });
     }
 
     if (cost) {
